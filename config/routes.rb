@@ -1,33 +1,14 @@
 MapVotes::Application.routes.draw do
-  get "maps/index"
+  resources :maps
+  resources :elections do
+    get 'active', on: :collection
+    get 'past', on: :collection
+    get 'vote', on: :member
 
-  get "maps/show"
-
-  get "maps/edit"
-
-  get "elections/index"
-
-  get "elections/active"
-
-  get "elections/past"
-
-  get "elections/show"
-
-  get "elections/new"
-
-  get "elections/edit"
-
-  get "elections/delete"
-
-  get "elections/vote"
-
-  get "home/index"
+  end
 
   root to: "home#index"
 
   match "/auth/steam/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", as: :signout
-
-  resources :elections
-  resources :maps
 end
