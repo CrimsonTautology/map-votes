@@ -1,2 +1,5 @@
-<h1>Elections#new</h1>
-<p>Find me in app/views/elections/new.html.erb</p>
+<%= form_for @election, :url => { action: "create" }, do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description, :size => "60x12" %>
+  <%= f.submit "Create" %>
+<% end %>

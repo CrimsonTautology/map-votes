@@ -5,3 +5,16 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'open-uri'
+
+maplist = open ENV['FAST_DL_SITE'] do |f|
+  f.read
+end.lines.to_a
+
+maplist.select!{|s| s.include? ".bsp.bz2"}.map! do |s|
+  s.gsub(/<li>.*\"> /, "")
+    .gsub(/\.bsp.*$/, "")
+    .chomp
+end
+

@@ -11,7 +11,6 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 
 gem 'omniauth'
-gem 'omniauth-openid', git: 'git://github.com/reu/omniauth-openid.git'
 gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
@@ -30,6 +29,8 @@ end
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem 'guard-rspec'
+  gem 'pry'
+  gem 'pry-doc'
 end
 
 group :test do

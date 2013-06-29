@@ -11,7 +11,53 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624233824) do
+ActiveRecord::Schema.define(:version => 20130629221335) do
+
+  create_table "admins", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "flags"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "admins", ["user_id"], :name => "index_admins_on_user_id"
+
+  create_table "elections", :force => true do |t|
+    t.boolean  "closed"
+    t.boolean  "blind"
+    t.date     "close_date"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "allowed_votes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "map_comments", :force => true do |t|
+    t.integer  "map_id"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "map_comments", ["map_id"], :name => "index_map_comments_on_map_id"
+  add_index "map_comments", ["user_id"], :name => "index_map_comments_on_user_id"
+
+  create_table "map_types", :force => true do |t|
+    t.string   "name"
+    t.string   "prefix"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "maps", :force => true do |t|
+    t.string   "name"
+    t.string   "image"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "map_type_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "provider"
@@ -22,5 +68,17 @@ ActiveRecord::Schema.define(:version => 20130624233824) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "map_id"
+    t.integer  "user_id"
+    t.integer  "election_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "votes", ["election_id"], :name => "index_votes_on_election_id"
+  add_index "votes", ["map_id"], :name => "index_votes_on_map_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

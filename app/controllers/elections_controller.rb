@@ -1,5 +1,6 @@
 class ElectionsController < ApplicationController
   def index
+    @elections = Election.all
   end
 
   def active
@@ -12,6 +13,7 @@ class ElectionsController < ApplicationController
   end
 
   def new
+    @election = Election.new
   end
 
   def edit
