@@ -1,4 +1,4 @@
 class MapType < ActiveRecord::Base
-  has_man :map
+  has_many :map
   attr_accessible :name, :prefix
 end
