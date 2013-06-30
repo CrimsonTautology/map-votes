@@ -8,7 +8,6 @@
 
 require 'open-uri'
 
-MapType.delete_all
 [
   ["Arena", "arena"],
   ["Capture the Flag", "ctf"],
@@ -33,21 +32,7 @@ MapType.delete_all
   ["Unkown", ""],
   ["Territorial Control", "tc"]
 ].each do |t|
-  MapType.create!(name: t[0], prefix: t[1])
+  MapType.find_or_create_by_name_and_prefix(name: t[0], prefix: t[1])
 end
   
-
-Map.delete_all
-maplist = open ENV['FAST_DL_SITE'] do |f|
-  f.read
-end.lines.to_a
-
-maplist.select!{|s| s.include? ".bsp.bz2"}.map! do |s|
-  s.gsub(/<li>.*\"> /, "").
-    gsub(/\.bsp.*$/, "").
-    chomp
-end
-
-maplist.each do |s|
-  Map.find_or_create_by_name(s)
-end
+Map.seed_from_fast_dl_site

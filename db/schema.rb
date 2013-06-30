@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130629221335) do
+ActiveRecord::Schema.define(:version => 20130630181135) do
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(:version => 20130629221335) do
   end
 
   add_index "admins", ["user_id"], :name => "index_admins_on_user_id"
+
+  create_table "canidates", :force => true do |t|
+    t.integer  "map_id"
+    t.integer  "election_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "canidates", ["election_id"], :name => "index_canidates_on_election_id"
+  add_index "canidates", ["map_id"], :name => "index_canidates_on_map_id"
 
   create_table "elections", :force => true do |t|
     t.boolean  "closed"

@@ -13,4 +13,9 @@ class User < ActiveRecord::Base
       user.avatar_url = auth["info"]["image"]
     end
   end
+
+  def steam_update
+    steam = SteamId.new(uid.to_i)
+    update_attributes(nickname: steam.nickname, profile: steam.base_url, avatar_url: steam.medium_avatar_url)
+  end
 end

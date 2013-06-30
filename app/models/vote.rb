@@ -1,9 +1,7 @@
 class Vote < ActiveRecord::Base
-  belongs_to :map
   belongs_to :user
-  belongs_to :election
+  belongs_to :canidate
 
   validates :user, presence: true
-  validates :election, presence: true
-  # attr_accessible :title, :body
+  validates :canidate, presence: true
 end
