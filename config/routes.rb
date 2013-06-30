@@ -1,5 +1,7 @@
 MapVotes::Application.routes.draw do
   resources :maps
+  match 'maps/:name' => 'maps#show'
+
   resources :elections do
     get 'active', on: :collection
     get 'past', on: :collection

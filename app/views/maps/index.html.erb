@@ -1,2 +1,17 @@
-<h1>Maps#index</h1>
-<p>Find me in app/views/maps/index.html.erb</p>
+<% provide(:title, "Map List" ) %>
+<div class="container">
+  <ul>
+    <% @map_types.each do |type, maps| %>
+      <li ><%= type.name %>
+      <ul >
+        <% maps.each do |map|%>
+          <li>
+          <%= link_to map.name, map %> 
+          </li>
+        <% end %>
+      </ul>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

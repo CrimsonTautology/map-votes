@@ -3,18 +3,32 @@ class Map < ActiveRecord::Base
   belongs_to :map_type
   attr_accessible :image, :name
 
-  after_create :type_from_prefix
+  before_create :type_from_prefix
+
+  def prefix
+    name.split("_", 2).first.downcase
+  end
+
+  def to_param
+    name
+  end
+
+  def fast_dl_link
+    File.join(ENV["FAST_DL_SITE"], ziped_file_extension)
+  end
+
+  def ziped_file_extension
+    name + ".bsp.bz2"
+  end
+
 
   private
-    def type_from_prefix
-      prefix = name.split("_", 2).first
-      map_type_id = MapType.find_by_prefix(prefix)
-      if prefix == "cp" || map_type_id.nil?
-        map_type = MapType.find_by_name("Unkown")
-      else 
-        map_type = map_type_id
-      end
-
-      self.save!
+  def type_from_prefix
+    type = MapType.find_by_prefix(prefix)
+    if type.nil?
+      self.map_type=MapType.find_by_name("Unkown")
+    else 
+      self.map_type= type
     end
+  end
 end

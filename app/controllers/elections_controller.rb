@@ -4,6 +4,8 @@ class ElectionsController < ApplicationController
   end
 
   def active
+    @elections = Election.all
+    render action: "index"
   end
 
   def past

@@ -10,4 +10,21 @@ module ApplicationHelper
     end
 
   end
+
+  def smart_map_image_url name
+    url = "http://image.www.gametracker.com/images/maps/160x120/tf2/#{name}.jpg"
+    if url_responsive? url
+      url
+    else
+      "unkown_image.jpg"
+    end
+  end
+
+  def url_responsive? url
+    uri = URI(url)
+    uri_request = Net::HTTP.new uri.host
+    uri_response= uri_request.request_head uri.path
+    uri_response.code.to_i == 200
+  end
+
 end

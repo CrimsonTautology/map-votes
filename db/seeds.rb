@@ -13,11 +13,22 @@ MapType.delete_all
   ["Arena", "arena"],
   ["Capture the Flag", "ctf"],
   ["Attack/Defend Capture the Flag", "ctf"],
-  ["Push Control Point", "cp"],
   ["Attack/Defend Control Point", "cp"],
+  ["Push Control Point", "cp"],
+  ["Circular Control Point", "ccp"],
   ["King of the Hill", "koth"],
   ["Payload", "pl"],
   ["Payload Race", "plr"],
+  ["Surf", "surf"],
+  ["Jump", "jump"],
+  ["Prop Hunt", "ph"],
+  ["Zombie Fortress", "zf"],
+  ["Domination Control Point", "dom"],
+  ["Death Match", "dm"],
+  ["Multi-Typed", "pc"],
+  ["Achievement", "achievement"],
+  ["Kick Ball", "mb"],
+  ["Man Vs. Machine", "mvm"],
   ["Gimmick", ""],
   ["Unkown", ""],
   ["Territorial Control", "tc"]
@@ -26,6 +37,7 @@ MapType.delete_all
 end
   
 
+Map.delete_all
 maplist = open ENV['FAST_DL_SITE'] do |f|
   f.read
 end.lines.to_a
