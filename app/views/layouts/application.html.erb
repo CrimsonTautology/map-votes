@@ -31,6 +31,8 @@
   </div>
   </header>
 
+  <%= render partial: "shared/flash_messages", flash: flash %>
+
   <div class="container" >
     <%= yield %>
   </div>

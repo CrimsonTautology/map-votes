@@ -5,9 +5,15 @@
   <%= link_to "Download", @map.fast_dl_link %>
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
-  <%= simple_form_for MapComment.new do |f| %>
-    <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
-    <%= f.button :submit %>
+  <% if current_user %>
+    <%= simple_form_for MapComment.new,
+      url: url_for(action: "create_comment", controller: "maps"),
+      method: 'post' do |f| %>
+      <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
+      <%= f.button :submit %>
+    <% end %>
+  <% else %>
+    <p class="text-info">You must be logged in to leave a comment</p>
   <% end %>
 
   <div class="container">
@@ -16,7 +22,7 @@
       <div class="media" >
         <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
         <div class="media-body">
-          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><%= mc.updated_at.to_s(:long) %></h4>
+          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
           <%= mc.comment %>
         </div>
       </div>

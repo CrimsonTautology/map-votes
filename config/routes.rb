@@ -1,5 +1,8 @@
 MapVotes::Application.routes.draw do
-  resources :maps 
+  resources :maps do
+    post 'create_comment', on: :member
+    post 'destroy_comment', on: :member
+  end
   resources :map_comments 
   resources :elections do
     get 'active', on: :collection
