@@ -1,0 +1,19 @@
+---
+sits_large_border.png: sits_large_border-bc035829261c54ad092cb36bde673db5.png
+sits_large_border/index.png: sits_large_border-bc035829261c54ad092cb36bde673db5.png
+sits_large_noborder.png: sits_large_noborder-d5e6766d21a8b955fa39974837146307.png
+sits_large_noborder/index.png: sits_large_noborder-d5e6766d21a8b955fa39974837146307.png
+sits_small.png: sits_small-7a498f5d6682f4f3c705d2c1c2816860.png
+sits_small/index.png: sits_small-7a498f5d6682f4f3c705d2c1c2816860.png
+unkown_image.jpg: unkown_image-90f111f906c67378a7000e14c5204bfe.jpg
+unkown_image/index.jpg: unkown_image-90f111f906c67378a7000e14c5204bfe.jpg
+application.js: application-66ac45f4175f7564d107dd9489a999bf.js
+application/index.js: application-66ac45f4175f7564d107dd9489a999bf.js
+application.css: application-e834fdca80ab6475073a65bfb1767fbf.css
+application/index.css: application-e834fdca80ab6475073a65bfb1767fbf.css
+jquery.min.map: jquery.min-1c0cf7b6a3425fbd9a3bfccab0a99a4e.map
+jquery/index.min.map: jquery.min-1c0cf7b6a3425fbd9a3bfccab0a99a4e.map
+glyphicons-halflings-white.png: glyphicons-halflings-white-6cccd17a7aed91dbc0157d343c68c0d9.png
+glyphicons-halflings-white/index.png: glyphicons-halflings-white-6cccd17a7aed91dbc0157d343c68c0d9.png
+glyphicons-halflings.png: glyphicons-halflings-2851b489e8c39f8fad44fc10efb99c3e.png
+glyphicons-halflings/index.png: glyphicons-halflings-2851b489e8c39f8fad44fc10efb99c3e.png
