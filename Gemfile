@@ -14,6 +14,8 @@ gem 'omniauth'
 gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
+gem 'simple_form'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

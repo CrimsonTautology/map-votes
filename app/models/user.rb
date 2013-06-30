@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
 
+  validates :nickname, presence: true
+  validates :uid, presence: true
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]

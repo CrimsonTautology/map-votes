@@ -4,4 +4,9 @@
   <%= @type.name %>
   <%= link_to "Download", @map.fast_dl_link %>
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
+
+  <%= simple_form_for MapComment.new do |f| %>
+    <%= f.input :comment, as: :text %>
+    <%= f.button :submit %>
+  <% end %>
 </div>
