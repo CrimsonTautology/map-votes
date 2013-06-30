@@ -6,7 +6,21 @@
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
   <%= simple_form_for MapComment.new do |f| %>
-    <%= f.input :comment, as: :text %>
+    <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
     <%= f.button :submit %>
   <% end %>
+
+  <div class="container">
+    <h3>All Comments (<%= @map.map_comment.count %>)</h3>
+    <% @map.map_comment.each do |mc| %>
+      <div class="media" >
+        <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
+        <div class="media-body">
+          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><%= mc.updated_at.to_s(:long) %></h4>
+          <%= mc.comment %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 </div>
