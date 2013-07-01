@@ -1,5 +1,5 @@
 class MapType < ActiveRecord::Base
-  has_many :map
+  has_many :maps
 
   validates :name, presence: true
 

@@ -1,7 +1,14 @@
 class Map < ActiveRecord::Base
-  has_many :map_comment
-  belongs_to :map_type
   attr_accessible :image, :name
+
+  has_many :map_comments, dependent: :destroy
+  has_many :canidates
+  has_many :elections, through: :canidates
+
+  belongs_to :map_type
+
+  validates :name, presence: true
+  validates :name, uniqueness: { case_sensitive: false }
 
   before_create :type_from_prefix
 
