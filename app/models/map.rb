@@ -17,7 +17,7 @@ class Map < ActiveRecord::Base
   end
 
   def to_param
-    name
+    name.parameterize
   end
 
   def fast_dl_link

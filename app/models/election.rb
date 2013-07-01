@@ -3,4 +3,7 @@ class Election < ActiveRecord::Base
 
   has_many :canidates
   has_many :maps, through: :canidates
+
+  scope :active, -> { where(closed: false) }
+  scope :inactive, -> { where(closed: true) }
 end
