@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
 
+  after_find :check_for_account_update
+
   validates :nickname, presence: true
   validates :uid, presence: true
+  validates :provider, presence: true
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -17,5 +20,11 @@ class User < ActiveRecord::Base
   def steam_update
     steam = SteamId.new(uid.to_i)
     update_attributes(nickname: steam.nickname, profile: steam.base_url, avatar_url: steam.medium_avatar_url)
+  end
+
+  def check_for_account_update
+    if updated_at < 1.day.ago
+      steam_update
+    end
   end
 end
