@@ -5,7 +5,6 @@ class MapComment < ActiveRecord::Base
   validates :map, presence: true
   validates :user, presence: true
   validates :comment, presence: true
-  validates :comment, uniqueness: { case_sensitive: false }
 
   attr_accessible :comment
 end
