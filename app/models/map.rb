@@ -16,8 +16,27 @@ class Map < ActiveRecord::Base
     name.split("_", 2).first.downcase
   end
 
+  def base_map_name
+    name.gsub(/^[^_]{0,5}_/, '').gsub(/_[^_]*$/, '')
+  end
+
+  def find_related_maps
+    Map.where('name LIKE ?', "%#{base_map_name}%")
+  end
+
+  def find_related_maps_deep
+    base_map_name.split("_").select{|s| s.length>3}.map do |s|
+      Map.where('name LIKE ?', "%#{s}%")
+    end.flatten.uniq
+  end
+
   def to_param
     name.parameterize
+  end
+
+  #Return a random map
+  def self.random
+    offset(rand count).first
   end
 
   def fast_dl_link
