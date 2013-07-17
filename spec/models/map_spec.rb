@@ -28,7 +28,6 @@ describe Map do
       @other = Map.create!(name: "avanti_b1")
       @other.base_name.should eql "avanti"
     end
-    end
 
   end
 
