@@ -26,5 +26,12 @@ class MapsController < ApplicationController
     redirect_to root_url, notice: "Comment Deleted!"
   end
 
+  def vote
+    value = params[:type] == "up" ? 1 : -1
+    @map = Map.find(params[:id])
+    @map.add_evaluation(:votes, value, current_user)
+    redirect_to :back, notice: "Thank you for voting!"
+  end
+
 
 end

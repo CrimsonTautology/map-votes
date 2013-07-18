@@ -5,6 +5,8 @@ class Map < ActiveRecord::Base
   has_many :canidates
   has_many :elections, through: :canidates
 
+  has_reputation :votes, soruce: :user, , aggregated_by: :sum
+
   belongs_to :map_type
 
   validates :name, presence: true
