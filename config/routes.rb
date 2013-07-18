@@ -5,13 +5,6 @@ MapVotes::Application.routes.draw do
     post 'vote', on: :member
   end
   resources :map_comments 
-  resources :elections do
-    get 'active', on: :collection
-    get 'past', on: :collection
-    get 'vote', on: :member
-
-  end
-
   root to: "home#index"
 
   match "/auth/steam/callback" => "sessions#create"
