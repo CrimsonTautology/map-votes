@@ -15,7 +15,6 @@ describe "Maps" do
     end
 
     context "populated database" do
-      fixtures :maps
       before(:each) do
         visit "/maps"
       end
