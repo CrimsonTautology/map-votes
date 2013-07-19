@@ -11,20 +11,6 @@ class MapsController < ApplicationController
 
   def edit
   end
-  def create_comment
-    @map_comment = MapComment.new(params[:map_comment])
-    if @map_comment.save
-      flash[:notice] = "Added Comment"
-    else
-      flash[:Alert] = "Could not add comment"
-    end
-    redirect_to params[:id]
-
-  end
-  def destroy_comment
-
-    redirect_to root_url, notice: "Comment Deleted!"
-  end
 
   def vote
     value = params[:type] == "up" ? 1 : -1

@@ -15,19 +15,25 @@ describe "Maps" do
     end
 
     context "populated database" do
-      map = FactoryGirl.create(:map)
       before(:each) do
+        @map = FactoryGirl.build(:map)
         visit "/maps"
       end
 
       it "displays a list of maps" do
-        expect(page).to have_selector "li", map.name
+        expect(page).to have_selector "li", @map.name
       end
 
       it "groups available map types" do
-        expect(page).to have_selector "li", map.type.name
+        expect(page).to have_selector "li", @map.map_type.name
       end
 
     end
-  end
+  end #/maps
+  describe "GET /maps/:id" do
+    before(:each) do
+      @map = FactoryGirl.build(:map)
+      visit "/maps/#{map.name}"
+    end
+  end#/maps/:id
 end
