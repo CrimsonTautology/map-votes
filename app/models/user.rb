@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
 
-  has_many :evaluations, class_name: "RSEvaluation", as: :source
+  has_many :votes
 
   after_find :check_for_account_update
 
