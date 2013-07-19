@@ -2,7 +2,7 @@
 <div class="containter">
   <%= @map.name %>
   <%= @type.name %>
-  <%= link_to "Download", @map.fast_dl_link %>
+  <%= link_to "Download", fast_dl_link(@map) %>
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
   <% if current_user %>
@@ -15,6 +15,11 @@
   <% else %>
     <p class="text-info">You must be logged in to leave a comment</p>
   <% end %>
+
+  <div class="container">
+    <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
+    <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
+  </div>
 
   <div class="container">
     <h3>All Comments (<%= @map.map_comment.count %>)</h3>

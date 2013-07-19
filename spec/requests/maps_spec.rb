@@ -63,10 +63,14 @@ describe "Maps" do
 
     context "user logged in" do
       pending "shows add new comment textbox"
+      pending "adding a comment"
+      pending "removing a comment"
+      pending "voting"
 
     end
     context "user logged out" do
       pending "does not show add new comment textbox"
+      pending "not prompted to vote"
 
     end
   end#/maps/:id
