@@ -55,6 +55,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     ffi (1.9.0)
     ffi (1.9.0-x86-mingw32)
     formatador (0.2.4)
@@ -101,8 +106,8 @@ GEM
     omniauth-steam (1.0.2)
       multi_json
       omniauth-openid
-    pg (0.12.2)
-    pg (0.12.2-x86-mingw32)
+    pg (0.15.1)
+    pg (0.15.1-x86-mingw32)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -136,6 +141,11 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.1)
+    rails_stdout_logging (0.0.1)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -215,15 +225,17 @@ DEPENDENCIES
   bootstrap-sass
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
+  factory_girl_rails (= 4.2.1)
   guard-rspec
   jquery-rails
   omniauth
   omniauth-steam
-  pg (= 0.12.2)
+  pg (= 0.15.1)
   pry
   pry-doc
   pry-rails
   rails (= 3.2.13)
+  rails_12factor (= 0.0.2)
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)
   simple_form

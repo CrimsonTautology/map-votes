@@ -15,8 +15,17 @@ describe "Maps" do
     end
 
     context "populated database" do
+      map = FactoryGirl.create(:map)
       before(:each) do
         visit "/maps"
+      end
+
+      it "displays a list of maps" do
+        expect(page).to have_selector "li", map.name
+      end
+
+      it "groups available map types" do
+        expect(page).to have_selector "li", map.type.name
       end
 
     end

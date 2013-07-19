@@ -2,7 +2,8 @@ class Map < ActiveRecord::Base
   attr_accessible :image, :name
 
   has_many :map_comments, dependent: :destroy
-  has_reputation :votes, soruce: :user, aggregated_by: :sum
+  has_reputation :votes, source: :user, aggregated_by: :sum
+  
 
   belongs_to :map_type
 
@@ -38,13 +39,6 @@ class Map < ActiveRecord::Base
     offset(rand count).first
   end
 
-  def fast_dl_link
-    File.join(ENV["FAST_DL_SITE"], ziped_file_extension)
-  end
-
-  def ziped_file_extension
-    name + ".bsp.bz2"
-  end
 
   def self.seed_from_fast_dl_site
     maplist = open ENV['FAST_DL_SITE'] do |f|
