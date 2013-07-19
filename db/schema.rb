@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719181528) do
+ActiveRecord::Schema.define(:version => 20130719183407) do
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -57,5 +57,16 @@ ActiveRecord::Schema.define(:version => 20130719181528) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "map_id"
+    t.integer  "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "votes", ["map_id"], :name => "index_votes_on_map_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

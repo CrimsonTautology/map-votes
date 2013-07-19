@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
 
   has_many :votes
+  has_many :maps, through: :votes
 
   after_find :check_for_account_update
 

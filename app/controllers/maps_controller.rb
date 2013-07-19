@@ -6,7 +6,6 @@ class MapsController < ApplicationController
 
   def show
     @map = Map.find_by_name(params[:id])
-    @type = @map.map_type
   end
 
   def edit
@@ -17,7 +16,7 @@ class MapsController < ApplicationController
     value =  1 if params[:type] == "up"
     value = -1 if params[:type] == "down"
     @map = Map.find_by_name(params[:id])
-    @map.add_or_update_evaluation(:votes, value, current_user)
+    Vote.cast_vote current_user, @map, value
     redirect_to :back, notice: "Thank you for voting!"
   end
 
