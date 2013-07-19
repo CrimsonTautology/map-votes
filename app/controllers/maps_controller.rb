@@ -16,8 +16,8 @@ class MapsController < ApplicationController
     value =  0
     value =  1 if params[:type] == "up"
     value = -1 if params[:type] == "down"
-    @map = Map.find(params[:id])
-    @map.add_evaluation(:votes, value, current_user)
+    @map = Map.find_by_name(params[:id])
+    @map.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"
   end
 

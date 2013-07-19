@@ -16,14 +16,27 @@
     <p class="text-info">You must be logged in to leave a comment</p>
   <% end %>
 
-  <div class="container">
+  <div class="container" id="vote_menu">
     <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
     <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
   </div>
 
+  <div class="container" id="related_maps">
+    <h3>Related maps</h3>
+    <% render partial: "shared/map_image_list", locals: {maps: @map.find_related_maps_deep} %>
+  </div>
+  <div class="container" id="likers">
+    <h3>Liked by</h3>
+    <% render partial: "shared/user_image_list", locals: {users: nil} %>
+  </div>
+  <div class="container" id="haters">
+    <h3>Hated by</h3>
+    <% render partial: "shared/user_image_list", locals: {users: nil} %>
+  </div>
+
   <div class="container">
-    <h3>All Comments (<%= @map.map_comment.count %>)</h3>
-    <% @map.map_comment.each do |mc| %>
+    <h3>All Comments (<%= @map.map_comments.count %>)</h3>
+    <% @map.map_comments.each do |mc| %>
       <div class="media" >
         <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
         <div class="media-body">
