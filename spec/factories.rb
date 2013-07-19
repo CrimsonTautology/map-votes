@@ -13,6 +13,7 @@ FactoryGirl.define do
   factory :map_comment do
     comment "Foo bar baz."
     user
+    map
   end
 
   factory :user do

@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe Map do
   context "adding a new map" do
-    before(:each) do
-      @map = Map.create!(name: "koth_crap_b1")
-    end
+    before(:each) { @map = Map.create!(name: "koth_crap_b1") }
+    after(:each) {Map.delete @map}
 
     it "gets it's map type from the map prefix" do
       type = @map.map_type
@@ -15,6 +14,8 @@ describe Map do
 
   describe "#base_map_name" do
     before(:each) {@map = Map.create!(name: "cp_base_name_v1") }
+    after(:each) {Map.delete @map}
+
     it "has a base name" do
       expect(@map.base_map_name).to eql "base_name"
     end
