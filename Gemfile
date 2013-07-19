@@ -16,8 +16,6 @@ gem 'steam-condenser', '~> 1.3.5'
 
 gem 'simple_form'
 
-gem 'activerecord-reputation-system', require: 'reputation_system'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
