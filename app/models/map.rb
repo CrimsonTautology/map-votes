@@ -2,10 +2,7 @@ class Map < ActiveRecord::Base
   attr_accessible :image, :name
 
   has_many :map_comments, dependent: :destroy
-  has_many :canidates
-  has_many :elections, through: :canidates
-
-  has_reputation :votes, soruce: :user, , aggregated_by: :sum
+  has_reputation :votes, soruce: :user, aggregated_by: :sum
 
   belongs_to :map_type
 
