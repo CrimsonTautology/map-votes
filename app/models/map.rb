@@ -34,6 +34,16 @@ class Map < ActiveRecord::Base
     name.parameterize
   end
 
+  def votes_count
+    evaluations.count
+  end
+  def likes_count
+    evaluations.select{|e| e.value > 0}.count
+  end
+  def hates_count
+    evaluations.select{|e| e.value < 0}.count
+  end
+
   #Return a random map
   def self.random
     offset(rand count).first

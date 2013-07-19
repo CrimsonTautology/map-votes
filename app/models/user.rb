@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
 
+  has_many :evaluations, class_name: "RSEvaluation", as: :source
+
   after_find :check_for_account_update
 
   validates :nickname, presence: true
