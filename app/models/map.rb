@@ -36,15 +36,15 @@ class Map < ActiveRecord::Base
   end
 
   def liked_by
-    self.votes.likes.joins(:user)
+    votes.likes.map(&:user)
   end
 
   def hated_by
-    self.votes.hates.joins(:user)
+    votes.hates.map(&:user)
   end
 
   def neutral_by
-    self.votes.neutral.joins(:user)
+    votes.neutral.map(&:user)
   end
 
   #Return a random map

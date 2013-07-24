@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   validates :provider, presence: true
 
   def liked_maps
-    self.votes.likes.joins(:map)
+    votes.likes.map(&:map)
   end
   def hated_maps
-    self.votes.hates.joins(:map)
+    votes.hates.map(&:map)
   end
   def neutral_maps
-    self.votes.neutral.joins(:map)
+    votes.neutral.map(&:map)
   end
 
   def self.create_with_omniauth(auth)
