@@ -41,5 +41,7 @@
         <%= link_to "Powered By Steam", "http://steampowered.com" %>
       </div>
   </footer>
+
+  <%= debug(params) if Rails.env.development? %>
 </body>
 </html>
