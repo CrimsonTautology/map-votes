@@ -47,6 +47,18 @@ class Map < ActiveRecord::Base
     votes.neutral.map(&:user)
   end
 
+  def likes
+    votes.likes.count
+  end
+
+  def hates
+    votes.hates.count
+  end
+
+  def total_votes
+    likes + hates
+  end
+
   #Return a random map
   def self.random
     offset(rand count).first
