@@ -6,6 +6,9 @@ class MapsController < ApplicationController
 
   def show
     @map = Map.find_by_name(params[:id])
+    @liked_by = @map.liked_by
+    @hated_by = @map.hated_by
+    @neutral_by = @map.neutral_by
   end
 
   def edit
