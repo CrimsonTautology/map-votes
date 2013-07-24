@@ -35,14 +35,16 @@ class Map < ActiveRecord::Base
     name.parameterize
   end
 
-  def votes_count
-    evaluations.count
+  def liked_by
+    self.votes.likes.joins(:user)
   end
-  def likes_count
-    evaluations.select{|e| e.value > 0}.count
+
+  def hated_by
+    self.votes.hates.joins(:user)
   end
-  def hates_count
-    evaluations.select{|e| e.value < 0}.count
+
+  def neutral_by
+    self.votes.neutral.joins(:user)
   end
 
   #Return a random map

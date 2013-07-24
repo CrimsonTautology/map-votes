@@ -10,6 +10,16 @@ class User < ActiveRecord::Base
   validates :uid, presence: true
   validates :provider, presence: true
 
+  def liked_maps
+    self.votes.likes.joins(:map)
+  end
+  def hated_maps
+    self.votes.hates.joins(:map)
+  end
+  def neutral_maps
+    self.votes.neutral.joins(:map)
+  end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
@@ -27,7 +37,7 @@ class User < ActiveRecord::Base
 
   def check_for_account_update
     if updated_at < 1.day.ago
-      steam_update
+      #steam_update
     end
   end
 end
