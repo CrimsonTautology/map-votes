@@ -9,6 +9,17 @@ class MapsController < ApplicationController
   end
 
   def edit
+    @map = Map.find_by_name(params[:id])
+  end
+
+  def update
+    @map = Map.find_by_name(params[:id])
+    if @map.update_attributes(params[:map])
+      redirect_to action: 'show', id: @map
+    else
+      flash[:alert] = "Could not update map"
+      render action: 'edit'
+    end
   end
 
   def vote
