@@ -1,4 +1,5 @@
 class MapsController < ApplicationController
+  before_filter :authorize, only: [:edit, :update, :new]
   def index
     @maps = Map.find(:all, order: 'name')
     @map_types = @maps.group_by {|m| m.map_type}.sort
