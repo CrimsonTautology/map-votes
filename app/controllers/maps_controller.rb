@@ -8,7 +8,6 @@ class MapsController < ApplicationController
   end
 
   def show
-    @type = @map.map_type
   end
 
   def edit

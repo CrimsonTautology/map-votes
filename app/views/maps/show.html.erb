@@ -1,7 +1,7 @@
 <% provide(:title, @map.name) %>
 <div class="containter">
   <%= @map.name %>
-  <%= @type.name %>
+  <%= @map.type.name %>
   <%= link_to "Download", fast_dl_link(@map) %>
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
