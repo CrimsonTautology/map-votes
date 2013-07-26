@@ -10,6 +10,7 @@ class Map < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
+  validates :name, format: {with: no_whitespace}
 
   before_create :type_from_prefix
 

@@ -42,4 +42,8 @@ module ApplicationHelper
     end
   end
 
+  def no_whitespace
+    /^[\S]+$/
+  end
+
 end
