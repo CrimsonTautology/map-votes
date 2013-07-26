@@ -7,6 +7,7 @@ class MapsController < ApplicationController
 
   def show
     @map = Map.find_by_name(params[:id])
+    @type = @map.map_type
   end
 
   def edit
