@@ -1,7 +1,7 @@
 class MapCommentsController < ApplicationController
   def create
     @map_comment = MapComment.new(params[:map_comment])
-    @map_comment.map= Map.find(params[:map_id])
+    @map_comment.map= Map.find_by_name(params[:map_id])
     @map_comment.user = current_user
 
     if @map_comment.save
@@ -9,7 +9,7 @@ class MapCommentsController < ApplicationController
     else
       flash[:alert] = "Could not add comment"
     end
-    redirect_to params[:map_id]
+    redirect_to @map_comment.map
 
   end
   def destroy
@@ -26,6 +26,6 @@ class MapCommentsController < ApplicationController
       flash[:alert] = "Could not update comment"
     end
 
-    redirect_to params[:map_id]
+    redirect_to @map_comment.map
   end
 end

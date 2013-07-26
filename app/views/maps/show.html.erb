@@ -6,8 +6,7 @@
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
   <% if current_user %>
-    <%= simple_form_for MapComment.new,
-      url: url_for(action: "create_comment", controller: "maps"),
+    <%= simple_form_for [@map, MapComment.new],
       method: 'post' do |f| %>
       <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
       <%= f.button :submit %>
@@ -23,15 +22,15 @@
 
   <div class="container" id="related_maps">
     <h3>Related maps</h3>
-    <% render partial: "shared/map_image_list", locals: {maps: @map.find_related_maps_deep} %>
+    <% render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
   </div>
   <div class="container" id="likers">
     <h3>Liked by</h3>
-    <% render partial: "shared/user_image_list", locals: {users: nil} %>
+    <% render 'shared/user_image_list', {users: @map.liked_by} %>
   </div>
   <div class="container" id="haters">
     <h3>Hated by</h3>
-    <% render partial: "shared/user_image_list", locals: {users: nil} %>
+    <% render 'shared/user_image_list', {users: @map.hated_by} %>
   </div>
 
   <div class="container">
