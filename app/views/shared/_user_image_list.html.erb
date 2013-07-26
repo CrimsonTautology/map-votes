@@ -1,7 +1,5 @@
-<h1>Test</h1>
 <% users.each do |user| %>
   <div class="thumbnail" >
-    user.nickname
-    <%# image_tag(user.avatar_url, class: "img-rounded user-thumbnail")%>
+    <%= link_to( image_tag(user.avatar_url, alt: user.nickname, class: "img-rounded user-thumbnail"), user.profile) %>
   </div>
 <% end %>

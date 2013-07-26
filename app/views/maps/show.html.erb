@@ -22,15 +22,15 @@
 
   <div class="container" id="related_maps">
     <h3>Related maps</h3>
-    <% render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
+    <%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
   </div>
   <div class="container" id="likers">
     <h3>Liked by</h3>
-    <% render 'shared/user_image_list', {users: @map.liked_by} %>
+    <%= render 'shared/user_image_list', {users: @map.liked_by} %>
   </div>
   <div class="container" id="haters">
     <h3>Hated by</h3>
-    <% render 'shared/user_image_list', {users: @map.hated_by} %>
+    <%= render 'shared/user_image_list', {users: @map.hated_by} %>
   </div>
 
   <div class="container">
