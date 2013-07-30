@@ -1,4 +1,7 @@
 class MapCommentsController < ApplicationController
+  before_filter :find_map_comment, only: [:update, :destroy]
+  before_filter :has_ownership, only: [:update, :destroy]
+
   def create
     @map_comment = MapComment.new(params[:map_comment])
     @map_comment.map= Map.find_by_name(params[:map_id])
@@ -13,13 +16,12 @@ class MapCommentsController < ApplicationController
 
   end
   def destroy
-    MapComment.find(params[:id]).destroy
+    @map_comment.delete
     flash[:notice] = "Comment Deleted!"
     redirect_to params[:map_id]
   end
 
   def update
-    @map_comment = MapComment.find(params[:id])
     if @map_comment.update_attributes(params[:map_comment])
       flash[:notice] = "Updated Comment"
     else
@@ -27,5 +29,18 @@ class MapCommentsController < ApplicationController
     end
 
     redirect_to @map_comment.map
+  end
+
+  private
+  def find_map_comment
+    @map_comment = MapComment.find(params[:id])
+  end
+
+  def has_ownership
+     unless current_user == @map_comment.user or is_admin?
+       flash[:alert] = "Noth authorized to change this comment"
+       redirect_to @map_comment.map
+       false
+     end
   end
 end

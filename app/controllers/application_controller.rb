@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def admin?
+  def is_admin?
     false
   end
 
   def authorize
-    unless admin?
+    unless is_admin?
       flash[:error] = "Unauthorized Access"
       redirect_to home_path
       false
