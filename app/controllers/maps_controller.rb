@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
-  before_filter :authorize, only: [:edit, :update, :vote]
+  #before_filter :authorize, only: [:edit, :update, :vote]
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index
@@ -16,7 +16,9 @@ class MapsController < ApplicationController
   end
 
   def update
-    if @map.update_attributes(params[:map])
+    @map.image = params[:image]
+    @map.map_type_id = params[:map_type_id]
+    if @map.save
       redirect_to action: 'show', id: @map
     else
       flash[:alert] = "Could not update map"
