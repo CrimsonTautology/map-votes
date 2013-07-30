@@ -1,0 +1,10 @@
+<%= simple_form_for ApiKey.new do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit %>
+<% end %>
+
+<ul>
+<% @api_keys.each do |ak| %>
+  <li>ak.name <%= button_to "delete", ak, method: :delete %></li>
+<% end %>
+</ul>

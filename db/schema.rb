@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719183407) do
+ActiveRecord::Schema.define(:version => 20130730153336) do
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(:version => 20130719183407) do
   end
 
   add_index "admins", ["user_id"], :name => "index_admins_on_user_id"
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "name"
+    t.string   "access_token"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "map_comments", :force => true do |t|
     t.integer  "map_id"
