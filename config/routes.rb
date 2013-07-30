@@ -1,9 +1,5 @@
 MapVotes::Application.routes.draw do
-  get "api_key/index"
-
-  get "api_key/create"
-
-  get "api_key/destroy"
+  resources :api_key
 
   resources :maps do
     post 'vote', on: :member

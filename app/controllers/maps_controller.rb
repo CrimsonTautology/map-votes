@@ -1,5 +1,6 @@
 class MapsController < ApplicationController
-  before_filter :authorize, only: [:edit, :update, :vote]
+  before_filter :authorize_logged_in, only: [:vote]
+  before_filter :authorize_admin, only: [:edit, :update]
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index

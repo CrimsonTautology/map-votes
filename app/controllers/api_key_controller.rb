@@ -1,4 +1,5 @@
 class ApiKeyController < ApplicationController
+  before_filter :authorize_admin
   def index
     @api_keys = ApiKey.find(:all)
   end

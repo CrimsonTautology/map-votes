@@ -1,4 +1,5 @@
 class MapCommentsController < ApplicationController
+  before_filter :authorize_logged_in
   before_filter :find_map_comment, only: [:update, :destroy]
   before_filter :has_ownership, only: [:update, :destroy]
 
