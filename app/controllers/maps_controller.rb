@@ -1,6 +1,6 @@
 class MapsController < ApplicationController
   before_filter :authorize, only: [:edit, :update, :vote]
-  before_filter :find_map, only: [:show, :edit, :update, :vote]
+  before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index
     @maps = Map.find(:all, order: 'name')
@@ -10,6 +10,8 @@ class MapsController < ApplicationController
   def show
   end
 
+  def new
+  end
   def edit
   end
 

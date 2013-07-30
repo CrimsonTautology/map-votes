@@ -1,4 +1,5 @@
-<%= simple_form_for @map do |f| %>
+<%= simple_form_for Map.new do |f| %>
+  <%= f.input :name %>
   <%= f.input :image %>
   <%= f.input :map_type_id, collection: MapType.all %>
   <%= f.button :submit %>
