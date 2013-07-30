@@ -3,8 +3,21 @@
   <%= f.button :submit %>
 <% end %>
 
-<ul>
-<% @api_keys.each do |ak| %>
-  <li>ak.name <%= button_to "delete", ak, method: :delete %></li>
-<% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Key</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @api_keys.each do |ak| %>
+    <tr>
+      <td>ak.name</td>
+      <td>ak.access_token</td>
+      <td><%= button_to "delete", ak, method: :delete %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
