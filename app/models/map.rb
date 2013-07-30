@@ -10,6 +10,7 @@ class Map < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
+  no_whitespace = /^[\S]+$/
   validates :name, format: {with: no_whitespace}
 
   before_create :type_from_prefix
@@ -59,6 +60,7 @@ class Map < ActiveRecord::Base
   def total_votes
     likes + hates
   end
+
 
   #Return a random map
   def self.random
