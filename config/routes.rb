@@ -1,5 +1,5 @@
 MapVotes::Application.routes.draw do
-  resources :api_key
+  resources :api_keys
 
   resources :maps do
     post 'vote', on: :member

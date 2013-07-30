@@ -1,4 +1,4 @@
-class ApiKeyController < ApplicationController
+class ApiKeysController < ApplicationController
   before_filter :authorize_admin
   def index
     @api_keys = ApiKey.find(:all)
@@ -12,12 +12,12 @@ class ApiKeyController < ApplicationController
     else
       flash[:alert] = "Could not add key"
     end
-    render action: :index
+    redirect_to api_keys_path
   end
 
   def destroy
     ApiKey.find(params[:id]).destroy
     flash[:notice] = "Key Deleted!"
-    render action: :index
+    redirect_to api_keys_path
   end
 end

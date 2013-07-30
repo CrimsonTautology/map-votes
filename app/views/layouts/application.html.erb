@@ -20,7 +20,7 @@
           <li><%= link_to "Map List", maps_path %></li>
           <% if current_user_admin? %>
             <li><%= link_to "Add Map", new_map_path %></li>
-            <li><%= link_to "Add API Key", api_key_index_path %></li>
+            <li><%= link_to "Add API Key", api_keys_path %></li>
           <% end %>
           <% if current_user %>
             <li>Welcome <%= current_user.nickname %></li>

@@ -3,7 +3,8 @@
   <%= f.button :submit %>
 <% end %>
 
-<table>
+<% if @api_keys.count > 0 %>
+<table class="table" >
   <thead>
     <tr>
       <th>Name</th>
@@ -14,10 +15,11 @@
   <tbody>
   <% @api_keys.each do |ak| %>
     <tr>
-      <td>ak.name</td>
-      <td>ak.access_token</td>
+      <td><%= ak.name %></td>
+      <td><%= ak.access_token %></td>
       <td><%= button_to "delete", ak, method: :delete %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+<% end %>
