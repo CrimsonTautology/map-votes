@@ -38,7 +38,7 @@ class MapCommentsController < ApplicationController
   end
 
   def has_ownership
-     unless current_user == @map_comment.user or is_admin?
+     unless current_user == @map_comment.user or current_user_admin?
        flash[:alert] = "Noth authorized to change this comment"
        redirect_to @map_comment.map
        false

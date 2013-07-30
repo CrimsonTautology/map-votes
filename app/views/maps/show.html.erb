@@ -1,6 +1,6 @@
 <% provide(:title, @map.name) %>
 
-<% if current_user.admin? %>
+<% if current_user_admin? %>
   <%= link_to "Edit Map", edit_map_path(@map) %>
 <% end %>
 
