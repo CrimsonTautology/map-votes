@@ -1,4 +1,9 @@
 <% provide(:title, @map.name) %>
+
+<% if current_user.admin? %>
+  <%= link_to "Edit Map", edit_map_path(@map) %>
+<% end %>
+
 <div class="containter">
   <%= @map.name %>
   <%= @map.map_type.name %>
@@ -6,6 +11,10 @@
   <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
   <% if current_user %>
+    <div class="container" id="vote_menu">
+      <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
+      <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
+    </div>
     <%= simple_form_for [@map, MapComment.new],
       method: 'post' do |f| %>
       <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
@@ -15,10 +24,6 @@
     <p class="text-info">You must be logged in to leave a comment</p>
   <% end %>
 
-  <div class="container" id="vote_menu">
-    <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
-    <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
-  </div>
 
   <div class="container" id="related_maps">
     <h3>Related maps</h3>

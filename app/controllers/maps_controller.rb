@@ -14,11 +14,12 @@ class MapsController < ApplicationController
   def new
   end
   def edit
+    @map_types = MapType.find(:all, order: 'name')
   end
 
   def update
-    @map.image = params[:image]
-    @map.map_type_id = params[:map_type_id]
+    @map.image = params[:map][:image]
+    @map.map_type_id = params[:map][:map_type_id]
     if @map.save
       redirect_to(@map)
     else
