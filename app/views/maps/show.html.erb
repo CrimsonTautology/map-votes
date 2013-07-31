@@ -1,10 +1,10 @@
 <% provide(:title, @map.name) %>
 
+<h2><%= @map.name %></h2>
 <div class="row">
   <div class="span8">
     <div class="row">
       <div class="span5">
-        <h2><%= @map.name %></h2>
         <p><%= @map.map_type.name %></p>
         <p><%= link_to "Download", fast_dl_link(@map) %></p>
         <% if current_user_admin? %>
