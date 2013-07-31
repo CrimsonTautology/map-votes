@@ -24,12 +24,12 @@ class Map < ActiveRecord::Base
   end
 
   def find_related_maps
-    Map.where('name LIKE ?', "%#{base_map_name}%")
+    Map.where('name LIKE ? AND name <> ?', "%#{base_map_name}%", name)
   end
 
   def find_related_maps_deep
     base_map_name.split("_").select{|s| s.length>3}.map do |s|
-      Map.where('name LIKE ?', "%#{s}%")
+      Map.where('name LIKE ? AND name <> ?', "%#{s}%", name)
     end.flatten.uniq
   end
 
