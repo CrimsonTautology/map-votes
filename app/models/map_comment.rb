@@ -7,4 +7,11 @@ class MapComment < ActiveRecord::Base
   validates :comment, presence: true
 
   attr_accessible :comment
+
+  def self.write_message user, map, comment
+    map_comment = MapComment.new(comment: comment)
+    map_comment.map= map
+    map_comment.user = user
+    map_comment.save
+  end
 end

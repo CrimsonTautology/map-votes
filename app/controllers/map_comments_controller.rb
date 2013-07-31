@@ -4,16 +4,16 @@ class MapCommentsController < ApplicationController
   before_filter :has_ownership, only: [:update, :destroy]
 
   def create
-    @map_comment = MapComment.new(params[:map_comment])
-    @map_comment.map= Map.find_by_name(params[:map_id])
-    @map_comment.user = current_user
+    user = current_user
+    map= Map.find_by_name(params[:map_id])
+    comment = params[:map_comment][:comment]
 
-    if @map_comment.save
+    if MapComment.write_message user, map, comment
       flash[:notice] = "Added Comment"
     else
       flash[:alert] = "Could not add comment"
     end
-    redirect_to @map_comment.map
+    redirect_to map
 
   end
   def destroy

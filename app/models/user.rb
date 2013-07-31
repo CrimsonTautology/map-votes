@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   validates :nickname, presence: true
   validates :uid, presence: true
+  validates :uid, uniqueness: true
   validates :provider, presence: true
 
   def liked_maps
@@ -19,6 +20,21 @@ class User < ActiveRecord::Base
   end
   def neutral_maps
     votes.neutral.map(&:map)
+  end
+
+  def self.random
+    offset(rand count).first
+  end
+
+  def self.create_with_steam_id(steam_id)
+    steam = SteamId.new(steam_id)
+    create! do |user|
+      user.provider = "steam"
+      user.uid = steam.steam_id64.to_s
+      user.nickname = steam.nickname
+      user.profile = steam.base_url
+      user.avatar_url = steam.medium_avatar_url
+    end
   end
 
   def self.create_with_omniauth(auth)
