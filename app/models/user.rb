@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_steam_id(steam_id)
-    steam = SteamId.new(steam_id)
+    steam = SteamId.new(steam_id.to_i)
     create! do |user|
       user.provider = "steam"
       user.uid = steam.steam_id64.to_s

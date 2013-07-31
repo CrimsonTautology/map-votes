@@ -11,15 +11,23 @@ $grayMediumLight: #eaeaea;
   box-sizing: border-box;
 }
  
-
-.thumbnail-wrapper  .thumbnail_text {
+.thumbnail-wrapper {
     position: relative;
+    float: left
+}
+
+.thumbnail-wrapper  .thumbnail-text {
+    display: none;
+    position: absolute;
     bottom: 30px
     left: 0px;
-    visibility: hidden;
+    width: 100%
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    font-size: small
 }
-.thumbnail-wrapper:hover .thumbnail_text {
-    visibility: visible;
+.thumbnail-wrapper:hover .thumbnail-text {
+    display: block;
 }
 
 body {
@@ -29,7 +37,7 @@ body {
 @media (max-width: 979px){
     body {
         padding-top: 0px;
-    }
+}
 }
 
 footer {
@@ -50,12 +58,12 @@ footer {
 }
 
 /* miscellaneous */
- 
+
 .debug_dump {
-  background-color: $grayMediumLight;
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
+    background-color: $grayMediumLight;
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 45px;
+    @include box_sizing;
 }
