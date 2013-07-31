@@ -1,17 +1,19 @@
 <% provide(:title, "Map List" ) %>
-<div class="container">
-  <ul>
-    <% @map_types.each do |type, maps| %>
-      <li ><%= type.name %>
-      <ul >
-        <% maps.each do |map|%>
-          <li>
-          <%= link_to map.name, map %> 
-          </li>
-        <% end %>
-      </ul>
-      </li>
-    <% end %>
-  </ul>
+<ul>
+  <% @map_types.each do |type, maps| %>
+    <li ><%= type.name %>
+    <ul >
+      <% maps.each do |map|%>
+        <li>
+        <%= link_to map.name, map %> 
+        <div>
+        <span><%= map.likes %></span>
+        <span><%= map.hates %></span>
+        </div>
+        </li>
+      <% end %>
+    </ul>
+    </li>
+  <% end %>
+</ul>
 
-</div>

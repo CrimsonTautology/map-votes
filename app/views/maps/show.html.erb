@@ -1,14 +1,14 @@
 <% provide(:title, @map.name) %>
+<div class="container">
 
-<% if current_user_admin? %>
-  <%= link_to "Edit Map", edit_map_path(@map) %>
-<% end %>
+  <% if current_user_admin? %>
+    <%= link_to "Edit Map", edit_map_path(@map) %>
+  <% end %>
 
-<div class="containter">
-  <%= @map.name %>
-  <%= @map.map_type.name %>
-  <%= link_to "Download", fast_dl_link(@map) %>
-  <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
+    <%= @map.name %>
+    <%= @map.map_type.name %>
+    <%= link_to "Download", fast_dl_link(@map) %>
+    <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
 
   <% if current_user %>
     <div class="container" id="vote_menu">
@@ -25,33 +25,29 @@
   <% end %>
 
 
-  <div class="container" id="related_maps">
-    <h3>Related maps</h3>
-    <%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
-  </div>
+  <h3>Related maps</h3>
+  <%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
 
   <div class="row">
-    <div class="container col-lg-6" id="likers">
+    <div class="col-lg-6" id="likers">
       <h3>Liked by</h3>
       <%= render 'shared/user_image_list', {users: @map.liked_by} %>
     </div>
-    <div class="container col-lg-6" id="haters">
+    <div class="col-lg-6" id="haters">
       <h3>Hated by</h3>
       <%= render 'shared/user_image_list', {users: @map.hated_by} %>
     </div>
   </div>
 
-  <div class="container">
-    <h3>All Comments (<%= @map.map_comments.count %>)</h3>
-    <% @map.map_comments.each do |mc| %>
-      <div class="media" >
-        <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
-        <div class="media-body">
-          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
-          <%= mc.comment %>
-        </div>
+  <h3>All Comments (<%= @map.map_comments.count %>)</h3>
+  <% @map.map_comments.each do |mc| %>
+    <div class="media" >
+      <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
+      <div class="media-body">
+        <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
+        <%= mc.comment %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-  </div>
 </div>

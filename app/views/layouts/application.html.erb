@@ -13,7 +13,7 @@
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
-      <div class="container">
+      <div class="container-fluid">
         <%= link_to "Map Votes", root_path, class: "brand" %>
 
         <ul class ="nav pull-right">
@@ -36,7 +36,7 @@
 
   <%= render partial: "shared/flash_messages", flash: flash %>
 
-  <div class="container" >
+  <div class="container-fluid" >
     <%= yield %>
   </div>
 
