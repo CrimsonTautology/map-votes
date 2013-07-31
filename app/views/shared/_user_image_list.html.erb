@@ -1,8 +1,8 @@
 <div class="row">
 <% users.each do |user| %>
-  <div class="span2 thumbnail-wrapper">
+  <div class="span1 thumbnail-wrapper">
     <%= link_to( image_tag(user.avatar_url, alt: user.nickname, class: "img-rounded user-thumbnail"), user.profile) %>
-    <p class="thumbnail-text"><%= user.nickname %></p>
+    <p class="label label-inverse thumbnail-text"><%= user.nickname %></p>
   </div>
 <% end %>
 </div>
