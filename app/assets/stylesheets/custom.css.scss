@@ -12,9 +12,14 @@ $grayMediumLight: #eaeaea;
 }
  
 
-img.map-thumbnail {
-    width: 160px;
-    height: 120px;
+.thumbnail-wrapper  .thumbnail_text {
+    position: relative;
+    bottom: 30px
+    left: 0px;
+    visibility: hidden;
+}
+.thumbnail-wrapper:hover .thumbnail_text {
+    visibility: visible;
 }
 
 body {

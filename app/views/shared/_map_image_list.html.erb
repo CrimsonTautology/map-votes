@@ -1,6 +1,6 @@
 <% maps.each do |map| %>
-  <div class="thumbnail">
+  <div class="thumbnail-wrapper">
     <%= image_tag(smart_map_image_url(map.name), class: "img-rounded map-thumbnail") %>
-    <span class="label label-inverse photo-label"><%= map.name %></span>
+    <p class="label label-inverse photo-label thumbnail-text"><%= map.name %></p>
   </div>
 <% end %>
