@@ -16,7 +16,8 @@ module V1
       head :created
     end
     def server_query
-      head :no_content
+      no_votes = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", @map.id)
+      render json: no_votes
     end
 
     private
