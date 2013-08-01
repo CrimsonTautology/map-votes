@@ -7,16 +7,16 @@ module V1
     respond_to :json
 
     def cast_vote
-      vote = Vote.cast_vote @user, @map, @value
-      render json: vote
+      Vote.cast_vote @user, @map, @value
+      head :created
     end
 
     def write_message
-      map_comment = MapComment.write_message @user, @map, @comment
-      render json: map_comment
+      MapComment.write_message @user, @map, @comment
+      head :created
     end
     def server_query
-
+      head :no_content
     end
 
     private
@@ -26,7 +26,7 @@ module V1
     end
 
     def find_or_create_user_and_map
-      head :unauthorized unless params["uid"] and params["map"]
+      head :bad_request unless params["uid"] and params["map"]
       @user = User.find_by_provider_and_uid("steam", params["uid"]) || User.create_with_steam_id(params["uid"])
       @map = Map.find_or_create_by_name(params["map"])
 
@@ -34,12 +34,12 @@ module V1
 
     def check_value
       @value = params["value"]
-      head :unauthorized unless @value
+      head :bad_request unless @value
     end
 
     def check_comment
       @comment = params["comment"]
-      head :unauthorized unless @comment
+      head :bad_request unless @comment
     end
 
   end
