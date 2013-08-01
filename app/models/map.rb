@@ -50,11 +50,11 @@ class Map < ActiveRecord::Base
   end
 
   def likes
-    votes.likes.count
+    votes.map(&:value).select{|v| v==1}.count
   end
 
   def hates
-    votes.hates.count
+    votes.map(&:value).select{|v| v==-1}.count
   end
 
   def total_votes
