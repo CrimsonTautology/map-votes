@@ -5,7 +5,6 @@ class MapsController < ApplicationController
 
   def index
     @maps = Map.find(:all, order: 'name', include: [:liked_by, :hated_by, :map_type])
-    @map_types = @maps.group_by {|m| m.map_type}.sort
   end
 
   def show

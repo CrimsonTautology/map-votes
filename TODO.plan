@@ -2,8 +2,8 @@
 +Position everything
 -Add a recent activity feed on the front page
     -Most recent map comments and when a new map is added
--Optimize queries
-    -Map list needs work
++Optimize queries
+    +Map list needs work
 -Write Readme
 -Handle image text popup for long names
 -Display vote counts
@@ -13,7 +13,7 @@
 -Add ability to add imgur link for map image
 -Add ability to write summary of map
 -Add ability to include map source url
--Cront like task to periodicly update maplist/refresh user information
+-Cron like task to periodicly update maplist/refresh user information
 -add Users section
     -View liked/disliked/comments
     -List order by likes/dislikes
