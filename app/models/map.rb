@@ -3,7 +3,20 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :likes, class_name: 'Vote',
+            conditions[value: 1]
+  has_many :hates, class_name: 'Vote',
+            conditions[value: -1]
   has_many :users, through: :votes
+  has_many :liked_by, through: :votes,
+            class_name: 'User',
+            source: :user,
+            conditions: ['votes.value = ?', 1]
+  has_many :hated_by, through: :votes,
+            class_name: 'User',
+            source: :user,
+            conditions: ['votes.value = ?', -1]
+
   
 
   belongs_to :map_type
@@ -37,28 +50,8 @@ class Map < ActiveRecord::Base
     name.parameterize
   end
 
-  def liked_by
-    votes.likes.map(&:user)
-  end
-
-  def hated_by
-    votes.hates.map(&:user)
-  end
-
-  def neutral_by
-    votes.neutral.map(&:user)
-  end
-
-  def likes
-    votes.map(&:value).select{|v| v==1}.count
-  end
-
-  def hates
-    votes.map(&:value).select{|v| v==-1}.count
-  end
-
   def total_votes
-    likes + hates
+    likes.count + hates.count
   end
 
 

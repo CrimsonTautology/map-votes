@@ -4,6 +4,14 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :map_comments
   has_many :maps, through: :votes
+  has_many :liked_maps, through: :votes,
+            class_name: 'Map',
+            source: :map,
+            conditions: ['votes.value = ?', 1]
+  has_many :hated_maps, through: :votes,
+            class_name: 'Map',
+            source: :map,
+            conditions: ['votes.value = ?', -1]
 
   after_find :check_for_account_update
 
@@ -11,16 +19,6 @@ class User < ActiveRecord::Base
   validates :uid, presence: true
   validates :uid, uniqueness: true
   validates :provider, presence: true
-
-  def liked_maps
-    votes.likes.map(&:map)
-  end
-  def hated_maps
-    votes.hates.map(&:map)
-  end
-  def neutral_maps
-    votes.neutral.map(&:map)
-  end
 
   def self.random
     offset(rand count).first
