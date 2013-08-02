@@ -1,7 +1,7 @@
 <% provide(:title, "Map List" ) %>
 <ul>
-  <% @map_types.each do |type, maps| %>
-    <li ><%= type.name %>
+  <% @maps.group_by(&:map_type_id).each do |type, maps| %>
+    <li ><%= maps[0].map_type.name %>
     <ul >
       <% maps.each do |map|%>
         <li>
