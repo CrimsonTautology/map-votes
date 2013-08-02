@@ -3,10 +3,6 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
-  has_many :likes, class_name: 'Vote',
-            conditions[value: 1]
-  has_many :hates, class_name: 'Vote',
-            conditions[value: -1]
   has_many :users, through: :votes
   has_many :liked_by, through: :votes,
             class_name: 'User',
@@ -51,7 +47,7 @@ class Map < ActiveRecord::Base
   end
 
   def total_votes
-    likes.count + hates.count
+    liked_by.count + hated_by.count
   end
 
 
