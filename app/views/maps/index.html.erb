@@ -7,8 +7,8 @@
         <li>
         <%= link_to map.name, map %> 
         <div>
-        <span><%= map.likes %></span>
-        <span><%= map.hates %></span>
+        <span><%= map.liked_by.count %></span>
+        <span><%= map.hated_by.count %></span>
         </div>
         </li>
       <% end %>

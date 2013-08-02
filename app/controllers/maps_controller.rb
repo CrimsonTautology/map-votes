@@ -4,7 +4,7 @@ class MapsController < ApplicationController
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index
-    @maps = Map.find(:all, order: 'name', include: :votes)
+    @maps = Map.find(:all, order: 'name', include: [:liked_by, :hated_by, :map_type])
     @map_types = @maps.group_by {|m| m.map_type}.sort
   end
 
@@ -38,7 +38,7 @@ class MapsController < ApplicationController
 
   private
   def find_map
-    @map = Map.find_by_name(params[:id])
+    @map = Map.includes(:liked_by, :hated_by, :map_type, :map_comments).find_by_name(params[:id])
   end
 
 
