@@ -1,3 +1,5 @@
+require "base64"
+
 module V1
   class ApiController < ApplicationController
     before_filter :check_api_key
@@ -40,6 +42,9 @@ module V1
 
     def check_comment
       @comment = params["comment"]
+      if params["base64"]
+        @comment = Base64.urlsafe_decode64 @comment
+      end
       head :bad_request unless @comment
     end
 
