@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 
 
 gem 'bootstrap-sass'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 
 gem 'omniauth'
