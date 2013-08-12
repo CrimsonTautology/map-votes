@@ -6,8 +6,8 @@
       <% maps.each do |map|%>
         <li>
         <%= link_to map.name, map %> 
-        <span class="up-vote"><%= map.liked_by.count %><i class="icon-thumbs-up"></i></span>
-        <span class="down-vote"><%= map.hated_by.count %><i class="icon-thumbs-down"></i></span>
+        <% if map.liked_by.count > 0 %><span class="up-vote"><%= map.liked_by.count %><i class="icon-thumbs-up"></i></span><% end %>
+        <% if map.hated_by.count > 0 %><span class="down-vote"><%= map.hated_by.count %><i class="icon-thumbs-down"></i></span><% end %>
         </li>
       <% end %>
     </ul>
