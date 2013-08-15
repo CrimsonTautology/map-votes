@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730224152) do
+ActiveRecord::Schema.define(:version => 20130815151931) do
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -50,9 +50,11 @@ ActiveRecord::Schema.define(:version => 20130730224152) do
   create_table "maps", :force => true do |t|
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "map_type_id"
+    t.text     "description", :default => ""
+    t.string   "origin",      :default => ""
   end
 
   create_table "users", :force => true do |t|
