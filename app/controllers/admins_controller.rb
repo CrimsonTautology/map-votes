@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_filter :authorize_admin
 
   def index
-    @admins = User.find(:admins)
+    @admins = User.admins
   end
 
   def create
