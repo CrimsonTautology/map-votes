@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
             source: :map,
             conditions: ['votes.value = ?', -1]
 
+  scope :admins, where(admin: true)
+
   after_find :check_for_account_update
 
   validates :nickname, presence: true
