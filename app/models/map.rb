@@ -19,7 +19,7 @@ class Map < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
-  no_whitespace = /^[\S]+$/
+  no_whitespace = /\A[\S]+\z/
   validates :name, format: {with: no_whitespace}
 
   before_create :type_from_prefix
