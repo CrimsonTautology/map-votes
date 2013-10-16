@@ -1,63 +1,53 @@
 require 'spec_helper'
 
-describe "Maps" do
+describe "Map pages" do
+
+  subject { page }
+
   describe "GET /maps" do
     context "empty database" do
       before(:each) do
         Map.delete_all
-        visit "/maps"
+        visit maps_path
       end
 
-      it "renders" do
-        expect(page.status_code).to be(200)
-      end
+      it { should have_status_code(200)}
 
     end
 
     context "populated database" do
+      let!(:map) {FactoryGirl.create(:map)}
       before(:each) do
-        @map = FactoryGirl.create(:map)
-        visit "/maps"
+        visit maps_path
       end
 
-      it "displays a list of maps" do
-        expect(page).to have_content @map.name
-      end
-
-      it "groups available map types" do
-        expect(page).to have_content @map.map_type.name
-      end
+      it { should have_link(map.name, href: map_path(map))}
+      it { should have_content(map.map_type.name)}
 
     end
   end #/maps
+
   describe "GET /maps/:id" do
+    let!(:map) {FactoryGirl.create(:map)}
+
     before(:each) do
-      @map = FactoryGirl.create(:map)
       visit "/maps/#{@map.name}"
     end
-    it "renders" do
-      expect(page.status_code).to be(200)
-    end
-    it "displays the current map" do
-      expect(page).to have_content @map.name
-    end
+
+    it { should have_status_code(200)}
+    it { should have_content(map.name)}
 
     context "no comments" do
       before(:each) do
         MapComment.delete_all
       end
-      it "Mentions there are no comments" do
-        expect(page).to have_content "No Comments"
-      end
-    end
-    context "with comments" do
-      before(:each) do
-        @comment = FactoryGirl.create(:comment)
-      end
 
-      it "displays comments" do
-        expect(page).to have_content @comment.comment
-      end
+      it { should have_content("No comments")}
+    end
+
+    context "with comments" do
+      let!(:comment) {FactoryGirl.create(:comment)}
+      it { should have_content(comment.comment)}
 
     end
 
