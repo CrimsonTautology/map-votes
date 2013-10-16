@@ -8,9 +8,9 @@ class Vote < ActiveRecord::Base
   validates :user_id, presence: true
   validates_inclusion_of :value, in: [1, -1, 0]
 
-  scope :likes, where(value: 1)
-  scope :hates, where(value: -1)
-  scope :neutral, where(value: 0)
+  scope :likes,   -> { where value: 1 }
+  scope :hates,   -> { where value: -1 }
+  scope :neutral, -> { where value: 0 }
 
   def self.cast_vote user, map, value
     v = Vote.find_by_user_id_and_map_id user, map

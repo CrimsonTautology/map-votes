@@ -4,16 +4,24 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :map_comments
   has_many :maps, through: :votes
-  has_many :liked_maps, through: :votes,
+  has_many :voted_maps, through: :votes,
             class_name: 'Map',
-            source: :map,
-            conditions: ['votes.value = ?', 1]
-  has_many :hated_maps, through: :votes,
-            class_name: 'Map',
-            source: :map,
-            conditions: ['votes.value = ?', -1]
+            source: :map
 
-  scope :admins, where(admin: true)
+  #TODO these are deprecated
+  has_many :liked_maps,
+            -> { where 'votes.value = 1'},
+            through: :votes,
+            class_name: 'Map',
+            source: :map
+            
+  has_many :hated_maps,
+            -> { where 'votes.value = -1'},
+            through: :votes,
+            class_name: 'Map',
+            source: :map
+
+  scope :admins, -> {where admin: true}
 
   after_find :check_for_account_update
 

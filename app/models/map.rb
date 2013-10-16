@@ -3,17 +3,22 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
-  has_many :users, through: :votes
-  has_many :liked_by, through: :votes,
+  has_many :voted_by, through: :votes,
             class_name: 'User',
-            source: :user,
-            conditions: ['votes.value = ?', 1]
-  has_many :hated_by, through: :votes,
-            class_name: 'User',
-            source: :user,
-            conditions: ['votes.value = ?', -1]
+            source: :user
 
-  
+  #TODO these are deprecated
+  has_many :liked_by,
+            -> { where 'votes.value = -1'},
+            through: :votes,
+            class_name: 'User',
+            source: :user
+  has_many :hated_by,
+            -> { where 'votes.value = -1'},
+            through: :votes,
+            class_name: 'User',
+            source: :user
+
 
   belongs_to :map_type
 
