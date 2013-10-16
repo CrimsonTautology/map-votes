@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
+gem 'protected_attributes' #NOTE this is until we switch to strong_parameters
+
 gem 'sqlite3'
 #gem 'pg'
 
