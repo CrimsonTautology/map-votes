@@ -41,12 +41,14 @@ describe "Map pages" do
         MapComment.delete_all
       end
 
-      it { should have_content("No comments")}
+      it { should have_content("All comments (0)")}
     end
 
     context "with comments" do
       let!(:comment) {FactoryGirl.create(:map_comment, map: map)}
       it { should have_content(comment.comment)}
+      it { should have_content(comment.map.name)}
+      it { should have_content(comment.user.name)}
 
     end
 
