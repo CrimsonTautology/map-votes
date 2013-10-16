@@ -7,17 +7,13 @@ class Map < ActiveRecord::Base
             class_name: 'User',
             source: :user
 
-  #TODO these are deprecated
-  has_many :liked_by,
-            -> { where 'votes.value = -1'},
-            through: :votes,
-            class_name: 'User',
-            source: :user
-  has_many :hated_by,
-            -> { where 'votes.value = -1'},
-            through: :votes,
-            class_name: 'User',
-            source: :user
+
+  def liked_by
+    votes.likes.map(&:user)
+  end
+  def hated_by
+    votes.hates.map(&:user)
+  end
 
 
   belongs_to :map_type

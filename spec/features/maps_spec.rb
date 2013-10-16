@@ -11,7 +11,9 @@ describe "Map pages" do
         visit maps_path
       end
 
-      it { should have_status_code(200)}
+      it "works" do
+        expect(page.status_code).to eq(200)
+      end
 
     end
 
@@ -31,10 +33,9 @@ describe "Map pages" do
     let!(:map) {FactoryGirl.create(:map)}
 
     before(:each) do
-      visit "/maps/#{@map.name}"
+      visit "/maps/#{map.name}"
     end
 
-    it { should have_status_code(200)}
     it { should have_content(map.name)}
 
     context "no comments" do
@@ -46,7 +47,7 @@ describe "Map pages" do
     end
 
     context "with comments" do
-      let!(:comment) {FactoryGirl.create(:comment)}
+      let!(:comment) {FactoryGirl.create(:map_comment)}
       it { should have_content(comment.comment)}
 
     end

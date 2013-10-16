@@ -3,23 +3,16 @@ class User < ActiveRecord::Base
 
   has_many :votes
   has_many :map_comments
-  has_many :maps, through: :votes
   has_many :voted_maps, through: :votes,
             class_name: 'Map',
             source: :map
 
-  #TODO these are deprecated
-  has_many :liked_maps,
-            -> { where 'votes.value = 1'},
-            through: :votes,
-            class_name: 'Map',
-            source: :map
-            
-  has_many :hated_maps,
-            -> { where 'votes.value = -1'},
-            through: :votes,
-            class_name: 'Map',
-            source: :map
+  def liked_maps
+    votes.likes.map(&:map)
+  end
+  def hated_maps
+    votes.hates.map(&:map)
+  end
 
   scope :admins, -> {where admin: true}
 
