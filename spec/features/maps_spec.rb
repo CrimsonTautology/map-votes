@@ -11,9 +11,7 @@ describe "Map pages" do
         visit maps_path
       end
 
-      it "works" do
-        expect(page.status_code).to eq(200)
-      end
+      its(:status_code) { should eq 200}
 
     end
 
@@ -47,7 +45,7 @@ describe "Map pages" do
     end
 
     context "with comments" do
-      let!(:comment) {FactoryGirl.create(:map_comment)}
+      let!(:comment) {FactoryGirl.create(:map_comment, map: map)}
       it { should have_content(comment.comment)}
 
     end
