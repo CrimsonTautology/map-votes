@@ -9,6 +9,19 @@ require 'rspec/autorun'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+#Configure omniauth
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:steam] = {
+  uid: '12345',
+  info: {
+    nickname: 'Example User [TEST]',
+    image: 'http://placehold.it/350x150',
+    urls: {
+      Profile: 'http://example.com'
+    }
+  }
+}
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
