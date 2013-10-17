@@ -24,10 +24,10 @@
           <% end %>
           <% if current_user %>
             <li>Welcome <%= current_user.nickname %></li>
-            <li><%= link_to "Sign Out", signout_path %></li>
+            <li><%= link_to "Sign Out", logout_path %></li>
             <%= link_to image_tag(current_user.avatar_url, alt: "avatar"), current_user.profile %>
         <%else %>
-          <li><%= link_to image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam"%></li>
+          <li><%= link_to image_tag("sits_small.png", alt: "Sign in with Steam"), login_path %></li>
         <% end %>
       </ul>
     </div>
