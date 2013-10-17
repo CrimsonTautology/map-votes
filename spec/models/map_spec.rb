@@ -2,32 +2,28 @@ require 'spec_helper'
 
 describe Map do
   context "adding a new map" do
-    before(:each) { @map = Map.create!(name: "koth_crap_b1") }
-    after(:each) {Map.delete @map}
+    let(:map) {FactoryGirl.create(:map, name: "koth_crap_b1")}
 
-    it "gets it's map type from the map prefix" do
-      type = @map.map_type
-      expect(type.name).to eq "King of the Hill"
-    end
+    subject{ map }
+
+    its(:map_type) { should eql MapType.find_by_prefix("koth" )}
 
   end
 
   describe "#base_map_name" do
-    before(:each) {@map = Map.create!(name: "cp_base_name_v1") }
-    after(:each) {Map.delete @map}
+    let(:map) {FactoryGirl.create(:map, name: "cp_base_name_v1")}
+    subject{ map }
 
-    it "has a base name" do
-      expect(@map.base_map_name).to eql "base_name"
-    end
+    its(:base_map_name) { should eql  "base_name"}
 
     it "matches related maps" do
-      @other = Map.create!(name: "koth_base_name_final")
-      expect(@other.base_map_name).to eql @map.base_map_name
+      other = FactoryGirl.create(:map, name:  "koth_base_name_final")
+      expect(other.base_map_name).to eql map.base_map_name
     end
 
     it "ignores maps without a prefix" do
-      @other = Map.create!(name: "avanti_b1")
-      expect(@other.base_map_name).to eql "avanti"
+      map.name = "avanti_b1"
+      expect(map.base_map_name).to eql "avanti"
     end
 
   end
