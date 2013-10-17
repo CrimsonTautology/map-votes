@@ -36,15 +36,13 @@ describe "Map pages" do
 
     it { should have_content(map.name)}
     it { should have_content(map.map_type.name)}
+    it { should have_content("All Comments (0)")}
+    it { should have_content("You must be logged in to leave a comment")}
 
-    context "no comments" do
-      before(:each) do
-        MapComment.delete_all
-        visit map_path(map)
-      end
-
-      it { should have_content("All Comments (0)")}
-    end
+    it { should_not have_link("", href: vote_map_path(map, type: "up"))}
+    it { should_not have_link("", href: vote_map_path(map, type: "down"))}
+    it { should_not have_link("", href: edit_map_path(map))}
+    #it { should_not have_selector()}
 
     context "with comments" do
       let!(:comment) {FactoryGirl.create(:map_comment, map: map)}
@@ -88,11 +86,6 @@ describe "Map pages" do
       pending "removing a comment"
       pending "voting"
 
-    end
-    context "user logged out" do
-      pending "does not show add new comment textbox"
-      pending "not prompted to vote"
-#You must be logged in to leave a comment
     end
   end#/maps/:id
 end
