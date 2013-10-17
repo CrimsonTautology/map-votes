@@ -35,20 +35,25 @@ describe "Map pages" do
     end
 
     it { should have_content(map.name)}
+    it { should have_content(map.map_type.name)}
 
     context "no comments" do
       before(:each) do
         MapComment.delete_all
+        visit map_path(map)
       end
 
-      it { should have_content("All comments (0)")}
+      it { should have_content("All Comments (0)")}
     end
 
     context "with comments" do
       let!(:comment) {FactoryGirl.create(:map_comment, map: map)}
+      before do
+        visit map_path(map)
+      end
+
       it { should have_content(comment.comment)}
-      it { should have_content(comment.map.name)}
-      it { should have_content(comment.user.name)}
+      it { should have_content(comment.user.nickname)}
 
     end
 

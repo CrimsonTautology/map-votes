@@ -21,4 +21,10 @@ FactoryGirl.define do
     user
     map
   end
+
+  factory :vote do
+    value 0
+    user
+    map
+  end
 end
