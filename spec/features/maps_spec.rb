@@ -57,6 +57,31 @@ describe "Map pages" do
 
     end
 
+    context "with up votes" do
+      let!(:user) {FactoryGirl.create(:user, nickname: "Upvote McGee")}
+      let!(:vote) {FactoryGirl.create(:vote, map: map, user: user, value: 1)}
+
+      before do
+        visit map_path(map)
+      end
+
+      it { should have_content(user.nickname)}
+      it { should have_content("Liked by")}
+    end
+
+    context "with down votes" do
+      let!(:user) {FactoryGirl.create(:user, nickname: "Map hater")}
+      let!(:vote) {FactoryGirl.create(:vote, map: map, user: user, value: -1)}
+
+      before do
+        visit map_path(map)
+      end
+
+      it { should have_content(user.nickname)}
+      it { should have_content("Hated by")}
+      it { should have_selector('span', class: 'down-vote', text: '1')}
+    end
+
     context "user logged in" do
       pending "shows add new comment textbox"
       pending "adding a comment"
@@ -67,7 +92,7 @@ describe "Map pages" do
     context "user logged out" do
       pending "does not show add new comment textbox"
       pending "not prompted to vote"
-
+#You must be logged in to leave a comment
     end
   end#/maps/:id
 end

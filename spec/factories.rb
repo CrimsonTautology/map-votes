@@ -12,7 +12,9 @@ FactoryGirl.define do
 
   factory :user do
     nickname "FooBar"
-    uid "12345"
+    sequence :uid do |n|
+      "123#{n}"
+    end
     provider "steam"
   end
 
