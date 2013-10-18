@@ -11,7 +11,7 @@ describe "Static pages" do
     end
 
     its(:status_code) { should eq 200}
-    it { should have_link("",href: login_path)}
+    it { should have_link("", href: "/auth/steam")}
 
     context "logged in" do
       let!(:user) {FactoryGirl.create(:user)}
