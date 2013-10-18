@@ -40,6 +40,7 @@
         <div class="media-body">
           <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
           <%= mc.comment %>
+          <%= link_to("Delete", [@map, mc],  confirm: "Are you sure?", method: :delete) if mc.user.eql?(current_user) %>
         </div>
       </div>
     <% end %>

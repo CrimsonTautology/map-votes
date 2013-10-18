@@ -17,9 +17,10 @@ class MapCommentsController < ApplicationController
 
   end
   def destroy
+    @map = @map_comment.map
     @map_comment.delete
     flash[:notice] = "Comment Deleted!"
-    redirect_to params[:map_id]
+    redirect_to @map
   end
 
   def update

@@ -107,10 +107,9 @@ describe "Map pages" do
       end
 
       it "allows you to delete comments" do
-        #raise page.body.to_yaml
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
-        click_on "delete"
+        click_on "Delete"
         expect(page).to_not have_content("This is a test")
       end
 
