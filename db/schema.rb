@@ -80,3 +80,4 @@ ActiveRecord::Schema.define(version: 20130815151931) do
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
 end
+
