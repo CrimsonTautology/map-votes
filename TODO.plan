@@ -6,8 +6,6 @@
     +Map list needs work
 -Write Readme
 -Handle image text popup for long names
--Display vote counts
-    -Use red/green with thumbs up/down
 -Write SourceMod plugin to connect with api
 -Add icon sized avatar
 -Add ability to add imgur link for map image

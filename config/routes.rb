@@ -16,6 +16,6 @@ MapVotes::Application.routes.draw do
   end
   root to: "home#index"
 
-  match "/auth/steam/callback" => "sessions#create"
-  match "/signout" => "sessions#destroy", as: :signout
+  get "/auth/steam/callback" => "sessions#create", as: :login
+  get "/logout" => "sessions#destroy", as: :logout
 end

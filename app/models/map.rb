@@ -3,23 +3,24 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
-  has_many :users, through: :votes
-  has_many :liked_by, through: :votes,
+  has_many :voted_by, through: :votes,
             class_name: 'User',
-            source: :user,
-            conditions: ['votes.value = ?', 1]
-  has_many :hated_by, through: :votes,
-            class_name: 'User',
-            source: :user,
-            conditions: ['votes.value = ?', -1]
+            source: :user
 
-  
+
+  def liked_by
+    votes.likes.map(&:user)
+  end
+  def hated_by
+    votes.hates.map(&:user)
+  end
+
 
   belongs_to :map_type
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
-  no_whitespace = /^[\S]+$/
+  no_whitespace = /\A[\S]+\z/
   validates :name, format: {with: no_whitespace}
 
   before_create :type_from_prefix

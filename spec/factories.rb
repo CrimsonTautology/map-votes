@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :map do
-    sequence(:name){ |n| "pl_test_map_b#{n}"}
+    name "pl_test_map_b1"
     map_type
   end
 
@@ -10,13 +10,23 @@ FactoryGirl.define do
     prefix "pl"
   end
 
+  factory :user do
+    nickname "FooBar"
+    sequence :uid do |n|
+      "123#{n}"
+    end
+    provider "steam"
+  end
+
   factory :map_comment do
     comment "Foo bar baz."
     user
     map
   end
 
-  factory :user do
-    nickname "FooBar"
+  factory :vote do
+    value 0
+    user
+    map
   end
 end
