@@ -88,6 +88,11 @@ describe "Map pages" do
         visit map_path(map)
       end
 
+      it "allows you to vote" do
+        expect{click_on "like it" }.to change{Vote.count}.by(1)
+        expect{click_on "hate it" }.to_not change{Vote.count}
+      end
+
       it "won't let you enter blank comments" do
         click_on "Post Comment"
         expect(page).to have_content("Could not add comment")
@@ -101,7 +106,15 @@ describe "Map pages" do
         expect(page).to have_content(map.name)
       end
 
-      it "won't let you rapidly enter comments" do
+      it "allows you to delete comments" do
+        #raise page.body.to_yaml
+        fill_in "map_comment_comment", with: "This is a test comment"
+        click_on "Post Comment"
+        click_on "delete"
+        expect(page).to_not have_content("This is a test")
+      end
+
+      pending "won't let you rapidly enter comments" do
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
         fill_in "map_comment_comment", with: "Another comment"
