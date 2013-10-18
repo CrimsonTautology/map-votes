@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Map pages" do
+  #raise page.body.to_yaml
 
   subject { page }
 
@@ -23,7 +24,22 @@ describe "Map pages" do
 
       it { should have_link(map.name, href: map_path(map))}
       pending { should have_content(map.map_type.name)}
+    end
 
+    context "filtering" do
+      before do
+        FactoryGirl.create(:map, name: "cp_badlands")
+        FactoryGirl.create(:map, name: "koth_badlands")
+        FactoryGirl.create(:map, name: "koth_viaduct")
+        visit maps_path
+      end
+
+      it "searches by name" do
+        fill_in "search", with: "bad"
+        click_on "Search Maps"
+        expect(page).to have_content("koth_badlands")
+        expect(page).to_not have_content("koth_viaduct")
+      end
     end
   end #/maps
 
@@ -99,7 +115,6 @@ describe "Map pages" do
       end
 
       it "allows you to enter comments" do
-        #raise page.body.to_yaml
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
         expect(page).to have_content("This is a test comment")
