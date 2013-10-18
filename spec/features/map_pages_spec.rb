@@ -36,7 +36,7 @@ describe "Map pages" do
         visit maps_path
       end
 
-      pending "by name" do
+      it "by name" do
         fill_in "search", with: "bad"
         click_on "Search Maps"
         expect(page).to have_content("koth_badlands")

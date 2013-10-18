@@ -39,6 +39,7 @@ describe Map do
     it { should include( "cp_base_name") }
     it { should include( "cp_base_name_final") }
 
+    it { should_not include( "cp_base_name_v1") }
     it { should_not include( "cp_dustbowl") }
     it { should_not include( "koth_place_v1") }
     pending { should_not include( "cp_secret_base_b1") }

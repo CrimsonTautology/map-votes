@@ -33,14 +33,10 @@ class Map < ActiveRecord::Base
     name.gsub(/^[^_]{0,5}_/, '').gsub(/_[^_]*$/, '')
   end
 
-  def find_related_maps
-    Map.where('name LIKE ? AND name <> ?', "%#{base_map_name}%", name)
-  end
-
   def find_related_maps_deep
     base_map_name.split("_").select{|s| s.length>3}.map do |s|
-      Map.where('name LIKE ? AND name <> ?', "%#{s}%", name)
-    end.flatten.uniq
+      Map.search(s)
+    end.flatten.uniq.reject{|m| m.name.eql?(name)}
   end
 
   def to_param
@@ -71,6 +67,16 @@ class Map < ActiveRecord::Base
 
     maplist.each do |s|
       Map.find_or_create_by_name(s)
+    end
+  end
+
+  def self.search(query)
+    #Use postgre text search
+    if query.present?
+      #where("name @@ :q", q: query)
+      where("name like :q", q: "%#{query}%")
+    else
+      scoped
     end
   end
 

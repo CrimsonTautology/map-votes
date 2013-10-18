@@ -7,8 +7,7 @@ class MapsController < ApplicationController
     if params[:map_type_id]
       @maps = Map.includes([:votes]).where(map_type_id: params[:map_type_id]).order(:name).page(params[:page])
     elsif not params[:search].blank?
-      #TODO
-      @maps = Map.includes([:votes]).order(:name).page(params[:page])
+      @maps = Map.includes([:votes]).search(params[:search]).order(:name).page(params[:page])
     else
       @maps = Map.includes([:votes]).order(:name).page(params[:page])
     end
