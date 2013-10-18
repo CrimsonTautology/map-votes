@@ -18,7 +18,7 @@ describe Vote do
     end
 
     it "rejects invalid votes" do
-      expect{Vote.cast_vote(user, map, 722134)}.to_not change{Vote.count}
+      expect{Vote.cast_vote(user, map, 23)}.to raise_exception(ActiveRecord::RecordInvalid)
     end
 
   end

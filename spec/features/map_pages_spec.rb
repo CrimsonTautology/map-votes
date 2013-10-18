@@ -65,6 +65,7 @@ describe "Map pages" do
 
       it { should have_content(user.nickname)}
       it { should have_content("Liked by")}
+      it { should have_selector('span.up-vote', text: '1')}
     end
 
     context "with down votes" do
@@ -77,7 +78,7 @@ describe "Map pages" do
 
       it { should have_content(user.nickname)}
       it { should have_content("Hated by")}
-      it { should have_selector('span', class: 'down-vote', text: '1')}
+      it { should have_selector('span.down-vote', text: '1')}
     end
 
     context "user logged in" do
