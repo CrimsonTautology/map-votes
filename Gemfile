@@ -19,6 +19,7 @@ gem "bcrypt-ruby"
 gem "bourbon"
 gem "cancan"
 gem 'simple_form'
+gem 'will_paginate', '~> 3.0'
 
 gem 'omniauth-openid'
 gem 'omniauth-steam'

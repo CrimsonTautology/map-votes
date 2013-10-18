@@ -1,16 +1,10 @@
 <% provide(:title, "Map List" ) %>
-<ul>
-  <% @maps.group_by(&:map_type_id).each do |type, maps| %>
-    <li ><%= maps[0].map_type.name %>
-    <ul >
-      <% maps.each do |map|%>
-        <li>
-        <%= link_to map.name, map %> 
-        <% if map.liked_by.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.liked_by.count, class: "up-vote" %><% end %>
-        <% if map.hated_by.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.hated_by.count, class: "down-vote" %><% end %>
-        </li>
-      <% end %>
-    </ul>
+<ul >
+  <% @maps.each do |map|%>
+    <li>
+    <%= link_to map.name, map %> 
+    <% if map.liked_by.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.liked_by.count, class: "up-vote" %><% end %>
+    <% if map.hated_by.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.hated_by.count, class: "down-vote" %><% end %>
     </li>
   <% end %>
 </ul>
