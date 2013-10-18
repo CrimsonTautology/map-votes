@@ -4,8 +4,8 @@ describe "MapVotes API" do
   end
 
   describe "#write_message" do
-    before
-      post '/v1/api/write_message'
+    before do
+      #post '/v1/api/write_message'
     end
 
   end
