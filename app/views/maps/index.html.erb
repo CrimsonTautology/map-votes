@@ -1,5 +1,11 @@
 <% provide(:title, "Map List" ) %>
 
+<div class="map-views">
+  View: 
+  <span class="view"><%= link_to fa_icon( "icon-list-ul"), params.merge(view: nil, page: nil), title: "List View" %></span>
+  <span class="view"><%= link_to fa_icon( "icon-th"), params.merge(view: "grid", page: nil), title: "Grid View"  %></span>
+</div>
+
 <div class="map-categories">
   <h2>Map Categories</h2>
   <ul>
@@ -9,14 +15,22 @@
   </ul>
 </div>
 
-<ul >
-  <% @maps.each do |map|%>
-    <li>
-      <%= link_to map.name, map %> 
-      <% if map.votes.likes.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.votes.likes.count, class: "up-vote" %><% end %>
-      <% if map.votes.hates.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.votes.hates.count, class: "down-vote" %><% end %>
-    </li>
-  <% end %>
-</ul>
+<% if params[:view].nil? %>
+  <div class="list">
+    <ul >
+      <% @maps.each do |map|%>
+        <li>
+          <%= link_to map.name, map %> 
+          <% if map.votes.likes.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.votes.likes.count, class: "up-vote" %><% end %>
+          <% if map.votes.hates.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.votes.hates.count, class: "down-vote" %><% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% elsif params[view] == "grid" %>
+  <div class="grid">
+    <%= render 'shared/map_image_list', {maps: @maps} %>
+  </div>
+<% end %>
 
 <%= will_paginate @maps %>
