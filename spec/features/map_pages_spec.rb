@@ -28,17 +28,27 @@ describe "Map pages" do
 
     context "filtering" do
       before do
+        FactoryGirl.create(:map_type, name: "King of the Hill", prefix: "koth")
+        FactoryGirl.create(:map_type, name: "Control Point", prefix: "cp")
         FactoryGirl.create(:map, name: "cp_badlands")
         FactoryGirl.create(:map, name: "koth_badlands")
         FactoryGirl.create(:map, name: "koth_viaduct")
         visit maps_path
       end
 
-      it "searches by name" do
+      pending "by name" do
         fill_in "search", with: "bad"
         click_on "Search Maps"
         expect(page).to have_content("koth_badlands")
         expect(page).to_not have_content("koth_viaduct")
+      end
+
+      it "by map type" do
+        #raise page.body.to_yaml
+        click_on "King of the Hill"
+        expect(page).to have_content("koth_badlands")
+        expect(page).to_not have_content("cp_badlands")
+
       end
     end
   end #/maps

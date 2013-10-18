@@ -4,14 +4,13 @@ class MapsController < ApplicationController
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index
-    @map_type = MapType.find(params[:map_type_id]) if params[:map_type_id]
-
-    if params[:search].blank?
-      @maps = Map.includes([:votes, :map_type]).order(:name).page(params[:page])
-    else
+    if params[:map_type_id]
+      @maps = Map.includes([:votes]).where(map_type_id: params[:map_type_id]).order(:name).page(params[:page])
+    elsif not params[:search].blank?
       #TODO
-      #@maps = Map
-
+      @maps = Map.includes([:votes]).order(:name).page(params[:page])
+    else
+      @maps = Map.includes([:votes]).order(:name).page(params[:page])
     end
   end
 

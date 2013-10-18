@@ -1,5 +1,13 @@
 <% provide(:title, "Map List" ) %>
 
+<div class="map-categories">
+  <h2>Map Categories</h2>
+  <ul>
+    <% MapType.order("name").each do |map_type| %>
+      <li><%= link_to( map_type.name, params.merge(map_type_id: map_type.id, page: nil)) %></li>
+    <% end %>
+  </ul>
+</div>
 
 <ul >
   <% @maps.each do |map|%>
