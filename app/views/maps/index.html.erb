@@ -3,8 +3,8 @@
   <% @maps.each do |map|%>
     <li>
     <%= link_to map.name, map %> 
-    <% if map.liked_by.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.liked_by.count, class: "up-vote" %><% end %>
-    <% if map.hated_by.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.hated_by.count, class: "down-vote" %><% end %>
+    <% if map.votes.likes.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.votes.likes.count, class: "up-vote" %><% end %>
+    <% if map.votes.hates.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.votes.hates.count, class: "down-vote" %><% end %>
     </li>
   <% end %>
 </ul>
