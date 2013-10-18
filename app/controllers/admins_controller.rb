@@ -35,6 +35,7 @@ class AdminsController < ApplicationController
       @admin.admin = false
     else
 
-    redirect_to admins_path
+      redirect_to admins_path
+    end
   end
 end
