@@ -27,7 +27,7 @@
       <% end %>
     </ul>
   </div>
-<% elsif params[view] == "grid" %>
+<% elsif params[:view] == "grid" %>
   <div class="grid">
     <%= render 'shared/map_image_list', {maps: @maps} %>
   </div>
