@@ -22,7 +22,7 @@ describe "Map pages" do
       end
 
       it { should have_link(map.name, href: map_path(map))}
-      it { should have_content(map.map_type.name)}
+      pending { should have_content(map.map_type.name)}
 
     end
   end #/maps
@@ -82,10 +82,36 @@ describe "Map pages" do
     end
 
     context "user logged in" do
-      pending "shows add new comment textbox"
-      pending "adding a comment"
-      pending "removing a comment"
-      pending "voting"
+      let!(:user) {FactoryGirl.create(:user)}
+      before do
+        login user
+        visit map_path(map)
+      end
+
+      it "won't let you enter blank comments" do
+        click_on "Post Comment"
+        expect(page).to have_content("Could not add comment")
+      end
+
+      it "allows you to enter comments" do
+        #raise page.body.to_yaml
+        fill_in "map_comment_comment", with: "This is a test comment"
+        click_on "Post Comment"
+        expect(page).to have_content("This is a test comment")
+        expect(page).to have_content(map.name)
+      end
+
+      it "won't let you rapidly enter comments" do
+        fill_in "map_comment_comment", with: "This is a test comment"
+        click_on "Post Comment"
+        fill_in "map_comment_comment", with: "Another comment"
+        click_on "Post Comment"
+        expect(page).to have_content(map.name)
+        expect(page).to have_content("This is a test comment")
+        expect(page).to_not have_content("Another comment")
+        expect(page).to have_content("Can not add another comment so soon")
+
+      end
 
     end
   end#/maps/:id

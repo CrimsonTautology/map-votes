@@ -27,7 +27,7 @@
       <%= simple_form_for [@map, MapComment.new],
         method: 'post' do |f| %>
         <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
-        <%= f.button :submit %>
+        <%= f.submit "Post Comment" %>
       <% end %>
     <% else %>
       <p class="text-info">You must be logged in to leave a comment</p>
