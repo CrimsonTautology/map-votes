@@ -73,8 +73,11 @@ class Map < ActiveRecord::Base
   def self.search(query)
     #Use postgre text search
     if query.present?
-      #where("name @@ :q", q: query)
-      where("name like :q", q: "%#{query}%")
+      if Rails.configuration.database_configuration[Rails.env]["database"].eql? "postgresql"
+        where("name @@ :q", q: query)
+      else
+        where("name like :q", q: "%#{query}%")
+      end
     else
       scoped
     end
