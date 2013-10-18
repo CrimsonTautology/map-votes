@@ -33,9 +33,8 @@ class AdminsController < ApplicationController
       flash[:alert] = "Cannot not remove head admin"
     else
       @admin.admin = false
-    else
-
-      redirect_to admins_path
     end
+
+    redirect_to admins_path
   end
 end
