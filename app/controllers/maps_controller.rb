@@ -8,6 +8,7 @@ class MapsController < ApplicationController
   end
 
   def show
+    @map_comments = @map.map_comments.order('created_at DESC')
   end
 
   def new
