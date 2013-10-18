@@ -15,6 +15,10 @@ class Map < ActiveRecord::Base
     votes.hates.map(&:user)
   end
 
+  def self.order_by_votes
+    joins(:votes).select('maps.id, maps.name, sum(votes.value) as total_value').group('maps.id').order('total_value desc')
+  end
+
 
   belongs_to :map_type
 
