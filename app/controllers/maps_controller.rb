@@ -4,7 +4,7 @@ class MapsController < ApplicationController
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
 
   def index
-    @maps = Map.includes([:votes, :map_type]).order(:name)
+    @maps = Map.includes([:votes, :map_type]).order(:name).page(params[:page])
   end
 
   def show

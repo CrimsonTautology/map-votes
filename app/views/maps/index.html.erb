@@ -1,4 +1,6 @@
 <% provide(:title, "Map List" ) %>
+
+
 <ul >
   <% @maps.each do |map|%>
     <li>
@@ -9,3 +11,4 @@
   <% end %>
 </ul>
 
+<%= will_paginate @products %>
