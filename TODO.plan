@@ -1,17 +1,32 @@
--Have the flash message popups close when you click the X
-+Position everything
 -Add a recent activity feed on the front page
     -Most recent map comments and when a new map is added
-+Optimize queries
-    +Map list needs work
 -Write Readme
 -Handle image text popup for long names
--Write SourceMod plugin to connect with api
 -Add icon sized avatar
 -Add ability to add imgur link for map image
 -Add ability to write summary of map
 -Add ability to include map source url
--Cron like task to periodicly update maplist/refresh user information
+-Cron like task to periodically update maplist/refresh user information
 -add Users section
-    -View liked/disliked/comments
+    -View liked/disliked/comments/stared maps
     -List order by likes/dislikes
+-add map favorites
+    -Hook with sourcemod plugin
+    -ability to call back with server to provide a list of maps to quickly nominate
+    -can also set/unset from map view
+-Fix css
+    -Have MapType selection on right side of map list
+        -Maybe use a select box?
+    -Fix view selection not showing
+    -Fix search bar position
+    -Have map show be same size as MOTD dimensions
+    -have way to check if you're in MOTD view?
+        -hide external links
+    -Fix grid view of map images not lining up
+        -Have unknown image the right dimensions
+-Begin to implement Cancan
+    -Not logged in
+    -Regular user
+    -Moderators
+    -Admins
+    -Just use mod? and admin? fields in schema
