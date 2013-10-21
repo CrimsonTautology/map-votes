@@ -1,5 +1,6 @@
 describe "MapVotes API" do
   subject { page }
+
   describe "#cast_vote" do
 
   end
