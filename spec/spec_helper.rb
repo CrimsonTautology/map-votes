@@ -72,5 +72,5 @@ RSpec.configure do |config|
   end
 
   config.include AuthMacros
-  config.include Requests::JsonHelpers, type: request
+  config.include Requests::JsonHelpers, type: :request
 end
