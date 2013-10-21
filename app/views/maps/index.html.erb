@@ -27,8 +27,16 @@
 
     <div class="map-views">
       View: 
-      <span class="view"><%= link_to fa_icon( "icon-list-ul"), params.merge(view: nil, page: nil), title: "List View" %></span>
-      <span class="view"><%= link_to fa_icon( "icon-th"), params.merge(view: "grid", page: nil), title: "Grid View"  %></span>
+      <span class="view">
+        <%= link_to params.merge(view: nil, page: nil), title: "List View" do %>
+          <%= fa_icon( "icon-list-ul") %>
+        <% end %>
+      </span>
+      <span class="view">
+        <%= link_to params.merge(view: "grid", page: nil), title: "Grid View" do %>
+          <%= fa_icon( "icon-th") %>
+        <% end %>
+      </span>
     </div>
 
     <div class="map-categories">
