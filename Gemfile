@@ -6,6 +6,8 @@ gem 'protected_attributes' #NOTE this is until we switch to strong_parameters
 
 gem 'pg'
 
+gem 'thin'
+
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
