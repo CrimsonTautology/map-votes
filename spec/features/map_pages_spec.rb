@@ -36,18 +36,23 @@ describe "Map pages" do
         visit maps_path
       end
 
-      it "by name" do
-        fill_in "search", with: "bad"
-        click_on "Search Maps"
-        expect(page).to have_content("koth_badlands")
-        expect(page).to_not have_content("koth_viaduct")
+      context "by name" do
+        before do
+          #raise page.body.to_yaml
+          fill_in "search", with: "bad"
+          click_on "Search"
+        end
+        it { should have_content("koth_badlands") }
+        it { should_not have_content("koth_viaduct") }
       end
 
-      it "by map type" do
-        #raise page.body.to_yaml
-        click_on "King of the Hill"
-        expect(page).to have_content("koth_badlands")
-        expect(page).to_not have_content("cp_badlands")
+      context "by map type" do
+        before do
+          click_on "King of the Hill"
+        end
+
+        it { should have_content("koth_badlands") }
+        it { should_not have_content("cp_badlands") }
 
       end
     end
