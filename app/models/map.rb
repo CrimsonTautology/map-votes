@@ -87,6 +87,20 @@ class Map < ActiveRecord::Base
     end
   end
 
+  def self.filter(attributes)
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :map_type_id
+        scope.where(key => value)
+      when :search
+        scope.search(value)
+      else #ignore unkown keys
+        scope
+      end
+    end
+  end
+
 
   private
   def type_from_prefix
