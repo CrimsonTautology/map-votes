@@ -23,7 +23,7 @@ describe "Map pages" do
       end
 
       it { should have_link(map.name, href: map_path(map))}
-      pending { should have_content(map.map_type.name)}
+      it { should have_content(map.map_type.name)}
     end
 
     context "filtering" do
@@ -36,9 +36,10 @@ describe "Map pages" do
         visit maps_path
       end
 
+      it { should have_content("King of the Hill") }
+
       context "by name" do
         before do
-          #raise page.body.to_yaml
           fill_in "search", with: "bad"
           click_on "Search"
         end

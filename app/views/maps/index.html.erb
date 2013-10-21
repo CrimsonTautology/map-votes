@@ -44,9 +44,11 @@
     <div class="map-categories">
       <h2>Map Categories</h2>
       <% MapType.order("name").each do |map_type| %>
-        <span class="label label-info>
-          <%= link_to( map_type.name, params.merge(map_type_id: map_type.id, page: nil)) %>
-        </span>
+        <%= link_to( params.merge(map_type_id: map_type.id, page: nil)) do %>
+          <span class="label label-info">
+            <%= map_type.name %>
+          </span>
+        <% end %>
       <% end %>
     </div>
 
