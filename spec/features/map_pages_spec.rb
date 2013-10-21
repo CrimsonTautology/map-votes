@@ -23,7 +23,7 @@ describe "Map pages" do
       end
 
       it { should have_link(map.name, href: map_path(map))}
-      pending { should have_content(map.map_type.name)}
+      it { should have_content(map.map_type.name)}
     end
 
     context "filtering" do
@@ -36,18 +36,24 @@ describe "Map pages" do
         visit maps_path
       end
 
-      it "by name" do
-        fill_in "search", with: "bad"
-        click_on "Search Maps"
-        expect(page).to have_content("koth_badlands")
-        expect(page).to_not have_content("koth_viaduct")
+      it { should have_content("King of the Hill") }
+
+      context "by name" do
+        before do
+          fill_in "search", with: "bad"
+          click_on "Search"
+        end
+        it { should have_content("koth_badlands") }
+        it { should_not have_content("koth_viaduct") }
       end
 
-      it "by map type" do
-        #raise page.body.to_yaml
-        click_on "King of the Hill"
-        expect(page).to have_content("koth_badlands")
-        expect(page).to_not have_content("cp_badlands")
+      context "by map type" do
+        before do
+          click_on "King of the Hill"
+        end
+
+        it { should have_content("koth_badlands") }
+        it { should_not have_content("cp_badlands") }
 
       end
     end

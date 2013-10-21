@@ -1,36 +1,53 @@
 <% provide(:title, "Map List" ) %>
 
-<div class="map-views">
-  View: 
-  <span class="view"><%= link_to fa_icon( "icon-list-ul"), params.merge(view: nil, page: nil), title: "List View" %></span>
-  <span class="view"><%= link_to fa_icon( "icon-th"), params.merge(view: "grid", page: nil), title: "Grid View"  %></span>
-</div>
+<div class="row">
 
-<div class="map-categories">
-  <h2>Map Categories</h2>
-  <ul>
-    <% MapType.order("name").each do |map_type| %>
-      <li><%= link_to( map_type.name, params.merge(map_type_id: map_type.id, page: nil)) %></li>
+  <div class="span8">
+    <% if params[:view].nil? %>
+      <div class="list">
+        <ul >
+          <% @maps.each do |map|%>
+            <li>
+              <%= link_to map.name, map %> 
+              <% if map.votes.likes.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.votes.likes.count, class: "up-vote" %><% end %>
+              <% if map.votes.hates.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.votes.hates.count, class: "down-vote" %><% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% elsif params[:view] == "grid" %>
+      <div class="grid">
+        <%= render 'shared/map_image_list', {maps: @maps} %>
+      </div>
     <% end %>
-  </ul>
-</div>
 
-<% if params[:view].nil? %>
-  <div class="list">
-    <ul >
-      <% @maps.each do |map|%>
-        <li>
-          <%= link_to map.name, map %> 
-          <% if map.votes.likes.count > 0 %><%= fa_icon "thumbs-up-alt", text: map.votes.likes.count, class: "up-vote" %><% end %>
-          <% if map.votes.hates.count > 0 %><%= fa_icon "thumbs-down-alt", text: map.votes.hates.count, class: "down-vote" %><% end %>
-        </li>
+    <%= will_paginate @maps %>
+  </div>
+  <div class="span4">
+
+    <div class="map-views">
+      <h2>View</h2>
+      <span class="view">
+        <%= link_to params.merge(view: nil, page: nil), title: "List View" do %>
+          <%= fa_icon( "icon-list-ul") %>
+        <% end %>
+      </span>
+      <span class="view">
+        <%= link_to params.merge(view: "grid", page: nil), title: "Grid View" do %>
+          <%= fa_icon( "icon-th") %>
+        <% end %>
+      </span>
+    </div>
+
+    <hr>
+
+    <div class="map-categories">
+      <h2>Map Categories</h2>
+      <% @map_types.each do |map_type| %>
+        <%= link_to map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-info"} %>
       <% end %>
-    </ul>
-  </div>
-<% elsif params[:view] == "grid" %>
-  <div class="grid">
-    <%= render 'shared/map_image_list', {maps: @maps} %>
-  </div>
-<% end %>
+    </div>
 
-<%= will_paginate @maps %>
+  </div>
+
+</div>

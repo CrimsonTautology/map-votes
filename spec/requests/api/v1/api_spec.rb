@@ -1,11 +1,15 @@
 describe "MapVotes API" do
+  subject { page }
+
   describe "#cast_vote" do
 
   end
 
   describe "#write_message" do
-    before do
-      #post '/v1/api/write_message'
+    context "no key" do
+      before do
+        post '/v1/api/write_message'
+      end
     end
 
   end

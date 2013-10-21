@@ -15,6 +15,10 @@ class Map < ActiveRecord::Base
     votes.hates.map(&:user)
   end
 
+  def self.order_by_votes
+    joins(:votes).select('maps.id, maps.name, sum(votes.value) as total_value').group('maps.id').order('total_value desc')
+  end
+
 
   belongs_to :map_type
 
@@ -80,6 +84,20 @@ class Map < ActiveRecord::Base
       end
     else
       scoped
+    end
+  end
+
+  def self.filter(attributes)
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :map_type_id
+        scope.where(key => value)
+      when :search
+        scope.search(value)
+      else #ignore unkown keys
+        scope
+      end
     end
   end
 
