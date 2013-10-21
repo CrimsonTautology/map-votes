@@ -1,8 +1,12 @@
 <div class="row">
 <% maps.each do |map| %>
   <div class="span2 thumbnail-wrapper">
-    <%= link_to( image_tag(smart_map_image_url(map.name), size:  "160x120", class: "img-rounded map-thumbnail"), map) %>
-    <p class="label label-inverse photo-label thumbnail-text"><%= map.name %></p>
+    <%= link_to map %>
+      <%= image_tag smart_map_image_url(map.name), size:  "160x120", class: "img-rounded map-thumbnail" %>
+      <p class="label label-inverse photo-label thumbnail-text">
+        <%= map.name %>
+      </p>
+    <% end %>
   </div>
 <% end %>
 </div>
