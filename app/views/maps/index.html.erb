@@ -26,7 +26,7 @@
   <div class="span4">
 
     <div class="map-views">
-      View: 
+      <h2>View</h2>
       <span class="view">
         <%= link_to params.merge(view: nil, page: nil), title: "List View" do %>
           <%= fa_icon( "icon-list-ul") %>
@@ -39,13 +39,15 @@
       </span>
     </div>
 
+    <hr>
+
     <div class="map-categories">
       <h2>Map Categories</h2>
-      <ul>
-        <% MapType.order("name").each do |map_type| %>
-          <li><%= link_to( map_type.name, params.merge(map_type_id: map_type.id, page: nil)) %></li>
-        <% end %>
-      </ul>
+      <% MapType.order("name").each do |map_type| %>
+        <span class="label label-info>
+          <%= link_to( map_type.name, params.merge(map_type_id: map_type.id, page: nil)) %>
+        </span>
+      <% end %>
     </div>
 
   </div>
