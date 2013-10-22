@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :avatar_url, :nickname, :profile, :provider, :uid
+  attr_accessible :avatar_url, :avatar_icon_url, :nickname, :provider, :uid
 
   has_many :votes
   has_many :map_comments
@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
       user.provider = "steam"
       user.uid = steam.steam_id64.to_s
       user.nickname = steam.nickname
-      user.profile = steam.base_url
       user.avatar_url = steam.medium_avatar_url
+      user.avatar_icon_url = steam.icon_url
     end
   end
 
@@ -50,12 +50,20 @@ class User < ActiveRecord::Base
 
   def steam_update
     steam = SteamId.new(uid.to_i)
-    update_attributes(nickname: steam.nickname, profile: steam.base_url, avatar_url: steam.medium_avatar_url)
+    update_attributes(nickname: steam.nickname, avatar_url: steam.medium_avatar_url, avatar_icon_url: steam.icon_url)
   end
 
   def check_for_account_update
     if updated_at < 1.day.ago
       #steam_update
     end
+  end
+
+  def profile_url
+    "http://steamcommunity.com/profiles/#{uid}"
+  end
+
+  def banned?
+    banned_at
   end
 end

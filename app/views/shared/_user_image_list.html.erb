@@ -1,7 +1,7 @@
 <div class="row">
 <% users.each do |user| %>
   <div class="span1 thumbnail-wrapper">
-    <%= link_to  user.profile do %>
+    <%= link_to  user.profile_url do %>
       <%= image_tag user.avatar_url, alt: user.nickname, class: "img-rounded user-thumbnail" %>
       <p class="label label-inverse thumbnail-text">
         <%= user.nickname %>
