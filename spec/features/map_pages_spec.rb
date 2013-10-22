@@ -130,6 +130,26 @@ describe "Map pages" do
         expect(page).to have_content("Could not add comment")
       end
 
+      context "With comments by other users" do
+        let!(:other_user) {FactoryGirl.create(:user)}
+        let!(:other_comment) {FactoryGirl.create(:map_comment, map: map, comment: "This is not your comment", user: other_user)}
+        before do
+          visit map_path(map)
+        end
+
+        it { should have_content(other_comment.comment)}
+        it { should_not have_link("Delete", [map, other_comment])}
+
+        context "As a moderator" do
+          before do
+            user.moderator = true
+            visit map_path(map)
+          end
+
+          it { should have_link("Delete", [map, other_comment])}
+        end
+      end
+
       it "allows you to enter comments" do
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
