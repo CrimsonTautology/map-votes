@@ -8,11 +8,15 @@ class MapFavorite < ActiveRecord::Base
   validates :user, presence: true
 
   def self.favorite user, map
-    find_or_create_by_user_id_and_map_id user, map
+    MapFavorite.find_or_create_by_user_id_and_map_id user, map
   end
 
   def self.unfavorite user, map
-    destroy_by_user_id_and_map_id user, map
+    MapFavorite.destroy_by_user_id_and_map_id user, map
+    fav = find_by(user: user, map: map)
+    if fav
+      fav.destroy
+    end
   end
   
 end
