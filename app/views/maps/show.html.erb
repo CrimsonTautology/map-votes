@@ -7,7 +7,7 @@
       <div class="span5">
         <h4><%= @map.map_type.name %></h4>
         <p><%= link_to "Download", fast_dl_link(@map) %></p>
-        <% if current_user_admin? %>
+        <% if can?(:update, @map) %>
           <p><%= link_to "Edit Map", edit_map_path(@map) %></p>
         <% end %>
 
@@ -25,7 +25,7 @@
         <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
       </div>
     <% end %>
-    <% if current_user %>
+    <% if can?(:create, MapComment) %>
       <%= simple_form_for [@map, MapComment.new],
         method: 'post' do |f| %>
         <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>

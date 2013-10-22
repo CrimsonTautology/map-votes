@@ -5,6 +5,7 @@ class Ability
   def initialize(user)
 
     can :read, Map
+    can :read, MapComment
     if user
       can :vote, Map
 
