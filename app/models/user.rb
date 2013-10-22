@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.nickname = auth["info"]["nickname"]
-      user.profile = auth["info"]["urls"]["Profile"]
       user.avatar_url = auth["info"]["image"]
+      user.avatar_icon_url = auth["extra"]["raw_info"]["avatar"]
     end
   end
 
