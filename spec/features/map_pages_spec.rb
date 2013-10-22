@@ -73,6 +73,8 @@ describe "Map pages" do
 
     it { should_not have_link("", href: vote_map_path(map, type: "up"))}
     it { should_not have_link("", href: vote_map_path(map, type: "down"))}
+    it { should_not have_link("", href: favorite_map_path(map))}
+    it { should_not have_link("", href: unfavorite_map_path(map))}
     it { should_not have_link("", href: edit_map_path(map))}
     #it { should_not have_selector()}
 
@@ -118,6 +120,14 @@ describe "Map pages" do
       before do
         login user
         visit map_path(map)
+      end
+
+      it "allows you to favorite a map" do
+        expect{click_on "Add to Favorites" }.to change{MapFavorite.count}.from(0).to(1)
+      end
+      it "allows you to unfavorite a map" do
+        click_on "Add to Favorites"
+        expect{click_on "Remove from Favorites" }.to change{MapFavorite.count}.from(1).to(0)
       end
 
       it "allows you to vote" do

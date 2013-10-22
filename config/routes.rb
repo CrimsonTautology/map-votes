@@ -3,6 +3,8 @@ MapVotes::Application.routes.draw do
 
   resources :maps do
     post 'vote', on: :member
+    post 'favorite', on: :member
+    post 'unfavorite', on: :member
     resources :map_comments 
   end
   
