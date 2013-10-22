@@ -1,7 +1,7 @@
 class MapsController < ApplicationController
-  before_filter :authorize_logged_in, only: [:vote]
+  before_filter :authorize_logged_in, only: [:vote, :favorite, :unfavorite]
   before_filter :authorize_admin, only: [:edit, :update]
-  before_filter :find_map, only: [:show, :new, :edit, :update, :vote]
+  before_filter :find_map, only: [:show, :new, :edit, :update, :vote, :favorite, :unfavorite]
 
   def index
     @maps = Map.includes([:votes]).filter(params).order(:name).paginate(page: params[:page], per_page: 32)
@@ -36,6 +36,16 @@ class MapsController < ApplicationController
     value = -1 if params[:type] == "down"
     Vote.cast_vote current_user, @map, value
     redirect_to :back, notice: "Thank you for voting!"
+  end
+
+  def favorite_map
+    MapFavorite.favorite current_user, @map
+    redirect_to :back, notice: "Added to favorites"
+  end
+
+  def unfavorite_map
+    MapFavorite.unfavorite current_user, @map
+    redirect_to :back, notice: "Removed from favorites"
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022134642) do
+ActiveRecord::Schema.define(version: 20131022174149) do
 
   create_table "admins", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20131022134642) do
 
   add_index "map_comments", ["map_id"], name: "index_map_comments_on_map_id"
   add_index "map_comments", ["user_id"], name: "index_map_comments_on_user_id"
+
+  create_table "map_favorites", force: true do |t|
+    t.string   "user"
+    t.string   "map"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "map_types", force: true do |t|
     t.string   "name"
