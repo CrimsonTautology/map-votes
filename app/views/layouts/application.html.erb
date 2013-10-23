@@ -26,8 +26,10 @@
 
         <ul class ="nav pull-right">
           <li><%= link_to "Map List", maps_path %></li>
-          <% if current_user_admin? %>
+          <% if can? :create, Map %>
             <li><%= link_to "Add Map", new_map_path %></li>
+          <% end %>
+          <% if can? :read, ApiKey %>
             <li><%= link_to "Add API Key", api_keys_path %></li>
           <% end %>
           <% if current_user %>
@@ -48,13 +50,13 @@
       <%= yield %>
     </div>
 
-    <div class="navbar navbar-inverse navbar-fixed-bottom">
+    <footer class="navbar navbar-inverse navbar-fixed-bottom">
       <div class="row">
         <div class="col-lg-12">
           <p><%= link_to "Powered By Steam", "http://steampowered.com" %></p>
         </div>
       </div>
-    </div>
+    </footer>
 
     <%= debug(params) if Rails.env.development? %>
   </body>

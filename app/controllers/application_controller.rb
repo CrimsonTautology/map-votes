@@ -14,16 +14,4 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def current_user_admin?
-    current_user and @current_user.admin?
-  end
-
-  def authorize_logged_in
-    unless current_user
-      flash[:error] = "Not Logged in"
-      redirect_to root_path
-      false
-    end
-  end
-
 end
