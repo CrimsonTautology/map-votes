@@ -8,6 +8,8 @@ class Ability
     can :read, MapComment
     if user
       can :vote, Map
+      can :favorite, Map
+      can :unfavorite, Map
 
       can :update, User, id: user.id
 
