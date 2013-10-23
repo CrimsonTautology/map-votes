@@ -71,8 +71,9 @@ describe "Map pages" do
     it { should have_content("All Comments (0)")}
     it { should have_content("You must be logged in to leave a comment")}
 
-    it { should_not have_link("", href: vote_map_path(map, type: "up"))}
-    it { should_not have_link("", href: vote_map_path(map, type: "down"))}
+    it { should_not have_link("like it", href: vote_map_path(map, type: "up"))}
+    it { should_not have_link("hate it", href: vote_map_path(map, type: "down"))}
+    it { should_not have_content("like it")}
     it { should_not have_link("", href: favorite_map_path(map))}
     it { should_not have_link("", href: unfavorite_map_path(map))}
     it { should_not have_link("", href: edit_map_path(map))}
@@ -160,7 +161,7 @@ describe "Map pages" do
         expect(page).to have_content(map.name)
       end
 
-      it "allows you to delete comments" do
+      it "allows you to delete your comments" do
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
         click_on "Delete"

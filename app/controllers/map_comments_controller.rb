@@ -1,5 +1,5 @@
 class MapCommentsController < ApplicationController
-  load_and_authorize_resource :map_comment, through: :map
+  authorize_resource
   before_filter :find_map_comment, only: [:update, :destroy]
 
   def create
@@ -16,7 +16,6 @@ class MapCommentsController < ApplicationController
 
   end
   def destroy
-    @map = @map_comment.map
     @map_comment.delete
     flash[:notice] = "Comment Deleted!"
     redirect_to @map
@@ -35,6 +34,7 @@ class MapCommentsController < ApplicationController
   private
   def find_map_comment
     @map_comment = MapComment.find(params[:id])
+    @map = @map_comment.map
   end
 
 end
