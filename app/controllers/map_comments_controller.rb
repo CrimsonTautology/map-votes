@@ -1,7 +1,6 @@
 class MapCommentsController < ApplicationController
-  before_filter :authorize_logged_in
+  load_and_authorize_resource :map_comment, through: :map
   before_filter :find_map_comment, only: [:update, :destroy]
-  before_filter :has_ownership, only: [:update, :destroy]
 
   def create
     user = current_user
@@ -38,11 +37,4 @@ class MapCommentsController < ApplicationController
     @map_comment = MapComment.find(params[:id])
   end
 
-  def has_ownership
-     unless current_user == @map_comment.user or current_user_admin?
-       flash[:alert] = "Noth authorized to change this comment"
-       redirect_to @map_comment.map
-       false
-     end
-  end
 end

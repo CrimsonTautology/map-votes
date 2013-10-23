@@ -86,6 +86,7 @@ describe "Map pages" do
 
       it { should have_content(comment.comment)}
       it { should have_content(comment.user.nickname)}
+      it { should_not have_link("Delete", [map, comment])}
 
     end
 
@@ -208,6 +209,7 @@ describe "Map pages" do
 
         it { should have_content(other_comment.comment)}
         it { should have_link("Delete", [map, other_comment])}
+        it { should have_link("Edit Map", href: edit_map_path(map))}
         pending { should have_link("Ban", ban_user_path(:user))}
       end
 
