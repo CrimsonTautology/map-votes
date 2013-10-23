@@ -32,7 +32,7 @@ describe "Static pages" do
 
       it "lets you add new tokens" do
         fill_in "Name", with: "Test Key"
-        click_on :submit
+        click_on "Add New Key"
         expect(page).to have_content("Test Key")
       end
 
