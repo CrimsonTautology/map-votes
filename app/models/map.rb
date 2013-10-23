@@ -3,6 +3,7 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :map_favorites, dependent: :destroy
   has_many :voted_by, through: :votes,
             class_name: 'User',
             source: :user

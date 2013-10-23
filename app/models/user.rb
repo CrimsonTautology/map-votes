@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :avatar_url, :avatar_icon_url, :nickname, :provider, :uid
 
   has_many :votes
+  has_many :map_favorites
   has_many :map_comments
   has_many :voted_maps, through: :votes,
             class_name: 'Map',
