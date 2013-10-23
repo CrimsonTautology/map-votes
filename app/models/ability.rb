@@ -2,10 +2,12 @@ class Ability
   include CanCan::Ability
   #:read, :create, :update, :destroy
 
-  def initialize(user)
+  def initialize(user, access_token=nil)
 
     can :read, Map
     can :read, MapComment
+
+    #Checks for logged in users
     if user
       can :vote, Map
       can :favorite, Map
@@ -26,6 +28,11 @@ class Ability
       if user.admin?
         can :manage, :all
       end
+    end
+
+    #Checks for the api system
+    if access_token && ApiKey.authenticate(access_token)
+      can :manage, :api
     end
   end
 end

@@ -2,7 +2,7 @@ require "base64"
 
 module V1
   class ApiController < ApplicationController
-    before_filter :check_api_key
+    authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
     before_filter :find_or_create_user_and_map, only: [:cast_vote, :write_message]
@@ -24,7 +24,7 @@ module V1
 
     private
     def check_api_key
-      api_key = ApiKey.find_by_access_token(params[:access_token])
+      api_key = ApiKey.authenticate(params[:access_token])
       head :unauthorized unless api_key
     end
 
