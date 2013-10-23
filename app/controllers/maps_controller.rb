@@ -38,12 +38,12 @@ class MapsController < ApplicationController
     redirect_to :back, notice: "Thank you for voting!"
   end
 
-  def favorite_map
+  def favorite
     MapFavorite.favorite current_user, @map
     redirect_to :back, notice: "Added to favorites"
   end
 
-  def unfavorite_map
+  def unfavorite
     MapFavorite.unfavorite current_user, @map
     redirect_to :back, notice: "Removed from favorites"
   end
