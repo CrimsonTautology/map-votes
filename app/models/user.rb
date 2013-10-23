@@ -69,6 +69,6 @@ class User < ActiveRecord::Base
   end
 
   def favorited? map
-    not MapFavorite.find_by(user: user, map: map).nil?
+    not MapFavorite.find_by(user_id: id, map: map).nil?
   end
 end
