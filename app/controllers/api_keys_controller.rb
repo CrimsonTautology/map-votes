@@ -1,5 +1,6 @@
 class ApiKeysController < ApplicationController
-  before_filter :authorize_admin
+  authorize_resource
+
   def index
     @api_keys = ApiKey.all
   end

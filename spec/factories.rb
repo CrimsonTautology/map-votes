@@ -16,6 +16,16 @@ FactoryGirl.define do
       "123#{n}"
     end
     provider "steam"
+
+    factory :admin do
+      admin true
+    end
+    factory :moderator do
+      moderator true
+    end
+    factory :banned do
+      banned_at Time.now
+    end
   end
 
   factory :map_comment do
@@ -28,5 +38,9 @@ FactoryGirl.define do
     value 0
     user
     map
+  end
+
+  factory :api_key do
+    name "Test Server"
   end
 end

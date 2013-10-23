@@ -22,7 +22,7 @@ class Ability
       end
 
       if user.admin?
-        can :access, :all
+        can :manage, :all
       end
     end
   end
