@@ -150,14 +150,6 @@ describe "Map pages" do
         it { should have_content(other_comment.comment)}
         it { should_not have_link("Delete", [map, other_comment])}
 
-        context "As a moderator" do
-          before do
-            user.moderator = true
-            visit map_path(map)
-          end
-
-          it { should have_link("Delete", [map, other_comment])}
-        end
       end
 
       it "allows you to enter comments" do
@@ -184,6 +176,27 @@ describe "Map pages" do
         expect(page).to_not have_content("Another comment")
         expect(page).to have_content("Can not add another comment so soon")
 
+      end
+
+    end
+
+    context "user logged in as a moderator" do
+      let!(:user) {FactoryGirl.create(:moderator)}
+      before do
+        login user
+        visit map_path(map)
+      end
+
+      context "With comments by other users" do
+        let!(:other_user) {FactoryGirl.create(:user)}
+        let!(:other_comment) {FactoryGirl.create(:map_comment, map: map, comment: "This is not your comment", user: other_user)}
+        before do
+          visit map_path(map)
+        end
+
+        it { should have_content(other_comment.comment)}
+        it { should have_link("Delete", [map, other_comment])}
+        it { should have_link("Ban", ban_user_path(:user))}
       end
 
     end
