@@ -180,6 +180,18 @@ describe "Map pages" do
 
     end
 
+    context "banned user logged in" do
+      let!(:user) {FactoryGirl.create(:banned)}
+      before do
+        login user
+        visit map_path(map)
+      end
+
+      it { should_not have_content("Post Comment", )}
+      pending { should have_content("You have been banned")}
+    end
+
+
     context "user logged in as a moderator" do
       let!(:user) {FactoryGirl.create(:moderator)}
       before do
@@ -201,4 +213,9 @@ describe "Map pages" do
 
     end
   end#/maps/:id
+
+  describe "GET /maps/:id/edit" do
+  end
+  describe "GET /maps/new" do
+  end
 end
