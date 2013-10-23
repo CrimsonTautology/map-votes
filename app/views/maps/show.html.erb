@@ -51,8 +51,8 @@
           <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile_url %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
           <%= mc.comment %>
 
-          <% if(can?(:destroy, mc) %>
-            <%= link_to "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete)  %>
+          <% if can?(:destroy, mc) %>
+            <%= link_to "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete  %>
           <% end %>
         </div>
       </div>
