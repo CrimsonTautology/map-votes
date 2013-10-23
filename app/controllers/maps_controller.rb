@@ -1,6 +1,5 @@
 class MapsController < ApplicationController
   authorize_resource
-  before_filter :authorize_admin, only: [:edit, :update]
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote, :favorite, :unfavorite]
 
   def index

@@ -18,14 +18,6 @@ class ApplicationController < ActionController::Base
     current_user and @current_user.admin?
   end
 
-  def authorize_admin
-    unless current_user_admin?
-      flash[:error] = "Unauthorized Access"
-      redirect_to root_path
-      false
-    end
-  end
-
   def authorize_logged_in
     unless current_user
       flash[:error] = "Not Logged in"
