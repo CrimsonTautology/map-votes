@@ -17,7 +17,7 @@
         <%= link_to "Map Votes", root_path, class: "brand" %>
 
         <div class="col-sm-3 col-md-3 pull-left">
-          <%= simple_form_for maps_path, method: "get", class: "navbar-form form-search" do |f| %>
+          <%= simple_form_for :map, url: maps_path, method: "get", class: "navbar-form form-search" do |f| %>
             <%= f.input_field :search, name: "search", class: "input-medium search-query", placeholder: "Search Maps", value: params[:search], size: 35 %>
             <%= f.submit "Search" %>
           <% end %>
