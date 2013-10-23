@@ -67,4 +67,8 @@ class User < ActiveRecord::Base
   def banned?
     banned_at
   end
+
+  def favorited? map
+    not MapFavorite.find_by(user: user, map: map).nil?
+  end
 end
