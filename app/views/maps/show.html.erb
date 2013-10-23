@@ -24,6 +24,14 @@
         <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
         <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
       </div>
+
+      <div class="container" id="favorites_menu">
+        <% if current_user.favorited? @map %>
+          <%= link_to "Remove from Favorites", unfavorite_map_path(@map), method: "post" %>
+        <% else %>
+          <%= link_to "Add to Favorites", favorite_map_path(@map), method: "post" %>
+        <% end %>
+      </div>
     <% end %>
     <% if can?(:create, MapComment) %>
       <%= simple_form_for [@map, MapComment.new],
