@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_user_admin?
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path, alert: exception.message, status: 403
+  end
+
   private
   
   def current_user
