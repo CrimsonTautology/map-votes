@@ -40,6 +40,11 @@ FactoryGirl.define do
     map
   end
 
+  factory :map_favorite do
+    user
+    map
+  end
+
   factory :api_key do
     name "Test Server"
   end
