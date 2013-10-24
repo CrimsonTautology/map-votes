@@ -30,8 +30,8 @@ module V1
 
     def find_or_create_user_and_map
       head :bad_request unless params["uid"] and params["map"]
-      @user = User.find_by_provider_and_uid("steam", params["uid"]) || User.create_with_steam_id(params["uid"])
-      @map = Map.find_or_create_by_name(params["map"])
+      @user = User.find_by(provider: "steam", uid: params["uid"]) || User.create_with_steam_id(params["uid"])
+      @map = Map.find_or_create_by(name: params["map"])
 
     end
 
