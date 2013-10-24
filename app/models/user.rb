@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_steam_id(steam_id)
+    return nil if steam_id.nil?
     steam = SteamId.new(steam_id.to_i)
     create! do |user|
       user.provider = "steam"
