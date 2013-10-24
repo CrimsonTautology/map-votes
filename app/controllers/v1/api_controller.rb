@@ -5,7 +5,7 @@ module V1
     authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
-    before_filter :find_or_create_user_and_map, only: [:cast_vote, :write_message]
+    before_filter :find_or_create_user_and_map, only: [:cast_vote, :write_message, :favorite]
     respond_to :json
 
     def cast_vote
@@ -23,6 +23,7 @@ module V1
     end
 
     def favorite
+      MapFavorite.favorite @user, @map
       head :created
     end
 
