@@ -4,6 +4,74 @@ describe "POST /v1/api" do
   subject { response }
 
   describe "/cast_vote" do
+    let!(:user) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
+    let!(:map) {FactoryGirl.create(:map)}
+
+    context "without access_token" do
+      before {post '/v1/api/cast_vote'}
+      its(:code) { should eql("403")}
+    end
+    context "with invalid access_token" do
+      before do
+        ApiKey.delete_all
+        post '/v1/api/cast_vote',
+          access_token: "badtoken",
+          uid: user.uid,
+          map: map.name,
+          value: 1
+      end
+      its(:code) { should eql("403")}
+    end
+
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      it "won't submit without a map" do
+        expect do
+          post '/v1/api/cast_vote',
+            access_token: api_key.access_token,
+            uid: user.uid,
+            value: 1
+        end.to_not change{Vote.count}.by(1)
+      end
+      it "won't submit without a user id" do
+        expect do
+          post '/v1/api/cast_vote',
+            access_token: api_key.access_token,
+            map: map.name,
+            value: 1
+        end.to_not change{Vote.count}.by(1)
+      end
+      it "won't submit without a value" do
+        expect do
+          post '/v1/api/cast_vote',
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+        end.to_not change{Vote.count}.by(1)
+      end
+
+      it "Submits with needed information" do
+        expect do
+          post '/v1/api/cast_vote',
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name,
+            value: 1
+        end.to change{Vote.count}.by(1)
+      end
+
+      it "Adds new maps if they do not exist in the database" do
+        expect do
+          post '/v1/api/cast_vote',
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: "New_Map",
+            value: 1
+        end.to change{Map.count}.by(1)
+      end
+
+    end
 
   end
 
