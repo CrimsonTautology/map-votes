@@ -247,7 +247,7 @@ describe "POST /v1/api" do
           uids: [user1.uid, user2.uid, user3.uid],
           players: [16, 21, 33],
           map: map.name
-        expect(json['players'].to match_array([16,33])
+        expect(json['players']).to match_array([16,33])
       end
     end
   end
