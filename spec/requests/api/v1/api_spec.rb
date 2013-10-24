@@ -172,9 +172,9 @@ describe "POST /v1/api" do
         end.to_not change{MapFavorite.count}
       end
     end
-
   end
-  pending "/unfavorite" do
+
+  describe "/unfavorite" do
     route = "/v1/api/unfavorite"
 
     let!(:user) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}

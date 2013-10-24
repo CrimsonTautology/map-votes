@@ -14,6 +14,7 @@ MapVotes::Application.routes.draw do
       post 'write_message', on: :collection
       post 'server_query', on: :collection
       post 'favorite', on: :collection
+      post 'unfavorite', on: :collection
     end
     
   end
