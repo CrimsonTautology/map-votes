@@ -4,7 +4,7 @@ class ApiKey < ActiveRecord::Base
 
   before_create :generate_access_token
 
-  def authenticate access_token
+  def self.authenticate access_token
     ApiKey.find(access_token: access_token)
   end
 
