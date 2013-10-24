@@ -22,6 +22,10 @@ module V1
       render json: no_votes
     end
 
+    def favorite
+      head :created
+    end
+
     private
     def check_api_key
       api_key = ApiKey.authenticate(params[:access_token])

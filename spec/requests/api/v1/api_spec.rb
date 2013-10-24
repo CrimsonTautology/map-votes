@@ -138,6 +138,10 @@ describe "POST /v1/api" do
 
   describe "/favorite" do
     route = "/v1/api/favorite"
+
+    let!(:user) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
+    let!(:map) {FactoryGirl.create(:map)}
+
     it_should_behave_like "ApiController", route, {
       uid: "123456",
       map: "auto_map"
@@ -170,8 +174,12 @@ describe "POST /v1/api" do
     end
 
   end
-  describe "/unfavorite" do
+  pending "/unfavorite" do
     route = "/v1/api/unfavorite"
+
+    let!(:user) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
+    let!(:map) {FactoryGirl.create(:map)}
+
     it_should_behave_like "ApiController", route, {
       uid: "123456",
       map: "auto_map"
@@ -204,7 +212,7 @@ describe "POST /v1/api" do
     end
 
   end
-  describe "/have_not_voted" do
+  pending "/have_not_voted" do
     route = "/v1/api/have_not_voted"
     let!(:user1) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
     let!(:user2) {FactoryGirl.create(:user, provider: "steam", uid: "223456")}

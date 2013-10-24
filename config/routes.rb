@@ -13,6 +13,7 @@ MapVotes::Application.routes.draw do
       post 'cast_vote', on: :collection
       post 'write_message', on: :collection
       post 'server_query', on: :collection
+      post 'favorite', on: :collection
     end
     
   end
