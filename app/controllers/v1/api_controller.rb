@@ -5,7 +5,8 @@ module V1
     authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
-    before_filter :find_or_create_user_and_map, only: [:cast_vote, :write_message, :favorite, :unfavorite]
+    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite]
+    before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite]
     respond_to :json
 
     def cast_vote
@@ -38,11 +39,16 @@ module V1
       head :unauthorized unless api_key
     end
 
-    def find_or_create_user_and_map
-      head :bad_request unless params["uid"] and params["map"]
-      @user = User.find_by(provider: "steam", uid: params["uid"]) || User.create_with_steam_id(params["uid"])
+    def check_map
+      head :bad_request unless params["map"]
       @map = Map.find_or_create_by(name: params["map"])
+      head :bad_request unless @map
+    end
 
+    def check_user
+      head :bad_request unless params["uid"]
+      @user = User.find_by(provider: "steam", uid: params["uid"]) || User.create_with_steam_id(params["uid"])
+      head :bad_request unless @user
     end
 
     def check_value
