@@ -212,19 +212,14 @@ describe "POST /v1/api" do
     end
 
   end
-  pending "/have_not_voted" do
+
+  describe "/have_not_voted" do
     route = "/v1/api/have_not_voted"
     let!(:user1) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
     let!(:user2) {FactoryGirl.create(:user, provider: "steam", uid: "223456")}
     let!(:user3) {FactoryGirl.create(:user, provider: "steam", uid: "323456")}
     let!(:map) {FactoryGirl.create(:map)}
     let!(:other_map) {FactoryGirl.create(:map, name: "cp_other_map_b1")}
-
-    before do
-      FactoryGirl.create(:vote, user: user2, map: map, value:1)
-      FactoryGirl.create(:vote, user: user2, map: other_map, value:1)
-      FactoryGirl.create(:vote, user: user3, map: other_map, value:-1)
-    end
 
     it_should_behave_like "ApiController", route, {
       uids: ["123456","223456","323456"],
@@ -240,14 +235,19 @@ describe "POST /v1/api" do
     context "with valid access_token" do
       let!(:api_key) {FactoryGirl.create(:api_key)}
 
+      before do
+        FactoryGirl.create(:vote, user: user2, map: map, value:1)
+        FactoryGirl.create(:vote, user: user2, map: other_map, value:1)
+        FactoryGirl.create(:vote, user: user3, map: other_map, value:-1)
+      end
+
       it "returns players who have not voted on map" do
-        expect do
-          post route,
-            access_token: api_key.access_token,
-            uids: user.uid,
-            map: map.name,
-            comment: "Comment"
-        end.to change{MapComment.count}.by(1)
+        post route,
+          access_token: api_key.access_token,
+          uids: [user1.uid, user2.uid, user3.uid],
+          players: [16, 21, 33],
+          map: map.name
+        expect(json['players'].to match_array([16,33])
       end
     end
   end
