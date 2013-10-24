@@ -146,6 +146,28 @@ describe "POST /v1/api" do
       uid: "123456",
       map: "New_Map"
     }
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      it "adds map to user's favorites" do
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+        end.to change{MapFavorite.count}.from(0).to(1)
+      end
+
+      it "does nothing if map is already favorited" do
+        FactoryGirl.create(:map_favorite, user: user, map: map)
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+        end.to_not change{MapFavorite.count}
+      end
+    end
 
   end
   describe "/unfavorite" do
@@ -158,6 +180,28 @@ describe "POST /v1/api" do
       uid: "123456",
       map: "New_Map"
     }
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      it "removes map from user's favorites" do
+        FactoryGirl.create(:map_favorite, user: user, map: map)
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+        end.to change{MapFavorite.count}.from(1).to(0)
+      end
+
+      it "does nothing if map is not favorited" do
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+        end.to_not change{MapFavorite.count}
+      end
+    end
 
   end
   describe "/have_not_voted" do
