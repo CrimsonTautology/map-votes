@@ -5,7 +5,7 @@ module V1
     authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
-    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite]
+    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite, :have_not_voted]
     before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite]
     respond_to :json
 
@@ -19,8 +19,6 @@ module V1
       head :created
     end
     def server_query
-      no_votes = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid)
-      render json: no_votes
     end
 
     def favorite
@@ -31,6 +29,11 @@ module V1
     def unfavorite
       MapFavorite.unfavorite @user, @map
       head :created
+    end
+
+    def have_not_voted
+      no_votes = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid)
+      render json: no_votes
     end
 
     private
