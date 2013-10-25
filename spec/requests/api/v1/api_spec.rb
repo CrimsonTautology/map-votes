@@ -274,16 +274,14 @@ describe "POST /v1/api" do
       end
 
       it "returns players who have not voted on map" do
-        before do
         post route,
           access_token: api_key.access_token,
           uids: [user1.uid, user2.uid, user3.uid],
           players: [16, 21, 33],
           map: map.name
-        end
-        specify { expect(json['players']).to match_array([16,33]) }
-        specify { expect(json['uids']).to match_array(["123456", "323456"]) }
-        specify { expect(json['command']).to eql("have_not_voted") }
+        expect(json['uids']).to match_array(["123456", "323456"])
+        expect(json['players']).to match_array([16,33])
+        expect(json['command']).to eql("have_not_voted")
       end
     end
   end
