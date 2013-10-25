@@ -34,7 +34,7 @@ module V1
     def get_favorites
       out = {
         maps: @user.map_favorites.map{|m| m.map.name},
-        player: params[:player],
+        player: params[:player].to_i,
         command: "get_favorites"
       }
       render json: out
