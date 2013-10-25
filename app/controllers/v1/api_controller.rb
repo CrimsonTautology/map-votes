@@ -41,9 +41,17 @@ module V1
     end
 
     def have_not_voted
+      uids = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid)
+
+      #Build the found players array which is parrel to the params["uid"] array - the uids that have not voted
+      players = []
+      uids.each do |uid|
+        i = params["uids"].index(uid) 
+        players << params["players"][i].to_i
+      end
       out = {
-        players: [],
-        uids: User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid),
+        players: players,
+        uids: uids,
         command: "have_not_voted"
       }
       render json: out
