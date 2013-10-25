@@ -6,7 +6,7 @@ module V1
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
     before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite, :have_not_voted]
-    before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite]
+    before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite, :get_favorites]
     respond_to :json
 
     def cast_vote
@@ -31,9 +31,22 @@ module V1
       head :created
     end
 
+    def get_favorites
+      out = {
+        maps: @user.map_favorites.map{|m| m.map.name},
+        player: params[:player],
+        command: "get_favorites"
+      }
+      render json: out
+    end
+
     def have_not_voted
-      no_votes = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid)
-      render json: no_votes
+      out = {
+        players: [],
+        uids: User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid),
+        command: "have_not_voted"
+      }
+      render json: out
     end
 
     private

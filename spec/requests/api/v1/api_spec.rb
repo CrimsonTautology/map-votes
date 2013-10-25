@@ -213,6 +213,38 @@ describe "POST /v1/api" do
 
   end
 
+  describe "/get_favorites" do
+    route = "/v1/api/get_favorites"
+    let!(:user) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
+    let!(:map1) {FactoryGirl.create(:map)}
+    let!(:map2) {FactoryGirl.create(:map, name: "cp_other_map_b1")}
+    let!(:map3) {FactoryGirl.create(:map, name: "koth_good_map_rc1")}
+
+    it_should_behave_like "ApiController", route, {
+      uid: "123456",
+      player: 7
+    }
+
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      before do
+        FactoryGirl.create(:map_favorite, user: user, map: map1)
+        FactoryGirl.create(:map_favorite, user: user, map: map2)
+        FactoryGirl.create(:map_favorite, user: user, map: map3)
+      end
+
+      it "returns a list of maps a user has favorited" do
+        post route,
+          access_token: api_key.access_token,
+          uid: user.uid,
+          player: 16
+        expect(json['maps']).to match_array([map1.name, map2.name, map3.name])
+        expect(json['player']).to eq(16)
+        expect(json['command']).to eql("get_favorites")
+      end
+    end
+  end
   describe "/have_not_voted" do
     route = "/v1/api/have_not_voted"
     let!(:user1) {FactoryGirl.create(:user, provider: "steam", uid: "123456")}
@@ -248,6 +280,7 @@ describe "POST /v1/api" do
           players: [16, 21, 33],
           map: map.name
         expect(json['players']).to match_array([16,33])
+        expect(json['command']).to eql("have_not_voted")
       end
     end
   end
