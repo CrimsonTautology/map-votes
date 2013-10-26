@@ -71,8 +71,11 @@ describe "Map pages" do
     it { should have_content("All Comments (0)")}
     it { should have_content("You must be logged in to leave a comment")}
 
-    it { should_not have_link("", href: vote_map_path(map, type: "up"))}
-    it { should_not have_link("", href: vote_map_path(map, type: "down"))}
+    it { should_not have_link("like it", href: vote_map_path(map, type: "up"))}
+    it { should_not have_link("hate it", href: vote_map_path(map, type: "down"))}
+    it { should_not have_content("like it")}
+    it { should_not have_link("", href: favorite_map_path(map))}
+    it { should_not have_link("", href: unfavorite_map_path(map))}
     it { should_not have_link("", href: edit_map_path(map))}
     #it { should_not have_selector()}
 
@@ -84,6 +87,7 @@ describe "Map pages" do
 
       it { should have_content(comment.comment)}
       it { should have_content(comment.user.nickname)}
+      it { should_not have_link("Delete", [map, comment])}
 
     end
 
@@ -120,6 +124,14 @@ describe "Map pages" do
         visit map_path(map)
       end
 
+      it "allows you to favorite a map" do
+        expect{click_on "Add to Favorites" }.to change{MapFavorite.count}.from(0).to(1)
+      end
+      it "allows you to unfavorite a map" do
+        click_on "Add to Favorites"
+        expect{click_on "Remove from Favorites" }.to change{MapFavorite.count}.from(1).to(0)
+      end
+
       it "allows you to vote" do
         expect{click_on "like it" }.to change{Vote.count}.by(1)
         expect{click_on "hate it" }.to_not change{Vote.count}
@@ -130,6 +142,18 @@ describe "Map pages" do
         expect(page).to have_content("Could not add comment")
       end
 
+      context "With comments by other users" do
+        let!(:other_user) {FactoryGirl.create(:user)}
+        let!(:other_comment) {FactoryGirl.create(:map_comment, map: map, comment: "This is not your comment", user: other_user)}
+        before do
+          visit map_path(map)
+        end
+
+        it { should have_content(other_comment.comment)}
+        it { should_not have_link("Delete", [map, other_comment])}
+
+      end
+
       it "allows you to enter comments" do
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
@@ -137,7 +161,7 @@ describe "Map pages" do
         expect(page).to have_content(map.name)
       end
 
-      it "allows you to delete comments" do
+      it "allows you to delete your comments" do
         fill_in "map_comment_comment", with: "This is a test comment"
         click_on "Post Comment"
         click_on "Delete"
@@ -157,5 +181,44 @@ describe "Map pages" do
       end
 
     end
+
+    context "banned user logged in" do
+      let!(:user) {FactoryGirl.create(:banned)}
+      before do
+        login user
+        visit map_path(map)
+      end
+
+      it { should_not have_content("Post Comment", )}
+      pending { should have_content("You have been banned")}
+    end
+
+
+    context "user logged in as a moderator" do
+      let!(:user) {FactoryGirl.create(:moderator)}
+      before do
+        login user
+        visit map_path(map)
+      end
+
+      context "With comments by other users" do
+        let!(:other_user) {FactoryGirl.create(:user)}
+        let!(:other_comment) {FactoryGirl.create(:map_comment, map: map, comment: "This is not your comment", user: other_user)}
+        before do
+          visit map_path(map)
+        end
+
+        it { should have_content(other_comment.comment)}
+        it { should have_link("Delete", [map, other_comment])}
+        it { should have_link("Edit Map", href: edit_map_path(map))}
+        pending { should have_link("Ban", ban_user_path(:user))}
+      end
+
+    end
   end#/maps/:id
+
+  describe "GET /maps/:id/edit" do
+  end
+  describe "GET /maps/new" do
+  end
 end

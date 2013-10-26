@@ -3,6 +3,7 @@ class Map < ActiveRecord::Base
 
   has_many :map_comments, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :map_favorites, dependent: :destroy
   has_many :voted_by, through: :votes,
             class_name: 'User',
             source: :user
@@ -34,7 +35,7 @@ class Map < ActiveRecord::Base
   end
 
   def base_map_name
-    name.gsub(/^[^_]{0,5}_/, '').gsub(/_[^_]*$/, '')
+    name.sub(/\A[^_]{0,5}_/, '').sub(/_(a|b|v|beta|erc|frc|rc|final|\d|x|z|fix|test)\d*[a-z]?\z/, '')
   end
 
   def find_related_maps_deep

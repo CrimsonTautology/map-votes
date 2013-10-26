@@ -3,6 +3,8 @@ MapVotes::Application.routes.draw do
 
   resources :maps do
     post 'vote', on: :member
+    post 'favorite', on: :member
+    post 'unfavorite', on: :member
     resources :map_comments 
   end
   
@@ -11,6 +13,10 @@ MapVotes::Application.routes.draw do
       post 'cast_vote', on: :collection
       post 'write_message', on: :collection
       post 'server_query', on: :collection
+      post 'favorite', on: :collection
+      post 'unfavorite', on: :collection
+      post 'get_favorites', on: :collection
+      post 'have_not_voted', on: :collection
     end
     
   end

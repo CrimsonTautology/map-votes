@@ -2,10 +2,11 @@ require "base64"
 
 module V1
   class ApiController < ApplicationController
-    before_filter :check_api_key
+    authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
-    before_filter :find_or_create_user_and_map, only: [:cast_vote, :write_message]
+    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite, :have_not_voted]
+    before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite, :get_favorites]
     respond_to :json
 
     def cast_vote
@@ -18,21 +19,60 @@ module V1
       head :created
     end
     def server_query
-      no_votes = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", params["map"]).map(&:uid)
-      render json: no_votes
+    end
+
+    def favorite
+      MapFavorite.favorite @user, @map
+      head :created
+    end
+
+    def unfavorite
+      MapFavorite.unfavorite @user, @map
+      head :created
+    end
+
+    def get_favorites
+      out = {
+        maps: @user.map_favorites.map{|m| m.map.name},
+        player: params[:player].to_i,
+        command: "get_favorites"
+      }
+      render json: out
+    end
+
+    def have_not_voted
+      uids = User.where(uid: params["uids"]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", @map).map(&:uid)
+
+      #Build the found players array which is parrel to the params["uid"] array - the uids that have not voted
+      players = []
+      uids.each do |uid|
+        i = params["uids"].index(uid) 
+        players << params["players"][i].to_i
+      end
+      out = {
+        players: players,
+        uids: uids,
+        command: "have_not_voted"
+      }
+      render json: out
     end
 
     private
     def check_api_key
-      api_key = ApiKey.find_by_access_token(params[:access_token])
+      api_key = ApiKey.authenticate(params[:access_token])
       head :unauthorized unless api_key
     end
 
-    def find_or_create_user_and_map
-      head :bad_request unless params["uid"] and params["map"]
-      @user = User.find_by_provider_and_uid("steam", params["uid"]) || User.create_with_steam_id(params["uid"])
-      @map = Map.find_or_create_by_name(params["map"])
+    def check_map
+      head :bad_request unless params["map"]
+      @map = Map.find_or_create_by(name: params["map"])
+      head :bad_request unless @map
+    end
 
+    def check_user
+      head :bad_request unless params["uid"]
+      @user = User.find_by(provider: "steam", uid: params["uid"]) || User.create_with_steam_id(params["uid"])
+      head :bad_request unless @user
     end
 
     def check_value

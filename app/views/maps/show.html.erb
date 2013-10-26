@@ -7,7 +7,7 @@
       <div class="span5">
         <h4><%= @map.map_type.name %></h4>
         <p><%= link_to "Download", fast_dl_link(@map) %></p>
-        <% if current_user_admin? %>
+        <% if can?(:update, @map) %>
           <p><%= link_to "Edit Map", edit_map_path(@map) %></p>
         <% end %>
 
@@ -19,11 +19,21 @@
       </div>
     </div>
 
-    <% if current_user %>
+    <% if can?(:vote, @map) %>
       <div class="container" id="vote_menu">
         <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
         <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
       </div>
+
+      <div class="container" id="favorites_menu">
+        <% if current_user.favorited? @map %>
+          <%= link_to "Remove from Favorites", unfavorite_map_path(@map), method: "post" %>
+        <% else %>
+          <%= link_to "Add to Favorites", favorite_map_path(@map), method: "post" %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if can?(:create, MapComment) %>
       <%= simple_form_for [@map, MapComment.new],
         method: 'post' do |f| %>
         <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
@@ -36,11 +46,14 @@
     <h3>All Comments (<%= @map_comments.count %>)</h3>
     <% @map_comments.each do |mc| %>
       <div class="media" >
-        <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile, class: "pull-left" %>
+        <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile_url, class: "pull-left" %>
         <div class="media-body">
-          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
+          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile_url %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
           <%= mc.comment %>
-          <%= link_to_if(mc.user.eql?(current_user), "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete)  %>
+
+          <% if can?(:destroy, mc) %>
+            <%= link_to "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete  %>
+          <% end %>
         </div>
       </div>
     <% end %>

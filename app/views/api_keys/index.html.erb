@@ -1,6 +1,6 @@
 <%= simple_form_for ApiKey.new do |f| %>
   <%= f.input :name %>
-  <%= f.button :submit %>
+  <%= f.submit "Add New Key" %>
 <% end %>
 
 <% if @api_keys.count > 0 %>
@@ -17,7 +17,7 @@
     <tr>
       <td><%= ak.name %></td>
       <td><%= ak.access_token %></td>
-      <td><%= button_to "delete", ak, method: :delete %></td>
+      <td><%= button_to "delete", ak, method: :delete, data: {confirm: "Are you sure?"} %></td>
     </tr>
   <% end %>
   </tbody>

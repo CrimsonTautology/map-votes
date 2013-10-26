@@ -17,7 +17,7 @@
         <%= link_to "Map Votes", root_path, class: "brand" %>
 
         <div class="col-sm-3 col-md-3 pull-left">
-          <%= simple_form_for maps_path, method: "get", class: "navbar-form form-search" do |f| %>
+          <%= simple_form_for :map, url: maps_path, method: "get", class: "navbar-form form-search" do |f| %>
             <%= f.input_field :search, name: "search", class: "input-medium search-query", placeholder: "Search Maps", value: params[:search], size: 35 %>
             <%= f.submit "Search" %>
           <% end %>
@@ -26,14 +26,16 @@
 
         <ul class ="nav pull-right">
           <li><%= link_to "Map List", maps_path %></li>
-          <% if current_user_admin? %>
+          <% if can? :create, Map %>
             <li><%= link_to "Add Map", new_map_path %></li>
+          <% end %>
+          <% if can? :read, ApiKey %>
             <li><%= link_to "Add API Key", api_keys_path %></li>
           <% end %>
           <% if current_user %>
             <li>Welcome <%= current_user.nickname %></li>
             <li><%= link_to "Log Out", logout_path %></li>
-            <%= link_to image_tag(current_user.avatar_url, alt: "avatar"), current_user.profile %>
+            <%= link_to image_tag(current_user.avatar_icon_url, alt: "avatar"), current_user.profile_url %>
           <%else %>
             <li><%= link_to image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam" %></li>
           <% end %>

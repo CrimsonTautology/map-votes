@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130815151931) do
+ActiveRecord::Schema.define(version: 20131023130711) do
 
   create_table "admins", force: true do |t|
     t.integer  "user_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20130815151931) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "admins", ["user_id"], name: "index_admins_on_user_id", using: :btree
+  add_index "admins", ["user_id"], name: "index_admins_on_user_id"
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -37,8 +37,18 @@ ActiveRecord::Schema.define(version: 20130815151931) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "map_comments", ["map_id"], name: "index_map_comments_on_map_id", using: :btree
-  add_index "map_comments", ["user_id"], name: "index_map_comments_on_user_id", using: :btree
+  add_index "map_comments", ["map_id"], name: "index_map_comments_on_map_id"
+  add_index "map_comments", ["user_id"], name: "index_map_comments_on_user_id"
+
+  create_table "map_favorites", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "map_id"
+  end
+
+  add_index "map_favorites", ["map_id"], name: "index_map_favorites_on_map_id"
+  add_index "map_favorites", ["user_id"], name: "index_map_favorites_on_user_id"
 
   create_table "map_types", force: true do |t|
     t.string   "name"
@@ -61,11 +71,13 @@ ActiveRecord::Schema.define(version: 20130815151931) do
     t.string   "provider"
     t.string   "uid"
     t.string   "nickname"
-    t.string   "profile"
     t.string   "avatar_url"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "admin",      default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "admin",           default: false, null: false
+    t.datetime "banned_at"
+    t.boolean  "moderator",       default: false, null: false
+    t.string   "avatar_icon_url"
   end
 
   create_table "votes", force: true do |t|
@@ -76,8 +88,7 @@ ActiveRecord::Schema.define(version: 20130815151931) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "votes", ["map_id"], name: "index_votes_on_map_id", using: :btree
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
+  add_index "votes", ["map_id"], name: "index_votes_on_map_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end
-

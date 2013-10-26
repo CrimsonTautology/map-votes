@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_filter :authorize_admin
+  authorize_resource
 
   def index
     @admins = User.admins
