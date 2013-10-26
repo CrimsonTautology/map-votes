@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 
   def check_for_account_update
     if updated_at < 7.days.ago
-      #steam_update
+      steam_update
     end
   end
 
