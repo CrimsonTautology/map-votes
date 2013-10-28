@@ -78,7 +78,7 @@ describe "Map pages" do
 
   subject { page }
 
-  describe "GET /users/:id" do
+  pending "GET /users/:id" do
     let!(:user) {FactoryGirl.create(:user)}
 
     it_should_behave_like "RejectOtherUsers"
@@ -118,13 +118,13 @@ describe "Map pages" do
 
   end
 
-  describe "GET /users/:uid/map_favorites" do
+  pending "GET /users/:uid/map_favorites" do
     let!(:user) {FactoryGirl.create(:user)}
 
     it_should_behave_like "RejectOtherUsers"
   end
 
-  describe "GET /users/:uid/ban" do
+  pending "GET /users/:uid/ban" do
     let!(:user) {FactoryGirl.create(:user)}
     let!(:viewer) {FactoryGirl.create(:user)}
 
