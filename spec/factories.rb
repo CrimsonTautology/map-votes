@@ -1,7 +1,9 @@
 FactoryGirl.define do
 
   factory :map do
-    name "pl_test_map_b1"
+    sequence :name do |n|
+      "pl_test_map_b#{n}"
+    end
     map_type
   end
 
