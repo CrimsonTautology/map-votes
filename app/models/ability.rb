@@ -13,7 +13,7 @@ class Ability
       can :favorite, Map
       can :unfavorite, Map
 
-      can :update, User, id: user.id
+      can :read, User, id: user.id
 
       unless user.banned?
         can :create, MapComment
@@ -23,6 +23,7 @@ class Ability
       if user.moderator?
         can [:destroy, :update], MapComment
         can :update, Map
+        can [:update, :read, :ban], User
       end
 
       if user.admin?
