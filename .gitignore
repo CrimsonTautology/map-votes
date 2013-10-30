@@ -28,3 +28,4 @@ doc/
 .project
 .DB_Store
 bundler_stubs/
+tags
