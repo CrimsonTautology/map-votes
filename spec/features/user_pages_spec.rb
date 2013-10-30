@@ -42,7 +42,7 @@ end
 shared_examples_for "RejectOtherUsers" do
   context "Not logged in" do
     before do
-      visit "/users/#{user.uid}"
+      visit current_path
     end
 
     its(:status_code) { should eq 401}
@@ -52,7 +52,7 @@ shared_examples_for "RejectOtherUsers" do
     let!(:viewer) {FactoryGirl.create(:user)}
     before do
       login viewer
-      visit "/users/#{user.uid}"
+      visit current_path
     end
 
     its(:status_code) { should eq 401}
@@ -61,7 +61,7 @@ shared_examples_for "RejectOtherUsers" do
   context "Logged in as correct user" do
     before do
       login user
-      visit "/users/#{user.uid}"
+      visit current_path
     end
 
     its(:status_code) { should eq 200}
@@ -78,7 +78,7 @@ describe "Map pages" do
 
   subject { page }
 
-  pending "GET /users/:id" do
+  describe "GET /users/:id" do
     let!(:user) {FactoryGirl.create(:user)}
 
     it_should_behave_like "RejectOtherUsers"

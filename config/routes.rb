@@ -7,6 +7,10 @@ MapVotes::Application.routes.draw do
     post 'unfavorite', on: :member
     resources :map_comments 
   end
+
+  resources :users do
+    resources :map_favorites 
+  end
   
   namespace :v1, defaults: {format: 'json'} do
     resources :api do
