@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   private
   def find_user
-    @user = User.includes(:votes).find(uid: params[:id])
+    @user = User.includes(:votes).find_by(uid: params[:id])
   end
 end
 
