@@ -49,7 +49,7 @@ class MapsController < ApplicationController
 
   private
   def find_map
-    @map = Map.includes(:voted_by, :map_type, :map_comments).find_by_name(params[:id])
+    @map = Map.includes(:voted_by, :map_type, :map_comments).find(name: params[:id])
   end
 
 
