@@ -6,7 +6,7 @@ shared_examples_for "UserInfo" do
 
     its(:status_code) { should eq 200}
     it {should have_content(user.nickname)}
-    it {should have_link("", href: user.profile)}
+    it {should have_link("", href: user.profile_url)}
 
     context "with voted maps" do
       let!(:map1) {FactoryGirl.create(:map)}
