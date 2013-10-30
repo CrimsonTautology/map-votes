@@ -9,6 +9,7 @@ MapVotes::Application.routes.draw do
   end
 
   resources :users do
+    post 'ban', on: :member
     resources :map_favorites 
   end
   
