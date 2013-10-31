@@ -72,4 +72,8 @@ class User < ActiveRecord::Base
   def favorited? map
     not MapFavorite.find_by(user_id: id, map: map).nil?
   end
+
+  def to_param
+    uid.parameterize
+  end
 end

@@ -4,6 +4,8 @@ describe Map do
   let(:map) {FactoryGirl.create(:map, name: "cp_base_name_v1")}
   subject{ map }
 
+  its(:to_param){ should eql(map.name)}
+
   context "adding a new map should get the correct prefix" do
     its(:map_type) { should eql MapType.find_by_prefix("cp" )}
   end
