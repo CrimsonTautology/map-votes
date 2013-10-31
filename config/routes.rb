@@ -10,6 +10,7 @@ MapVotes::Application.routes.draw do
 
   resources :users do
     post 'ban', on: :member
+    post 'unban', on: :member
     resources :map_favorites 
   end
   

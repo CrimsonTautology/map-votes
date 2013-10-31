@@ -1,2 +1,22 @@
 <% provide(:title, @user.nickname) %>
 
+<%= image_tag @user.avatar_url %>
+
+<%= link_to "Steam Profile", @user.profile_url %>
+<%= link_to "Manage Favorites", user_map_favorites_path(@user) %>
+<% if can?(:ban, @user) %>
+  <%= link_to "Ban User", ban_user_path(@user) %>
+<% end %>
+
+<div id="likes">
+  <% @user.liked_maps.each do |map| %>
+    <%= link_to map.name, map_path(map) %>
+  <% end %>
+</div>
+
+<div id="hates">
+  <% @user.hated_maps.each do |map| %>
+    <%= link_to map.name, map_path(map) %>
+  <% end %>
+</div>
+

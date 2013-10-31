@@ -3,12 +3,15 @@ class UsersController < ApplicationController
   before_filter :find_user, only: [:show, :ban]
 
   def show
+    authorize! :read, @user
 
   end
 
   def ban
     #@user.banned_at = Time.now
     #@user.save!
+  end
+  def unban
   end
 
   private
