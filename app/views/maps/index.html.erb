@@ -3,7 +3,7 @@
 <div class="row">
 
   <div class="span8">
-    <% if params[:view].nil? %>
+    <% if params[:view] == "list" || params[:view].nil? %>
       <div class="list">
         <ul >
           <% @maps.each do |map|%>
@@ -27,16 +27,8 @@
 
     <div class="map-views">
       <h2>View</h2>
-      <span class="view">
-        <%= link_to params.merge(view: nil, page: nil), title: "List View" do %>
-          <%= fa_icon( "icon-list-ul") %>List
-        <% end %>
-      </span>
-      <span class="view">
-        <%= link_to params.merge(view: "grid", page: nil), title: "Grid View" do %>
-          <%= fa_icon( "icon-th") %>Grid
-        <% end %>
-      </span>
+        <%= link_to "List", params.merge(view: "list", page: nil), title: "List View" %>
+        <%= link_to "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %>
     </div>
 
     <hr>
