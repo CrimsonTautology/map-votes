@@ -72,7 +72,7 @@ describe "User pages" do
 
   subject { page }
 
-  describe "GET /users/:uid" do
+  pending "GET /users/:uid" do
     let!(:user) {FactoryGirl.create(:user)}
 
     context "Not logged in" do
