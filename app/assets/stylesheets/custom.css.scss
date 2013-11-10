@@ -54,8 +54,12 @@ body {
 footer {
     color: #666;
     background: #222;
-    padding: 17px 0 18px 0;
+    margin: 50px 0;
     border-top: 1px solid #000;
+}
+
+footer .row {
+    padding: 35px;
 }
 
 .wrapper {
