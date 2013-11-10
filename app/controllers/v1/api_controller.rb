@@ -11,7 +11,13 @@ module V1
 
     def cast_vote
       Vote.cast_vote @user, @map, @value
-      head :created
+
+      out = {
+        player: params[:player].to_i,
+        value: @value.to_i,
+        command: "cast_vote"
+      }
+      render json: out
     end
 
     def write_message
@@ -23,12 +29,24 @@ module V1
 
     def favorite
       MapFavorite.favorite @user, @map
-      head :created
+
+      out = {
+        player: params[:player].to_i,
+        favorite: true,
+        command: "favorite"
+      }
+      render json: out
     end
 
     def unfavorite
       MapFavorite.unfavorite @user, @map
-      head :created
+
+      out = {
+        player: params[:player].to_i,
+        favorite: false,
+        command: "unfavorite"
+      }
+      render json: out
     end
 
     def get_favorites

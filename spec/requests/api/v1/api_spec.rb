@@ -79,6 +79,15 @@ describe "POST /v1/api" do
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
 
+      it "returns the value passed in" do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name,
+            value: -1
+          expect(json['value']).to eq(-1)
+      end
+
     end
 
   end
@@ -171,6 +180,14 @@ describe "POST /v1/api" do
             map: map.name
         end.to_not change{MapFavorite.count}
       end
+
+      it "returns the value passed in" do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+          expect(json['favorite']).to eq(true)
+      end
     end
   end
 
@@ -208,6 +225,14 @@ describe "POST /v1/api" do
             uid: user.uid,
             map: map.name
         end.to_not change{MapFavorite.count}
+      end
+
+      it "returns the value passed in" do
+          post route,
+            access_token: api_key.access_token,
+            uid: user.uid,
+            map: map.name
+          expect(json['favorite']).to eq(false)
       end
     end
 
@@ -284,10 +309,6 @@ describe "POST /v1/api" do
         expect(json['command']).to eql("have_not_voted")
       end
     end
-  end
-
-  describe "/server_query" do
-
   end
 
 end
