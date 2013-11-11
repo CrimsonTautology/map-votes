@@ -26,15 +26,15 @@
   <div class="col-md-4">
 
     <div class="map-views">
-      <h2>View</h2>
-        <%= link_to "List", params.merge(view: "list", page: nil), title: "List View" %>
-        <%= link_to "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %>
+      <h3>View</h3>
+      <span><%= link_to_unless params[:view].blank?,    "List", params.merge(view: "list", page: nil), title: "List View" %></span>
+      <span><%= link_to_unless params[:view] == "grid", "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %></span>
     </div>
 
     <hr>
 
     <div class="map-categories">
-      <h2>Map Categories</h2>
+      <h3>Map Categories</h3>
       <% @map_types.each do |map_type| %>
         <%= link_to map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-info"} %>
       <% end %>
