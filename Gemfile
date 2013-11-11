@@ -21,6 +21,7 @@ gem "cancan"
 gem 'simple_form'
 
 gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 gem 'omniauth-openid'
 gem 'omniauth-steam'
