@@ -9,7 +9,6 @@ gem 'pg'
 gem 'thin'
 
 gem 'jquery-rails'
-gem 'bootstrap-sass'
 gem "font-awesome-rails"
 
 gem 'turbolinks'
