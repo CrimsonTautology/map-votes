@@ -11,20 +11,34 @@
     <![endif]-->
   </head>
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-    <div class="navbar-inner">
-      <div class="container">
-        <%= link_to "Map Votes", root_path, class: "brand" %>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-header">
+        <%= link_to "Map Votes", root_path, class: "navbar-brand" %>
+      </div>
 
-        <div class="col-sm-3 col-md-3 pull-left">
-          <%= simple_form_for :map, url: maps_path, method: "get", class: "navbar-form form-search" do |f| %>
-            <%= f.input_field :search, name: "search", class: "input-medium search-query", placeholder: "Search Maps", value: params[:search], size: 35 %>
-            <%= f.submit "Search" %>
-          <% end %>
-        </div>
+      <div class="col-sm-3 col-md-3 pull-left">
+        <%= simple_form_for :map, url: maps_path, method: "get", class: "navbar-form form-search" do |f| %>
+          <%= f.input_field :search, name: "search", class: "input-medium search-query", placeholder: "Search Maps", value: params[:search], size: 35 %>
+          <%= f.submit "Search" %>
+        <% end %>
+      </div>
 
+      <div class="navbar-header navbar-right">
+        <% if current_user %>
+          <p class="navbar-text">
+            Welcome <%= link_to current_user.nickname, current_user %>
+            <%= link_to "Log Out", logout_path %>
+            <%= link_to image_tag(current_user.avatar_icon_url, alt: "avatar"), current_user.profile_url %>
+          </p>
+        <%else %>
+          <p class="navbar-text">
+            <%= link_to image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam" %>
+          </p>
+        <% end %>
+      </div>
 
-        <ul class ="nav pull-right">
+      <div class="navbar-collapse collapse">
+        <ul class ="nav navbar-nav">
           <li><%= link_to "Map List", maps_path %></li>
           <% if can? :create, Map %>
             <li><%= link_to "Add Map", new_map_path %></li>
@@ -32,17 +46,9 @@
           <% if can? :read, ApiKey %>
             <li><%= link_to "Add API Key", api_keys_path %></li>
           <% end %>
-          <% if current_user %>
-            <li>Welcome <%= current_user.nickname %></li>
-            <li><%= link_to "Log Out", logout_path %></li>
-            <%= link_to image_tag(current_user.avatar_icon_url, alt: "avatar"), current_user.profile_url %>
-          <%else %>
-            <li><%= link_to image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam" %></li>
-          <% end %>
         </ul>
       </div>
-    </div>
-  </header>
+    </header>
 
     <%= render partial: "shared/flash_messages", flash: flash %>
 
