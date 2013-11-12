@@ -25,19 +25,23 @@
   </div>
   <div class="col-md-4">
 
-    <div class="map-views">
-      <h3>View</h3>
-      <span><%= link_to_unless params[:view].blank?,    "List", params.merge(view: "list", page: nil), title: "List View" %></span>
-      <span><%= link_to_unless params[:view] == "grid", "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %></span>
+    <div id="map-views" class="panel panel-default">
+      <div class="panel-heading">View</div>
+      <div class="panel-body">
+        <span><%= link_to_unless params[:view].blank?,    "List", params.merge(view: "list", page: nil), title: "List View" %></span>
+        <span><%= link_to_unless params[:view] == "grid", "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %></span>
+      </div>
     </div>
 
     <hr>
 
-    <div class="map-categories">
-      <h3>Map Categories</h3>
-      <% @map_types.each do |map_type| %>
-        <%= link_to map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-info"} %>
-      <% end %>
+    <div id="map-categories" class="panel panel-default">
+      <div class="panel-heading">Map Categories</div>
+      <div class="panel-body">
+        <% @map_types.each do |map_type| %>
+          <%= link_to map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-primary"} %>
+        <% end %>
+      </div>
     </div>
 
   </div>
