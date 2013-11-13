@@ -57,7 +57,10 @@ class User < ActiveRecord::Base
 
   def check_for_account_update
     if updated_at < 7.days.ago
-      steam_update
+      begin
+        steam_update
+      rescue SteamCondenserError
+      end
     end
   end
 
