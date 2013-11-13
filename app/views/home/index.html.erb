@@ -1,10 +1,9 @@
 <% provide(:title, "Home" ) %>
 
-<div class="center hero-unit">
-  <h1>Welcome to the Map Voter</h1>
+<h1>Welcome to Map Votes</h1>
 
-  <h2>Current On Going Votes</h2>
+<h2>Recent Events</h2>
+<%= render 'shared/event_list', {events: @events} %>
 
 
-</div>
 
