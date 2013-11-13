@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   def steam_update
     steam = SteamId.new(uid.to_i)
     update_attributes(nickname: steam.nickname, avatar_url: steam.medium_avatar_url, avatar_icon_url: steam.icon_url)
+    touch
   end
 
   def check_for_account_update
