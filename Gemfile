@@ -9,7 +9,6 @@ gem 'pg'
 gem 'thin'
 
 gem 'jquery-rails'
-gem 'bootstrap-sass', '~> 3.0.2.0'
 gem "font-awesome-rails"
 
 gem 'turbolinks'
@@ -22,6 +21,7 @@ gem "cancan"
 gem 'simple_form'
 
 gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 gem 'omniauth-openid'
 gem 'omniauth-steam'
@@ -47,6 +47,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'capybara', '2.1.0'
   gem 'factory_girl_rails', '4.2.1'
   gem 'database_cleaner', '1.0.1'

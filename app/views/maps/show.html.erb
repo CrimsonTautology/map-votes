@@ -2,9 +2,9 @@
 
 <h2><%= @map.name %></h2>
 <div class="row">
-  <div class="span8">
+  <div class="col-md-8">
     <div class="row">
-      <div class="span5">
+      <div class="col-md-5">
         <h4><%= @map.map_type.name %></h4>
         <p><%= link_to "Download", fast_dl_link(@map) %></p>
         <% if can?(:update, @map) %>
@@ -12,7 +12,7 @@
         <% end %>
 
       </div>
-      <div class="span3">
+      <div class="col-md-3">
         <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
         <span class="up-vote"><%= @map.liked_by.count %><i class="icon-thumbs-up"></i></span>
         <span class="down-vote"><%= @map.hated_by.count %><i class="icon-thumbs-down"></i></span>
@@ -60,7 +60,7 @@
 
   </div>
 
-  <div class="span4">
+  <div class="col-md-4">
     <h3>Liked by</h3>
     <%= render 'shared/user_image_list', {users: @map.liked_by} %>
 
