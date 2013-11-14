@@ -24,6 +24,17 @@ describe "Map pages" do
 
       it { should have_link(map.name, href: map_path(map))}
       it { should have_content(map.map_type.name)}
+      it { should_not have_link("Edit", href: edit_map_path(map))}
+
+      context "Logged in as admin" do
+        let!(:user) {FactoryGirl.create(:admin)}
+        before do
+          login user
+          visit maps_path
+        end
+
+        it { should have_link("Edit", href: edit_map_path(map))}
+      end
     end
 
     context "filtering" do
