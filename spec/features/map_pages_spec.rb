@@ -229,7 +229,38 @@ describe "Map pages" do
   end#/maps/:id
 
   describe "GET /maps/:id/edit" do
+    let!(:map) {FactoryGirl.create(:map)}
+    let!(:user) {FactoryGirl.create(:user)}
+    let!(:admin) {FactoryGirl.create(:admin)}
+    let!(:koth) {FactoryGirl.create(:map_type, name: "King of the Hill", prefix: "koth")}
+
+    context "not logged in as admin" do
+      before do
+        login user
+        visit edit_map_path(map)
+      end
+
+      its(:status_code) { should eq 403}
+    end
+
+    context "logged in as admin" do
+      before do
+        login admin
+        visit edit_map_path(map)
+      end
+
+      its(:status_code) { should eq 200}
+      it{should have_content(map.name)}
+      it "updates map type" do
+        select koth.name, from: "map_map_type_id"
+        click_on "Update Map"
+        map.reload
+        expect(map.map_type).to eql(koth)
+
+      end
+    end
   end
+
   describe "GET /maps/new" do
   end
 end
