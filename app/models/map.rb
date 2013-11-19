@@ -34,8 +34,25 @@ class Map < ActiveRecord::Base
     name.split("_", 2).first.downcase
   end
 
+  def version
+    v =name.scan(/(?:\d\d*|_(?:a|b|v|beta|erc|frc|rc|final|\d|x|z|fix|test)\d*[a-z]?)\z/).last
+    unless v.nil?
+      v.gsub(/\A_/, '')
+    else
+      nil
+    end
+  end
+
   def base_map_name
     name.sub(/\A[^_]{0,5}_/, '').sub(/_(a|b|v|beta|erc|frc|rc|final|\d|x|z|fix|test)\d*[a-z]?\z/, '')
+  end
+
+  def base_map_name_and_type
+    name.sub(/_(a|b|v|beta|erc|frc|rc|final|\d|x|z|fix|test)\d*[a-z]?\z/, '')
+  end
+
+  def other_versions
+    Map.search(base_map_name_and_type).flatten.uniq.reject{|m| m.name.eql?(name)}
   end
 
   def find_related_maps_deep

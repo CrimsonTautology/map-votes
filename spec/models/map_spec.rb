@@ -10,6 +10,29 @@ describe Map do
     its(:map_type) { should eql MapType.find_by_prefix("cp" )}
   end
 
+  describe "#prefix" do
+    its(:prefix) { should eql "cp"}
+  end
+
+  describe "#version" do
+    it "matches common version letters" do
+      map.name = "cp_base_name_b1"
+      expect(map.version).to eql("b1")
+    end
+    it "matches final" do
+      map.name = "cp_base_name_final"
+      expect(map.version).to eql("final")
+    end
+    it "ignores non version names" do
+      map.name = "cp_base_name"
+      expect(map.version).to be_nil
+    end
+    it "catches numbers at the end of the name" do
+      map.name = "cp_base_name2"
+      expect(map.version).to eql("2")
+    end
+  end
+
   describe "#base_map_name" do
     its(:base_map_name) { should eql  "base_name"}
 
@@ -23,6 +46,25 @@ describe Map do
       expect(map.base_map_name).to eql "avanti"
     end
 
+  end
+
+  describe "#base_map_name_and_type" do
+    its(:base_map_name_and_type) { should eql "cp_base_name"}
+  end
+
+  describe "#other_versions" do
+    subject{ map.other_versions.map(&:name)}
+    before do
+      FactoryGirl.create(:map, name: "koth_base_name_v1")
+      FactoryGirl.create(:map, name: "cp_base_name")
+      FactoryGirl.create(:map, name: "cp_base_name_v2")
+      FactoryGirl.create(:map, name: "cp_base_name_final")
+      FactoryGirl.create(:map, name: "cp_dustbowl")
+      FactoryGirl.create(:map, name: "koth_place_v1")
+      FactoryGirl.create(:map, name: "cp_secret_base_b1")
+    end
+
+    it { should match_array(["cp_base_name", "cp_base_name_v2", "cp_base_name_final"])}
   end
 
   describe "#find_related_maps_deep" do
