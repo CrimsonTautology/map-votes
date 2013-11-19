@@ -95,8 +95,8 @@ describe "Map pages" do
     context "with origin" do
       before do
         map.origin = "example.com"
-        map.reload
-        visit(map)
+        map.save
+        visit map_path(map)
       end
 
       it { should have_link("Origin", href: map.origin)}

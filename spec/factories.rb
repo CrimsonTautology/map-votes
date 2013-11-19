@@ -5,6 +5,7 @@ FactoryGirl.define do
       "pl_test_map_b#{n}"
     end
     map_type
+    description "This is a map"
   end
 
   factory :map_type do
