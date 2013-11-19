@@ -1,6 +1,8 @@
 <h2><%= @map.name %></h2>
 <%= simple_form_for @map do |f| %>
-  <%= f.input :image %>
+  <%= f.input :image , as: :url%>
+  <%= f.input :origin, as: :url %>
   <%= f.input :map_type_id, collection: @map_types, include_blank: false %>
+  <%= f.input :description, as: :text, input_html: {rows: 2, cols:50} %>
   <%= f.button :submit %>
 <% end %>

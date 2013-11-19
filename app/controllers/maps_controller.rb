@@ -21,6 +21,8 @@ class MapsController < ApplicationController
   def update
     @map.image = params[:map][:image]
     @map.map_type_id = params[:map][:map_type_id]
+    @map.origin = params[:map][:origin]
+    @map.description = params[:map][:description]
     if @map.save
       redirect_to(@map)
     else

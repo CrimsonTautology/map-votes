@@ -78,6 +78,7 @@ describe "Map pages" do
     end
 
     it { should have_content(map.name)}
+    it { should have_content(map.description)}
     it { should have_content(map.map_type.name)}
     it { should have_content("All Comments (0)")}
     it { should have_content("You must be logged in to leave a comment")}
@@ -88,7 +89,18 @@ describe "Map pages" do
     it { should_not have_link("", href: favorite_map_path(map))}
     it { should_not have_link("", href: unfavorite_map_path(map))}
     it { should_not have_link("", href: edit_map_path(map))}
+    it { should_not have_link("Origin")}
     #it { should_not have_selector()}
+    #
+    context "with origin" do
+      before do
+        map.origin = "example.com"
+        map.reload
+        visit(map)
+      end
+
+      it { should have_link("Origin", href: map.origin)}
+    end
 
     context "with comments" do
       let!(:comment) {FactoryGirl.create(:map_comment, map: map)}
@@ -256,7 +268,24 @@ describe "Map pages" do
         click_on "Update Map"
         map.reload
         expect(map.map_type).to eql(koth)
-
+      end
+      it "updates map image" do
+        fill_in "Image", with: "http://www.example.com/image"
+        click_on "Update Map"
+        map.reload
+        expect(map.image).to eql( "http://www.example.com/image")
+      end
+      it "updates map description" do
+        fill_in "Description", with: "Blah blah BLAH"
+        click_on "Update Map"
+        map.reload
+        expect(map.description).to eql("Blah blah BLAH")
+      end
+      it "updates map origin" do
+        fill_in "Origin", with: "http://www.example.com/origin"
+        click_on "Update Map"
+        map.reload
+        expect(map.origin).to eql( "http://www.example.com/origin")
       end
     end
   end
