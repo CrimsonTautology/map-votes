@@ -69,6 +69,19 @@ class Map < ActiveRecord::Base
     liked_by.count + hated_by.count
   end
 
+  def score confidence=0.90
+    positive = votes.likes.count
+    negative = votes.hates.count
+
+    n = positive + negative
+    if n == 0
+      return 0
+    end
+    z = Statistics2.pnormaldist(1-(1-confidence)/2)
+    phat = 1.0*positive/n
+    (phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
+  end
+
 
   #Return a random map
   def self.random
@@ -108,14 +121,14 @@ class Map < ActiveRecord::Base
   def self.filter(attributes)
     attributes.inject(self) do |scope, (key, value)|
       return scope if value.blank?
-      case key.to_sym
-      when :map_type_id
-        scope.where(key => value)
-      when :search
-        scope.search(value)
-      else #ignore unkown keys
-        scope
-      end
+    case key.to_sym
+    when :map_type_id
+      scope.where(key => value)
+    when :search
+      scope.search(value)
+    else #ignore unkown keys
+      scope
+    end
     end
   end
 
