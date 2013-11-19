@@ -13,7 +13,7 @@
 
       </div>
       <div class="col-md-3">
-        <%= image_tag(smart_map_image_url(@map.name), class: "img-rounded map-thumbnail") %>
+        <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
         <div class="up-vote">
           <%= @map.liked_by.count %>
           <span class="glyphicon glyphicon-thumbs-up">:before</span>
