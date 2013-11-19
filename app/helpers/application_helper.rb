@@ -12,16 +12,15 @@ module ApplicationHelper
   end
 
   def url_responsive? url
-    begin
-      uri = URI(url)
-      uri_request = Net::HTTP.new uri.host
-      uri_response= uri_request.request_head uri.path
-      uri_response.code.to_i == 200
-    rescue URI::BadURIError
-      false
-    rescue URI::InvalidURIError
-      false
-    end
+    return false if url.nil?
+    uri = URI(url)
+    uri_request = Net::HTTP.new uri.host
+    uri_response= uri_request.request_head uri.path
+    uri_response.code.to_i == 200
+  rescue URI::BadURIError
+    false
+  rescue URI::InvalidURIError
+    false
   end
 
   def bootstrap_class_for flash_type
