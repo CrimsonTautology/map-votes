@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20131121211917) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "admins", ["user_id"], name: "index_admins_on_user_id"
+  add_index "admins", ["user_id"], name: "index_admins_on_user_id", using: :btree
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20131121211917) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "map_comments", ["map_id"], name: "index_map_comments_on_map_id"
-  add_index "map_comments", ["user_id"], name: "index_map_comments_on_user_id"
+  add_index "map_comments", ["map_id"], name: "index_map_comments_on_map_id", using: :btree
+  add_index "map_comments", ["user_id"], name: "index_map_comments_on_user_id", using: :btree
 
   create_table "map_favorites", force: true do |t|
     t.datetime "created_at"
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20131121211917) do
     t.integer  "map_id"
   end
 
-  add_index "map_favorites", ["map_id"], name: "index_map_favorites_on_map_id"
-  add_index "map_favorites", ["user_id"], name: "index_map_favorites_on_user_id"
+  add_index "map_favorites", ["map_id"], name: "index_map_favorites_on_map_id", using: :btree
+  add_index "map_favorites", ["user_id"], name: "index_map_favorites_on_user_id", using: :btree
 
   create_table "map_types", force: true do |t|
     t.string   "name"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20131121211917) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "votes", ["map_id"], name: "index_votes_on_map_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["map_id"], name: "index_votes_on_map_id", using: :btree
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
 end

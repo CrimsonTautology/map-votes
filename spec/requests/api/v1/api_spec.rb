@@ -329,21 +329,22 @@ describe "POST /v1/api" do
       let!(:api_key) {FactoryGirl.create(:api_key)}
 
       it "updates total time played" do
-        expect do
-          post route,
-            access_token: api_key.access_token,
-            map: map.name,
-            time_played: 309134
-        end.to change{map.reload.total_time_played}.by(309134)
+        post route,
+          access_token: api_key.access_token,
+          map: map.name,
+          time_played: 309134
+        map.reload
+        expect(map.total_time_played).to eq(309134)
       end
 
       it "updates the last played time stamp" do
-        expect do
-          post route,
-            access_token: api_key.access_token,
-            map: map.name,
-            time_played: 309134
-        end.to change{map.reload.last_played_at}
+        mark = Time.now
+        post route,
+          access_token: api_key.access_token,
+          map: map.name,
+          time_played: 309134
+        map.reload
+        expect(map.last_played_at).to be >= mark
       end
 
     end

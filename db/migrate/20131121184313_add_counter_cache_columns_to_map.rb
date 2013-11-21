@@ -6,9 +6,10 @@ class AddCounterCacheColumnsToMap < ActiveRecord::Migration
 
     Map.reset_column_information
     Map.all.each do |m|
-      m.update_attribute :likes_count, m.votes.likes.length
-      m.update_attribute :hates_count, m.votes.hates.length
-      m.update_attribute :map_comments_count, m.map_comments.length
+      m.likes_count = m.votes.likes.length
+      m.hates_count =  m.votes.hates.length
+      m.map_comments_count = m.map_comments.length
+      m.save
     end
   end
 end
