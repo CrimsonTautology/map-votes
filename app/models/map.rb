@@ -69,7 +69,7 @@ class Map < ActiveRecord::Base
     liked_by.count + hated_by.count
   end
 
-  def score confidence=0.90
+  def score confidence=0.95
     positive = votes.likes.count
     negative = votes.hates.count
 

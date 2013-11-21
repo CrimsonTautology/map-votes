@@ -1,5 +1,5 @@
 class MapComment < ActiveRecord::Base
-  belongs_to :map
+  belongs_to :map, counter_cache: true
   belongs_to :user
 
   validates :map, presence: true

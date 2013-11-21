@@ -12,6 +12,9 @@ class Vote < ActiveRecord::Base
   scope :hates,   -> { where value: -1 }
   scope :neutral, -> { where value: 0 }
 
+  after_save :update_counter_cache
+  after_destroy :update_counter_cache
+
   def self.cast_vote user, map, value
     v = Vote.find_by_user_id_and_map_id user, map
     if v
@@ -23,6 +26,12 @@ class Vote < ActiveRecord::Base
       v.map = map
       v.save!
     end
+  end
 
+  private
+  def update_counter_cache
+    map.likes_count = map.votes.likes.length
+    map.hates_count = map.votes.hates.length
+    map.save
   end
 end
