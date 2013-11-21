@@ -51,10 +51,10 @@
     <div id="map-orders" class="panel panel-default">
       <div class="panel-heading">Order By</div>
       <div class="panel-body">
-        <span><%= link_to_unless params[:sort].blank?,    "List", params.merge(sort: "", page: nil), title: "Name" %></span>
-        <span><%= link_to_unless params[:sort] == "best", "Grid", params.merge(sort: "best", page: nil), title: "Most Popular" %></span>
-        <span><%= link_to_unless params[:sort] == "comments", "Grid", params.merge(sort: "comments", page: nil), title: "Most Comments" %></span>
-        <span><%= link_to_unless params[:sort] == "newest", "Grid", params.merge(sort: "newest", page: nil), title: "Newest" %></span>
+        <span><%= link_to_unless params[:sort].blank?,    "Name", params.merge(sort: "", page: nil), title: "Name" %></span>
+        <span><%= link_to_unless params[:sort] == "best", "Most Popular", params.merge(sort: "best", page: nil), title: "Most Popular" %></span>
+        <span><%= link_to_unless params[:sort] == "comments", "Most Comments", params.merge(sort: "comments", page: nil), title: "Most Comments" %></span>
+        <span><%= link_to_unless params[:sort] == "newest", "Newest", params.merge(sort: "newest", page: nil), title: "Newest" %></span>
       </div>
     </div>
 

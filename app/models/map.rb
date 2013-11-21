@@ -129,7 +129,7 @@ class Map < ActiveRecord::Base
     when :search
       scope.search(value)
     when :sort
-      case sort
+      case value.to_sym
       when :best
         scope.order_by_score
       when :comments
