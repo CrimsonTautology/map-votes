@@ -66,12 +66,12 @@ class Map < ActiveRecord::Base
   end
 
   def total_votes
-    liked_by.count + hated_by.count
+    likes_count + hates_count
   end
 
   def score confidence=0.95
-    positive = votes.likes.count
-    negative = votes.hates.count
+    positive = likes_count
+    negative = hates_count
 
     n = positive + negative
     if n == 0
