@@ -3,7 +3,7 @@ class MapsController < ApplicationController
   before_filter :find_map, only: [:show, :new, :edit, :update, :vote, :favorite, :unfavorite]
 
   def index
-    @maps = Map.includes([:votes]).filter(params).order(:name).paginate(page: params[:page], per_page: 32)
+    @maps = Map.filter(params).order(:name).paginate(page: params[:page], per_page: 32)
     @map_types = MapType.order("name")
     
   end
