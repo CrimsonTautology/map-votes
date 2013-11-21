@@ -8,7 +8,6 @@ class Map < ActiveRecord::Base
             class_name: 'User',
             source: :user
 
-
   def liked_by
     votes.likes.map(&:user)
   end
@@ -69,17 +68,19 @@ class Map < ActiveRecord::Base
     likes_count + hates_count
   end
 
+  #Calculate by Wilson Confidence Curve
   def score confidence=0.95
-    positive = likes_count
-    negative = hates_count
-
-    n = positive + negative
+    n = likes_count + hates_count
     if n == 0
       return 0
     end
     z = Statistics2.pnormaldist(1-(1-confidence)/2)
-    phat = 1.0*positive/n
+    phat = 1.0*likes_count/n
     (phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
+  end
+
+  def self.order_by_score
+    order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) ")
   end
 
 
@@ -126,10 +127,24 @@ class Map < ActiveRecord::Base
       scope.where(key => value)
     when :search
       scope.search(value)
+    when :sort
+      case sort
+      when :best
+        scope.sort_by(&:score).reverse
+      when :comments
+        scope.order(map_comments_count: :desc)
+      when :newest
+        scope.order(created_at: :desc)
+      when :oldest
+        scope.order(created_at: :asc)
+      else
+        scope.order(:name)
+      end
     else #ignore unkown keys
       scope
     end
     end
+
   end
 
 
