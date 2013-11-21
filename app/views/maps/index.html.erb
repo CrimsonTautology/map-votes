@@ -55,6 +55,8 @@
         <span><%= link_to_unless params[:sort] == "best", "Most Popular", params.merge(sort: "best", page: nil),{ title: "Most Popular", class: "label label-primary"} %></span>
         <span><%= link_to_unless params[:sort] == "comments", "Most Comments", params.merge(sort: "comments", page: nil),{ title: "Most Comments", class: "label label-primary"} %></span>
         <span><%= link_to_unless params[:sort] == "newest", "Newest", params.merge(sort: "newest", page: nil),{ title: "Newest", class: "label label-primary"} %></span>
+        <span><%= link_to_unless params[:sort] == "last_played_at", "Last Played", params.merge(sort: "last_played_at", page: nil),{ title: "Last Played", class: "label label-primary"} %></span>
+        <span><%= link_to_unless params[:sort] == "total_time_played", "Total Time Played", params.merge(sort: "total_time_played", page: nil),{ title: "Total Time Played", class: "label label-primary"} %></span>
       </div>
     </div>
 

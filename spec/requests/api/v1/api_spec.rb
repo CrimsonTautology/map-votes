@@ -311,4 +311,42 @@ describe "POST /v1/api" do
     end
   end
 
+  describe "/update_map_play_time" do
+    route = "/v1/api/update_map_play_time"
+    let!(:map) {FactoryGirl.create(:map)}
+    let!(:other_map) {FactoryGirl.create(:map, name: "cp_other_map_b1")}
+
+    it_should_behave_like "ApiController", route, {
+      map: "auto_map",
+      time_played: 902821
+    }
+    it_should_behave_like "map query", route, {
+      map: "New_Map",
+      time_played: 3924123
+    }
+
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      it "updates total time played" do
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            map: map.name,
+            time_played: 309134
+        end.to change{map.reload.total_time_played}.by(309134)
+      end
+
+      it "updates the last played time stamp" do
+        expect do
+          post route,
+            access_token: api_key.access_token,
+            map: map.name,
+            time_played: 309134
+        end.to change{map.reload.last_played_at}
+      end
+
+    end
+  end
+
 end

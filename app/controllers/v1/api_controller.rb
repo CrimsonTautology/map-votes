@@ -5,7 +5,7 @@ module V1
     authorize_resource class: false
     before_filter :check_value, only: [:cast_vote]
     before_filter :check_comment, only: [:write_message]
-    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite, :have_not_voted]
+    before_filter :check_map, only: [:cast_vote, :write_message, :favorite, :unfavorite, :have_not_voted, :update_map_play_time]
     before_filter :check_user, only: [:cast_vote, :write_message, :favorite, :unfavorite, :get_favorites]
     respond_to :json
 
@@ -77,6 +77,14 @@ module V1
         command: "have_not_voted"
       }
       render json: out
+    end
+
+    def update_map_play_time
+      head :bad_request and return unless params[:time_played]
+      @map.total_time_played += params[:time_played].to_i
+      @map.last_played_at = Time.now
+      @map.save!
+      head :updated
     end
 
     private

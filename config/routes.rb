@@ -23,6 +23,7 @@ MapVotes::Application.routes.draw do
       post 'unfavorite', on: :collection
       post 'get_favorites', on: :collection
       post 'have_not_voted', on: :collection
+      post 'update_map_play_time', on: :collection
     end
     
   end
