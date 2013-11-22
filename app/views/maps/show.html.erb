@@ -14,7 +14,11 @@
         <p class="total-played">
           Played for <%= distance_of_time_in_words(@map.total_time_played) %>
         </p>
-        <p><%= link_to "Download", fast_dl_link(@map) %></p>
+        <p>
+          <%= link_to fast_dl_link(@map), {class: "btn btn-default btn-lg"} do%>
+            <span class="glyphicon glyphicon-download-alt"></span>Download Map
+          <% end %>
+        </p>
         <% unless @map.origin.empty? %>
           <p><%= link_to "Origin", @map.origin %></p>
         <% end %>
@@ -32,11 +36,11 @@
         <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
         <div class="up-vote">
           <%= @map.likes_count %>
-          <span class="glyphicon glyphicon-thumbs-up">:before</span>
+          <span class="glyphicon glyphicon-thumbs-up"></span>
         </div>
         <div class="down-vote">
           <%= @map.hates_count %>
-          <span class="glyphicon glyphicon-thumbs-down">:before</span>
+          <span class="glyphicon glyphicon-thumbs-down"></span>
         </div>
       </div>
     </div>
@@ -51,9 +55,13 @@
     <% if can?(:favorite, @map) %>
       <div class="container" id="favorites_menu">
         <% if current_user.favorited? @map %>
-          <%= link_to "Remove from Favorites", unfavorite_map_path(@map), method: "post" %>
+          <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-lg"} do %>
+            <span class="glyphicon glyphicon-star"></span>Remove from Favorites
+          <% end %>
         <% else %>
-          <%= link_to "Add to Favorites", favorite_map_path(@map), method: "post" %>
+          <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-lg"} do %>
+            <span class="glyphicon glyphicon-star"></span>Add to Favorites
+          <% end %>
         <% end %>
       </div>
     <% end %>
