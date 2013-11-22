@@ -4,34 +4,7 @@
 
   <div class="col-md-8">
     <% if params[:view] == "list" || params[:view].nil? %>
-      <div class="list">
-        <ul >
-          <% @maps.each do |map|%>
-            <li>
-              <%= link_to map.name, map %> 
-              <% if can? :update, map %><%= link_to "Edit", edit_map_path(map) %><% end %>
-              <% if map.likes_count > 0 %>
-                <div class="up-vote">
-                  <%= map.likes_count %>
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </div>
-              <% end %>
-              <% if map.hates_count > 0 %>
-                <div class="down-vote">
-                  <%= map.hates_count %>
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </div>
-              <% end %>
-              <% if map.map_comments_count > 0 %>
-                <div class="comment-counter">
-                  <%= map.hates_count %>
-                  <span class="glyphicon glyphicon-comment"></span>
-                </div>
-                <%= map.map_comments_count %><% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render 'shared/map_quick_list', {maps: @maps} %>
     <% elsif params[:view] == "grid" %>
       <div class="grid">
         <%= render 'shared/map_image_list', {maps: @maps} %>

@@ -1,0 +1,28 @@
+<div class="list">
+  <ul >
+    <% maps.each do |map|%>
+      <li>
+        <%= link_to map.name, map %> 
+        <% if can? :update, map %><%= link_to "Edit", edit_map_path(map) %><% end %>
+        <% if map.likes_count > 0 %>
+          <span class="up-vote">
+            <%= map.likes_count %>
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+          </span>
+        <% end %>
+        <% if map.hates_count > 0 %>
+          <span class="down-vote">
+            <%= map.hates_count %>
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+          </span>
+        <% end %>
+        <% if map.map_comments_count > 0 %>
+          <span class="comment-counter">
+            <%= map.map_comments_count %>
+            <span class="glyphicon glyphicon-comment"></span>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
