@@ -33,27 +33,31 @@
 
       </div>
       <div class="col-md-3">
-        <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
-        <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
-          <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
-        <% end %>
-        <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "down"), {method: "post", id: "like-it", class: "btn btn-default btn-xs down-vote"} do %>
-          <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
-        <% end %>
-      </div>
-      <% if can?(:favorite, @map) %>
-        <div class="container" id="favorites_menu">
-          <% if current_user.favorited? @map %>
-            <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
-              <span class="glyphicon glyphicon-star"></span>Remove from Favorites
-            <% end %>
-          <% else %>
-            <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
-              <span class="glyphicon glyphicon-star"></span>Add to Favorites
-            <% end %>
+
+        <div class="btn-group">
+          <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
+          <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
+            <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
+          <% end %>
+          <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "down"), {method: "post", id: "like-it", class: "btn btn-default btn-xs down-vote"} do %>
+            <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
+          <% end %>
+          <% if can?(:favorite, @map) %>
+            <div class="container" id="favorites_menu">
+              <% if current_user.favorited? @map %>
+                <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+                  <span class="glyphicon glyphicon-star"></span>Remove from Favorites
+                <% end %>
+              <% else %>
+                <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+                  <span class="glyphicon glyphicon-star"></span>Add to Favorites
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
         </div>
-      <% end %>
+
+      </div>
     </div>
 
     <% if can?(:create, MapComment) %>
