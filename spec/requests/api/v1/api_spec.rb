@@ -314,7 +314,6 @@ describe "POST /v1/api" do
   describe "/update_map_play_time" do
     route = "/v1/api/update_map_play_time"
     let!(:map) {FactoryGirl.create(:map)}
-    let!(:other_map) {FactoryGirl.create(:map, name: "cp_other_map_b1")}
 
     it_should_behave_like "ApiController", route, {
       map: "auto_map",
@@ -322,7 +321,7 @@ describe "POST /v1/api" do
     }
     it_should_behave_like "map query", route, {
       map: "New_Map",
-      time_played: 3924123
+      time_played: 392412
     }
 
     context "with valid access_token" do
@@ -345,6 +344,14 @@ describe "POST /v1/api" do
           time_played: 309134
         map.reload
         expect(map.last_played_at).to be >= mark
+      end
+
+      it "rejects a bad time stamp" do
+        post route,
+          access_token: api_key.access_token,
+          map: map.name,
+          time_played: -309134
+        expect(response).to be_bad_request
       end
 
     end

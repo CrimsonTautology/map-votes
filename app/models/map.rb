@@ -152,6 +152,12 @@ class Map < ActiveRecord::Base
 
   end
 
+  def update_play_time time_played
+      self.total_time_played += time_played
+      self.last_played_at = Time.now
+      self.save!
+  end
+
 
   private
   def type_from_prefix

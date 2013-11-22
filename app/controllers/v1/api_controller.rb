@@ -81,10 +81,9 @@ module V1
 
     def update_map_play_time
       head :bad_request and return unless params[:time_played]
-      @map.total_time_played += params[:time_played].to_i
-      @map.last_played_at = Time.now
-      @map.save!
-      head :updated
+      head :bad_request and return unless (1..86400000).include?(params[:time_played].to_i)
+      @map.update_play_time params[:time_played].to_i
+      head :created
     end
 
     private
