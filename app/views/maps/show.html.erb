@@ -6,6 +6,14 @@
     <div class="row">
       <div class="col-md-5">
         <h4><%= @map.map_type.name %></h4>
+        <% if(@map.last_played_at) %>
+        <p class="last-played">
+          Last played <%= time_ago_in_words(@map.last_played_at) %> ago.
+        </p>
+        <% end %>
+        <p class="total-played">
+          Played for <%= distance_of_time_in_words(@map.total_time_played) %>
+        </p>
         <p><%= link_to "Download", fast_dl_link(@map) %></p>
         <% unless @map.origin.empty? %>
           <p><%= link_to "Origin", @map.origin %></p>
