@@ -41,7 +41,7 @@
       <div class="panel-heading">Map Categories</div>
       <div class="panel-body">
         <% @map_types.each do |map_type| %>
-          <%= link_to map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-primary"} %>
+          <%= link_to_unless map_type.id==params[:map_type_id], map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-primary"} %>
         <% end %>
       </div>
     </div>
