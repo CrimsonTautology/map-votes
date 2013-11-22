@@ -1,0 +1,11 @@
+<h2><%= link_to @user.profile_url, @user.nickname %></h2>
+<% if @user.banned? %>
+  <%= link_to "Unban user", unban_user_path(@user) %>
+<% else %>
+  <%= link_to "Ban user", ban_user_path(@user) %>
+<% end %>
+<%= simple_form_for @user do |f| %>
+  <%= f.input :moderator %>
+  <%= f.input :admin %>
+  <%= f.button :submit %>
+<% end %>
