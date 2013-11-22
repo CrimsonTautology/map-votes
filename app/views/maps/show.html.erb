@@ -7,109 +7,100 @@
       <div class="col-md-5">
         <h4><%= @map.map_type.name %></h4>
         <% if(@map.last_played_at) %>
-        <p class="last-played">
-          Last played <%= time_ago_in_words(@map.last_played_at) %> ago.
-        </p>
+          <div class="last-played">
+            Last played <%= time_ago_in_words(@map.last_played_at) %> ago.
+          </div>
         <% end %>
-        <p class="total-played">
+        <div class="total-played">
           Played for <%= distance_of_time_in_words(@map.total_time_played) %>
-        </p>
-        <p>
-          <%= link_to fast_dl_link(@map), {class: "btn btn-default btn-lg"} do%>
-            <span class="glyphicon glyphicon-download-alt"></span>Download Map
+        </div>
+        <div>
+          <%= link_to fast_dl_link(@map), {class: "btn btn-default btn-sm"} do%>
+            <span class="glyphicon glyphicon-download-alt"></span> Download Map
           <% end %>
-        </p>
-        <% unless @map.origin.empty? %>
-          <p><%= link_to "Origin", @map.origin %></p>
-        <% end %>
-        <% if can?(:update, @map) %>
-          <p><%= link_to "Edit Map", edit_map_path(@map) %></p>
-        <% end %>
+        </div>
 
         <p class="container" id="map_description">
           <%= @map.description %>
+          <% unless @map.origin.empty? %>
+            <span><%= link_to "Origin", @map.origin %></span>
+          <% end %>
+          <% if can?(:update, @map) %>
+            <span><%= link_to "Edit Map", edit_map_path(@map) %></span>
+          <% end %>
         </p>
 
 
       </div>
       <div class="col-md-3">
         <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
-        <div class="up-vote">
-          <%= @map.likes_count %>
-          <span class="glyphicon glyphicon-thumbs-up"></span>
-        </div>
-        <div class="down-vote">
-          <%= @map.hates_count %>
-          <span class="glyphicon glyphicon-thumbs-down"></span>
-        </div>
-      </div>
-    </div>
-
-    <% if can?(:vote, @map) %>
-      <div class="container" id="vote_menu">
-        <%= link_to "like it", vote_map_path(@map, type: "up"), method: "post" %>
-        <%= link_to "hate it", vote_map_path(@map, type: "down"), method: "post" %>
-      </div>
-
-    <% end %>
-    <% if can?(:favorite, @map) %>
-      <div class="container" id="favorites_menu">
-        <% if current_user.favorited? @map %>
-          <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-lg"} do %>
-            <span class="glyphicon glyphicon-star"></span>Remove from Favorites
-          <% end %>
-        <% else %>
-          <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-lg"} do %>
-            <span class="glyphicon glyphicon-star"></span>Add to Favorites
-          <% end %>
+        <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
+          <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
+        <% end %>
+        <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "down"), {method: "post", id: "like-it", class: "btn btn-default btn-xs down-vote"} do %>
+          <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
         <% end %>
       </div>
-    <% end %>
+      <% if can?(:favorite, @map) %>
+        <div class="container" id="favorites_menu">
+          <% if current_user.favorited? @map %>
+            <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+              <span class="glyphicon glyphicon-star"></span>Remove from Favorites
+            <% end %>
+          <% else %>
+            <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+              <span class="glyphicon glyphicon-star"></span>Add to Favorites
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
     <% if can?(:create, MapComment) %>
       <%= simple_form_for [@map, MapComment.new],
         method: 'post' do |f| %>
-        <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
-        <%= f.submit "Post Comment" %>
+          <%= f.input :comment, as: :text, input_html: {rows: 2, cols:50} %>
+          <%= f.submit "Post Comment" %>
+        <% end %>
+      <% else %>
+        <p class="text-info">You must be logged in to leave a comment</p>
       <% end %>
-    <% else %>
-      <p class="text-info">You must be logged in to leave a comment</p>
-    <% end %>
 
-    <h3>All Comments (<%= @map_comments.count %>)</h3>
-    <% @map_comments.each do |mc| %>
-      <div class="media" >
-        <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile_url, class: "pull-left" %>
-        <div class="media-body">
-          <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile_url %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
-          <%= mc.comment %>
+      <h3>All Comments (<%= @map_comments.count %>)</h3>
+      <% @map_comments.each do |mc| %>
+        <div class="media" >
+          <%= link_to image_tag(mc.user.avatar_url, class: "media-object"), mc.user.profile_url, class: "pull-left" %>
+          <div class="media-body">
+            <h4 class="media-heading"><%= link_to mc.user.nickname, mc.user.profile_url %><span class="muted"><%= mc.updated_at.to_s(:long) %></span></h4>
+            <%= mc.comment %>
 
-          <% if can?(:destroy, mc) %>
-            <%= link_to "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete  %>
-          <% end %>
+            <% if can?(:destroy, mc) %>
+              <%= link_to "Delete", [@map, mc],  data:{confirm: "Are you sure?"}, method: :delete  %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Liked by</div>
+        <div class="panel-body">
+          <%= render 'shared/user_image_list', {users: @map.liked_by} %>
         </div>
       </div>
-    <% end %>
 
-  </div>
-
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">Liked by</div>
-      <div class="panel-body">
-        <%= render 'shared/user_image_list', {users: @map.liked_by} %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Hated by</div>
+        <div class="panel-body">
+          <%= render 'shared/user_image_list', {users: @map.hated_by} %>
+        </div>
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Hated by</div>
-      <div class="panel-body">
-        <%= render 'shared/user_image_list', {users: @map.hated_by} %>
-      </div>
-    </div>
   </div>
 
-</div>
-
-<h3>Related maps</h3>
-<%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
+  <h3>Related maps</h3>
+  <%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
 
