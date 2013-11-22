@@ -11,7 +11,6 @@ gem 'thin'
 gem 'statistics2'
 
 gem 'jquery-rails'
-gem "font-awesome-rails"
 
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'

@@ -6,6 +6,8 @@ $grayMediumLight: #eaeaea;
 
 $good: #008000;
 $bad: #FF0000;
+$gold-star: #ffd700;
+$comment-counter: #ffd700;
  
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -92,4 +94,10 @@ footer .row {
 }
 .down-vote {
     color: $bad;
+}
+.favorite {
+    color: $gold-star;
+}
+.comment-counter {
+    color: $comment-counter;
 }
