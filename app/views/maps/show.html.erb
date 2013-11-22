@@ -23,10 +23,10 @@
         <p class="container" id="map_description">
           <%= @map.description %>
           <% unless @map.origin.empty? %>
-            <span><%= link_to "Origin", @map.origin %></span>
+            <span><%= link_to "Origin", @map.origin, {class: "btn btn-default btn-xs"}  %></span>
           <% end %>
           <% if can?(:update, @map) %>
-            <span><%= link_to "Edit Map", edit_map_path(@map) %></span>
+            <span><%= link_to "Edit Map", edit_map_path(@map), {class: "btn btn-default btn-xs"}  %></span>
           <% end %>
         </p>
 

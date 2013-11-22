@@ -3,7 +3,7 @@
     <% maps.each do |map|%>
       <li>
         <%= link_to map.name, map %> 
-        <% if can? :update, map %><%= link_to "Edit", edit_map_path(map) %><% end %>
+        <% if can? :update, map %><%= link_to "Edit", edit_map_path(map), {class: "btn btn-default btn-xs"} %><% end %>
         <% if map.likes_count > 0 %>
           <span class="up-vote">
             <%= map.likes_count %>
