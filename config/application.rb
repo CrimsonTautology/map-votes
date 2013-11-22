@@ -23,5 +23,7 @@ module MapVotes
     config.assets.precompile += [
       'custom.css.scss'
     ]
+
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end
