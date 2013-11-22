@@ -124,7 +124,7 @@ describe "Map pages" do
 
       it { should have_content(user.nickname)}
       it { should have_content("Liked by")}
-      it { should have_selector('div.up-vote', text: '1')}
+      it { should have_selector('a.up-vote', text: '1')}
     end
 
     context "with down votes" do
@@ -137,7 +137,7 @@ describe "Map pages" do
 
       it { should have_content(user.nickname)}
       it { should have_content("Hated by")}
-      it { should have_selector('div.down-vote', text: '1')}
+      it { should have_selector('a.down-vote', text: '1')}
     end
 
     context "user logged in" do
@@ -156,8 +156,8 @@ describe "Map pages" do
       end
 
       it "allows you to vote" do
-        expect{click_on "like it" }.to change{Vote.count}.by(1)
-        expect{click_on "hate it" }.to_not change{Vote.count}
+        expect{click_on "like-it" }.to change{Vote.count}.by(1)
+        expect{click_on "hate-it" }.to_not change{Vote.count}
       end
 
       it "won't let you enter blank comments" do

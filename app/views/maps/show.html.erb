@@ -36,10 +36,10 @@
 
         <div class="btn-group">
           <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
-          <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
+          <%= link_to vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
             <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
           <% end %>
-          <%= link_to_if can?(:vote, @map), vote_map_path(@map, type: "down"), {method: "post", id: "like-it", class: "btn btn-default btn-xs down-vote"} do %>
+          <%= link_to vote_map_path(@map, type: "down"), {method: "post", id: "hate-it", class: "btn btn-default btn-xs down-vote"} do %>
             <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
           <% end %>
           <% if can?(:favorite, @map) %>
