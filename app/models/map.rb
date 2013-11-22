@@ -81,7 +81,7 @@ class Map < ActiveRecord::Base
 
   def self.order_by_score
     #TODO - does not work in sqlite
-    order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
+    where("(likes_count > 0 OR hates_count > 0)").order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
   end
 
 
@@ -133,7 +133,7 @@ class Map < ActiveRecord::Base
       when :best
         scope.order_by_score
       when :comments
-        scope.order(map_comments_count: :desc)
+        scope.where("map_comments_count > 0").order(map_comments_count: :desc)
       when :newest
         scope.order(created_at: :desc)
       when :oldest
