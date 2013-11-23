@@ -22,7 +22,11 @@ module MapVotes
 
     config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
     config.assets.precompile += [
-      'custom.css.scss'
+      'custom.css.scss',
+      'glyphicons-halflings-regular.eot',
+      'glyphicons-halflings-regular.svg',
+      'glyphicons-halflings-regular.ttf',
+      'glyphicons-halflings-regular.woff'
     ]
 
   end
