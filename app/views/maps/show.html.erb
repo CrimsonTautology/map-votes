@@ -105,6 +105,12 @@
 
   </div>
 
-  <h3>Related maps</h3>
-  <%= render 'shared/map_image_list', {maps: @map.find_related_maps_deep} %>
+  <% if @related.length > 0 %>
+  <h3>Related Maps</h3>
+  <%= render 'shared/map_image_list', {maps: @related} %>
+  <% end %>
+  <% if @other_versions.length > 0 %>
+  <h3>Other Versions</h3>
+  <%= render 'shared/map_image_list', {maps: @other_versions} %>
+  <% end %>
 

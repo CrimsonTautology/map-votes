@@ -9,6 +9,8 @@ class MapsController < ApplicationController
 
   def show
     @map_comments = @map.map_comments.order(created_at: :desc)
+    @other_versions = @map.other_versions
+    @related = @map.find_related_maps_deep - @other_versions
   end
 
   def new
