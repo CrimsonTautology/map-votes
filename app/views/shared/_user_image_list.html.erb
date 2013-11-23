@@ -1,5 +1,5 @@
 <% users.each do |user| %>
-  <div class="col-md-2 thumbnail-wrapper">
+  <div class="col-md-3 thumbnail-wrapper">
     <%= link_to  user.profile_url do %>
       <%= image_tag user.avatar_url, alt: user.nickname, class: "img-rounded user-thumbnail" %>
       <p class="label label-inverse thumbnail-text">

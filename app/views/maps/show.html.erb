@@ -36,8 +36,8 @@
       </div>
       <div class="col-md-3">
 
+        <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
         <div class="btn-group">
-          <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
           <%= link_to vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
             <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
           <% end %>
@@ -51,7 +51,7 @@
               <% end %>
             <% else %>
               <%= link_to favorite_map_path(@map), {method: "post", id: "add-favorite", class: "btn btn-default btn-xs"} do %>
-                <span class="glyphicon glyphicon-star"></span>Unstar
+                <span class="glyphicon glyphicon-star-empty"></span>Unstar
               <% end %>
             <% end %>
           <% end %>
