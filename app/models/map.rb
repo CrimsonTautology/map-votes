@@ -139,9 +139,9 @@ class Map < ActiveRecord::Base
       when :oldest
         scope.order(created_at: :asc)
       when :last_played
-        scope.order(last_played_at: :desc)
+        scope.where("total_time_played > 0").order(last_played_at: :desc)
       when :total_time_played
-        scope.order(total_time_played: :desc)
+        scope.where("total_time_played > 0").order(total_time_played: :desc)
       else
         scope.order(:name)
       end
