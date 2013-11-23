@@ -35,4 +35,16 @@ module ApplicationHelper
     end
   end
 
+  def active_page(path)
+    "active" if current_page?(path)
+  end
+
+  def navbar_list_item text, path, display=true
+    if display
+      content_tag(:li, class: active_page(path)) do
+        link_to text, path
+      end
+    end
+  end
+
 end
