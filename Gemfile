@@ -10,6 +10,7 @@ gem 'thin'
 
 gem 'statistics2'
 
+gem "font-awesome-rails"
 gem 'jquery-rails'
 
 gem 'turbolinks'

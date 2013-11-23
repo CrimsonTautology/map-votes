@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "font-awesome";
 
 /* mixins, variables, etc. */
  
@@ -15,11 +16,6 @@ $comment-counter: #1ef9ff;
   box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Glyphicons Halflings';
-    src: font-url('/assets/glyphicons-halflings-regular.eot');
-    src: font-url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), font-url('/assets/glyphicons-halflings-regular.woff') format('woff'), font-url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), font-url('/assets/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}
 
 .thumbnail-wrapper {
     position: relative;
