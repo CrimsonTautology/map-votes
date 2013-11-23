@@ -83,7 +83,7 @@ module V1
       head :bad_request and return unless params[:time_played]
       head :bad_request and return unless (1..86400000).include?(params[:time_played].to_i)
       @map.update_play_time params[:time_played].to_i
-      head :created
+      head :ok
     end
 
     private
