@@ -21,12 +21,9 @@ module MapVotes
     # config.i18n.default_locale = :de
 
     config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
+    config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.assets.precompile += [
-      'custom.css.scss',
-      'glyphicons-halflings-regular.eot',
-      'glyphicons-halflings-regular.svg',
-      'glyphicons-halflings-regular.ttf',
-      'glyphicons-halflings-regular.woff'
+      'custom.css.scss'
     ]
 
   end
