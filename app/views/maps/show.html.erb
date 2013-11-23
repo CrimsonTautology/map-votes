@@ -22,12 +22,14 @@
 
         <p class="container" id="map_description">
           <%= @map.description %>
+          <div class="btn-group">
           <% unless @map.origin.empty? %>
             <span><%= link_to "Origin", @map.origin, {class: "btn btn-default btn-xs"}  %></span>
           <% end %>
           <% if can?(:update, @map) %>
             <span><%= link_to "Edit Map", edit_map_path(@map), {class: "btn btn-default btn-xs"}  %></span>
           <% end %>
+          </div>
         </p>
 
 
@@ -43,17 +45,15 @@
             <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
           <% end %>
           <% if can?(:favorite, @map) %>
-            <div class="container" id="favorites_menu">
-              <% if current_user.favorited? @map %>
-                <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
-                  <span class="glyphicon glyphicon-star"></span>Remove from Favorites
-                <% end %>
-              <% else %>
-                <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
-                  <span class="glyphicon glyphicon-star"></span>Add to Favorites
-                <% end %>
+            <% if current_user.favorited? @map %>
+              <%= link_to unfavorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+                <span class="glyphicon glyphicon-star"></span>Remove from Favorites
               <% end %>
-            </div>
+            <% else %>
+              <%= link_to favorite_map_path(@map), {method: "post", class: "btn btn-default btn-xs"} do %>
+                <span class="glyphicon glyphicon-star"></span>Add to Favorites
+              <% end %>
+            <% end %>
           <% end %>
         </div>
 
