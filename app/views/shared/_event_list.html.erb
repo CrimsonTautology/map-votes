@@ -1,25 +1,29 @@
-<ul id="event_list" class="media-list">
-<% events.each do |event| %>
-  <li class="media">
-  <% case event.type %>
-  <% when :map %>
-    <div class="media-body">Added new map: <%= link_to event.map.name, event.map %></div>
-  <% when :map_comment %>
-    <% if event.aggregate? %>
-      <div class="media-body"><%= event.count %> users commented on <%= link_to event.map.name, event.map %></div>
-    <% else %>
-      <div class="media-body"><%= link_to event.user.nickname, event.user.profile_url %> commented on <%= link_to event.map.name, event.map %></div>
-    <% end %>
-  <% when :vote %>
-    <% if event.aggregate? %>
-      <div class="media-body"><%= event.count %> users voted on <%= link_to event.map.name, event.map %></div>
-    <% else %>
-      <div class="media-body"><%= link_to event.user.nickname, event.user.profile_url %> voted on <%= link_to event.map.name, event.map %></div>
-    <% end %>
-  <% else %>
-    <div class="media-body"><%= event.to_s %></div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Recent Events
+  </div>
+  <ul id="event_list" class="list-group">
+    <% events.each do |event| %>
+      <li class="list-group-item">
+      <% case event.type %>
+      <% when :map %>
+        Added new map: <%= link_to event.map.name, event.map %>
+      <% when :map_comment %>
+        <% if event.aggregate? %>
+          <%= event.count %> users commented on <%= link_to event.map.name, event.map %>
+        <% else %>
+          <%= link_to event.user.nickname, event.user.profile_url %> commented on <%= link_to event.map.name, event.map %>
+        <% end %>
+      <% when :vote %>
+        <% if event.aggregate? %>
+          <%= event.count %> users voted on <%= link_to event.map.name, event.map %>
+        <% else %>
+          <%= link_to event.user.nickname, event.user.profile_url %> voted on <%= link_to event.map.name, event.map %>
+        <% end %>
+      <% else %>
+        <%= event.to_s %>
+      <% end %>
+      </li>
   <% end %>
-  </li>
-
-<% end %>
-</ul>
+  </ul>
+</div>
