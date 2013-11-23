@@ -7,11 +7,11 @@
       <div class="col-md-5">
         <h4><%= @map.map_type.name %></h4>
         <% if(@map.last_played_at) %>
-          <div class="last-played">
+          <div class="last-played text-muted">
             Last played <%= time_ago_in_words(@map.last_played_at) %> ago.
           </div>
         <% end %>
-        <div class="total-played">
+        <div class="total-played text-muted">
           Played for <%= distance_of_time_in_words(@map.total_time_played) %>
         </div>
         <div>

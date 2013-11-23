@@ -15,7 +15,7 @@
   </div>
   <div class="col-md-4">
 
-    <div id="map-views" class="panel panel-default">
+    <div id="map-views" class="panel panel-default text-center">
       <div class="panel-heading">View</div>
       <div class="panel-body">
         <span><%= link_to_unless params[:view].blank?,    "List", params.merge(view: "list", page: nil), title: "List View" %></span>
@@ -25,26 +25,26 @@
 
     <hr>
 
-    <div id="map-categories" class="panel panel-default">
+    <div id="map-categories" class="panel panel-default text-center">
       <div class="panel-heading">Map Categories</div>
       <div class="panel-body">
         <% @map_types.each do |map_type| %>
-          <%= link_to_unless map_type.id==params[:map_type_id], map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-primary"} %>
+          <%= link_to  map_type.name, params.merge(map_type_id: map_type.id, page: nil), {class: "label label-primary"} %>
         <% end %>
       </div>
     </div>
 
     <hr>
 
-    <div id="map-orders" class="panel panel-default">
+    <div id="map-orders" class="panel panel-default text-center">
       <div class="panel-heading">Order By</div>
       <div class="panel-body">
-        <span><%= link_to_unless params[:sort].blank?,    "Name", params.merge(sort: "", page: nil),{ title: "Name", class: "label label-primary"} %></span>
-        <span><%= link_to_unless params[:sort] == "best", "Most Popular", params.merge(sort: "best", page: nil),{ title: "Most Popular", class: "label label-primary"} %></span>
-        <span><%= link_to_unless params[:sort] == "comments", "Most Comments", params.merge(sort: "comments", page: nil),{ title: "Most Comments", class: "label label-primary"} %></span>
-        <span><%= link_to_unless params[:sort] == "newest", "Newest", params.merge(sort: "newest", page: nil),{ title: "Newest", class: "label label-primary"} %></span>
-        <span><%= link_to_unless params[:sort] == "last_played_at", "Last Played", params.merge(sort: "last_played_at", page: nil),{ title: "Last Played", class: "label label-primary"} %></span>
-        <span><%= link_to_unless params[:sort] == "total_time_played", "Total Time Played", params.merge(sort: "total_time_played", page: nil),{ title: "Total Time Played", class: "label label-primary"} %></span>
+        <span><%= link_to "Name", params.merge(sort: "", page: nil),{ title: "Name", class: "label label-primary"} %></span>
+        <span><%= link_to "Most Popular", params.merge(sort: "best", page: nil),{ title: "Most Popular", class: "label label-primary"} %></span>
+        <span><%= link_to "Most Comments", params.merge(sort: "comments", page: nil),{ title: "Most Comments", class: "label label-primary"} %></span>
+        <span><%= link_to "Newest", params.merge(sort: "newest", page: nil),{ title: "Newest", class: "label label-primary"} %></span>
+        <span><%= link_to "Last Played", params.merge(sort: "last_played_at", page: nil),{ title: "Last Played", class: "label label-primary"} %></span>
+        <span><%= link_to "Total Time Played", params.merge(sort: "total_time_played", page: nil),{ title: "Total Time Played", class: "label label-primary"} %></span>
       </div>
     </div>
 
