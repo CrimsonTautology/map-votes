@@ -77,12 +77,4 @@ MapVotes::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-  config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
-  config.assets.precompile += [
-    'custom.css.scss',
-    'glyphicons-halflings-regular.eot',
-    'glyphicons-halflings-regular.svg',
-    'glyphicons-halflings-regular.ttf',
-    'glyphicons-halflings-regular.woff'
-  ]
 end
