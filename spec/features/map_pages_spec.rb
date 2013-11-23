@@ -148,11 +148,11 @@ describe "Map pages" do
       end
 
       it "allows you to favorite a map" do
-        expect{click_on "Add to Favorites" }.to change{MapFavorite.count}.from(0).to(1)
+        expect{click_on "add-favorite" }.to change{MapFavorite.count}.from(0).to(1)
       end
       it "allows you to unfavorite a map" do
-        click_on "Add to Favorites"
-        expect{click_on "Remove from Favorites" }.to change{MapFavorite.count}.from(1).to(0)
+        click_on "add-favorite"
+        expect{click_on "remove-favorite" }.to change{MapFavorite.count}.from(1).to(0)
       end
 
       it "allows you to vote" do
