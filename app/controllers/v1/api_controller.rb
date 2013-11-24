@@ -33,7 +33,7 @@ module V1
       out = {
         player: params[:player].to_i,
         favorite: true,
-        map: @map,
+        map: @map.name,
         command: "favorite"
       }
       render json: out
@@ -45,7 +45,7 @@ module V1
       out = {
         player: params[:player].to_i,
         favorite: false,
-        map: @map,
+        map: @map.name,
         command: "unfavorite"
       }
       render json: out
