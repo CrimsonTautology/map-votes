@@ -7,17 +7,22 @@
       <li class="list-group-item">
       <% case event.type %>
       <% when :map %>
+        <%= fa_icon "flag", class: "fa-fw fa-2x" %>
         Added new map: <%= link_to event.map.name, event.map %>
       <% when :map_comment %>
         <% if event.aggregate? %>
+          <%= fa_icon "comments", class: "fa-fw fa-2x" %>
           <%= event.count %> users commented on <%= link_to event.map.name, event.map %>
         <% else %>
+          <%= fa_icon "comment", class: "fa-fw fa-2x" %>
           <%= link_to event.user.nickname, event.user.profile_url %> commented on <%= link_to event.map.name, event.map %>
         <% end %>
       <% when :vote %>
         <% if event.aggregate? %>
+          <%= fa_icon "tags", class: "fa-fw fa-2x" %>
           <%= event.count %> users voted on <%= link_to event.map.name, event.map %>
         <% else %>
+          <%= fa_icon "tag", class: "fa-fw fa-2x" %>
           <%= link_to event.user.nickname, event.user.profile_url %> voted on <%= link_to event.map.name, event.map %>
         <% end %>
       <% else %>

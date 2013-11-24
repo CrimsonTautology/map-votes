@@ -6,20 +6,17 @@
         <% if can? :update, map %><%= link_to "Edit", edit_map_path(map), {class: "btn btn-default btn-xs"} %><% end %>
         <% if map.likes_count > 0 %>
           <span class="up-vote">
-            <%= map.likes_count %>
-            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <%= fa_icon "thumbs-up", text: map.likes_count, class: "fa-lg" %>
           </span>
         <% end %>
         <% if map.hates_count > 0 %>
           <span class="down-vote">
-            <%= map.hates_count %>
-            <span class="glyphicon glyphicon-thumbs-down"></span>
+            <%= fa_icon "thumbs-down", text: map.hates_count, class: "fa-lg" %>
           </span>
         <% end %>
         <% if map.map_comments_count > 0 %>
           <span class="comment-counter">
-            <%= map.map_comments_count %>
-            <span class="glyphicon glyphicon-comment"></span>
+            <%= fa_icon "comments", text: map.map_comments_count, class: "fa-lg" %>
           </span>
         <% end %>
       </li>

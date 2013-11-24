@@ -18,8 +18,8 @@
     <div id="map-views" class="panel panel-default text-center">
       <div class="panel-heading">View</div>
       <div class="panel-body">
-        <span><%= link_to_unless params[:view].blank?,    "List", params.merge(view: "list", page: nil), title: "List View" %></span>
-        <span><%= link_to_unless params[:view] == "grid", "Grid", params.merge(view: "grid", page: nil), title: "Grid View" %></span>
+        <%= link_to_unless params[:view].blank? || params[:view] == "list",    fa_icon("list", class: "4x"), params.merge(view: "list", page: nil), {title: "List View", class: "btn btn-info"} %>
+        <%= link_to_unless params[:view] == "grid", fa_icon("th", class: "4x"), params.merge(view: "grid", page: nil), {title: "Grid View", class: "btn btn-info"} %>
       </div>
     </div>
 

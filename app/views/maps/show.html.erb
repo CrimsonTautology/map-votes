@@ -39,19 +39,19 @@
         <%= image_tag(smart_map_image_url(@map), class: "img-rounded map-thumbnail") %>
         <div class="btn-group">
           <%= link_to vote_map_path(@map, type: "up"), {method: "post", id: "like-it", class: "btn btn-default btn-xs up-vote"} do %>
-            <%= @map.likes_count %><span class="glyphicon glyphicon-thumbs-up"></span>
+            <%= fa_icon "thumbs-up", text: @map.likes_count, class: "fa-lg" %>
           <% end %>
           <%= link_to vote_map_path(@map, type: "down"), {method: "post", id: "hate-it", class: "btn btn-default btn-xs down-vote"} do %>
-            <%= @map.hates_count %><span class="glyphicon glyphicon-thumbs-down"></span>
+            <%= fa_icon "thumbs-down", text: @map.hates_count, class: "fa-lg" %>
           <% end %>
           <% if can?(:favorite, @map) %>
             <% if current_user.favorited? @map %>
-              <%= link_to unfavorite_map_path(@map), {method: "post",id: "remove-favorite", class: "btn btn-default btn-xs"} do %>
-                <span class="glyphicon glyphicon-star"></span>Star
+              <%= link_to unfavorite_map_path(@map), {method: "post",id: "remove-favorite", class: "btn btn-default btn-xs "} do %>
+                <%= fa_icon "star", text: "Unstar", class: "fa-lg favorite-btn" %>
               <% end %>
             <% else %>
               <%= link_to favorite_map_path(@map), {method: "post", id: "add-favorite", class: "btn btn-default btn-xs"} do %>
-                <span class="glyphicon glyphicon-star-empty"></span>Unstar
+                <%= fa_icon "star-o", text: "Star", class: "fa-lg" %>
               <% end %>
             <% end %>
           <% end %>
