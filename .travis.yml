@@ -3,9 +3,11 @@ rvm:
     - "1.9.3"
 env:
     - DB=postgresql
+    - DB=mysql
 
 before_script:
     - cp config/database.travis.yml config/database.yml
+    - mysql -e 'create database myapp_test'
     - psql -c 'create database myapp_test' -U postgres
 
 script:
