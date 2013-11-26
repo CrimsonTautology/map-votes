@@ -30,7 +30,7 @@ describe "Static pages" do
         login user
       end
 
-      it { should have_content(user.nickname)}
+      #it { should have_content(user.nickname)}
       it { should have_content(user.avatar_url)}
       it { should have_link("Log Out", href: logout_path)}
     end
