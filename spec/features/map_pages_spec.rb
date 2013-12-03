@@ -91,7 +91,17 @@ describe "Map pages" do
     it { should_not have_link("", href: edit_map_path(map))}
     it { should_not have_link("Origin")}
     #it { should_not have_selector()}
-    #
+
+    context "map with capital letters in name" do
+      let!(:map2) {FactoryGirl.create(:map, name: "pl_Dynamite_b2")}
+
+      before(:each) do
+        visit "/maps/#{map2.name}"
+      end
+
+      its(:status_code) { should eq 200}
+    end
+
     context "with origin" do
       before do
         map.origin = "example.com"

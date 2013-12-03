@@ -61,7 +61,7 @@ class Map < ActiveRecord::Base
   end
 
   def to_param
-    name.parameterize
+    name
   end
 
   def total_votes
