@@ -79,7 +79,8 @@ module V1
         players_param = params[:players]
       end
 
-      uids_not_voted = User.where(uid: uids_param).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", @map).map(&:uid)
+      uids_voted = User.where(uid: uids_param).where("users.id IN (SELECT user_id from votes where map_id = ?)", @map).map(&:uid)
+      uids_not_voted = uids_param - uids_voted
 
       #Build the found players array which is parrel to the params["uid"] array - the uids that have not voted
       players = []

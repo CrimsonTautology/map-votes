@@ -301,22 +301,22 @@ describe "POST /v1/api" do
       it "returns players who have not voted on map" do
         post route,
           access_token: api_key.access_token,
-          uids: [user1.uid, user2.uid, user3.uid],
-          players: [16, 21, 33],
+          uids: [user1.uid, user2.uid, user3.uid, "987654321"],
+          players: [16, 21, 33, 35],
           map: map.name
-        expect(json['uids']).to match_array(["123456", "323456"])
-        expect(json['players']).to match_array([16,33])
+        expect(json['uids']).to match_array(["123456", "323456", "987654321"])
+        expect(json['players']).to match_array([16,33, 35])
         expect(json['command']).to eql("have_not_voted")
       end
 
       it "returns players who have not voted on map; array indexed query params" do
         post route,
           access_token: api_key.access_token,
-          uids: {"0"=>user1.uid, "1"=>user2.uid, "2"=>user3.uid},
-          players: {"0"=>16, "1"=>21, "2"=>33},
+          uids: {"0"=>user1.uid, "1"=>user2.uid, "2"=>user3.uid, "3"=>"987654321"},
+          players: {"0"=>16, "1"=>21, "2"=>33, "3"=>35},
           map: map.name
-        expect(json['uids']).to match_array(["123456", "323456"])
-        expect(json['players']).to match_array([16,33])
+        expect(json['uids']).to match_array(["123456", "323456", "987654321"])
+        expect(json['players']).to match_array([16,33, 35])
         expect(json['command']).to eql("have_not_voted")
       end
     end
