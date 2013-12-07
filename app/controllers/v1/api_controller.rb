@@ -65,19 +65,35 @@ module V1
     def have_not_voted
       head :bad_request and return unless params[:uids]
       head :bad_request and return unless params[:players]
-      uids = User.where(uid: params[:uids]).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", @map).map(&:uid)
+
+      #Some sourcemod libraries can not handle array parameters correctly
+      if(params[:uids].is_a?(Hash))
+        uids_param = params[:uids].values
+      else
+        uids_param = params[:uids]
+      end
+
+      if(params[:players].is_a?(Hash))
+        players_param = params[:players].values
+      else
+        players_param = params[:players]
+      end
+
+      uids_not_voted = User.where(uid: uids_param).where("users.id NOT IN (SELECT user_id from votes where map_id = ?)", @map).map(&:uid)
 
       #Build the found players array which is parrel to the params["uid"] array - the uids that have not voted
       players = []
-      uids.each do |uid|
-        i = params[:uids].index(uid) 
-        players << params[:players][i].to_i
+      uids_not_voted.each do |uid|
+        i = uids_param.index(uid) 
+        players << players_param[i].to_i
       end
+
       out = {
         players: players,
-        uids: uids,
+        uids: uids_not_voted,
         command: "have_not_voted"
       }
+
       render json: out
     end
 
