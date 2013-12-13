@@ -81,14 +81,24 @@ class Map < ActiveRecord::Base
 
   #Rate the map by how much we should play it next based on time last played and it's rating by players
   def should_play_next_score 
-    time_score = 1.0 - (last_played_at.to_f / Time.now.to_f)
+    (score + last_played_score) / 2
+  end
 
-    (score + time_score) / 2
+  def last_played_score
+    1.0 - (last_played_at.to_f / Time.now.to_f)
+  end
+
+  def underplayed_score
+    1.0 - (total_time_played.to_f / Map.total_server_play_time)
   end
 
   def self.order_by_score
     #TODO - does not work in sqlite
     where("(likes_count > 0 OR hates_count > 0)").order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
+  end
+
+  def self.total_server_play_time
+    sum(:total_time_played)
   end
 
 
