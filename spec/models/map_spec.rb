@@ -95,6 +95,20 @@ describe Map do
     it { should eql(map.name.parameterize)}
   end
 
+  describe "#should_play_next_score" do
+    subject {map.should_play_next_score}
+    before do
+      map.last_played_at = "Fri, 25 May 2012 11:37:45 UTC +00:00"
+      map.likes_count = 3
+      map.hates_count = 0
+      map.save!
+
+      @time_now = Time.parse("2013-12-13 11:57:04 -0500")
+      Time.stub!(:now).and_return(@time_now)
+    end
+
+    it { should be_close(0.23691896787177671, 0.00001)}
+  end
   describe "voting methods" do
     before do
       FactoryGirl.create(:vote, map: map, value: 1)

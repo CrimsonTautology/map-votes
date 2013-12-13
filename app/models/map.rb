@@ -79,6 +79,13 @@ class Map < ActiveRecord::Base
     (phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
   end
 
+  #Rate the map by how much we should play it next based on time last played and it's rating by players
+  def should_play_next_score 
+    time_score = 1.0 - (last_played_at.to_f / Time.now.to_f)
+
+    (score + time_score) / 2
+  end
+
   def self.order_by_score
     #TODO - does not work in sqlite
     where("(likes_count > 0 OR hates_count > 0)").order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
