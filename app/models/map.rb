@@ -88,10 +88,6 @@ class Map < ActiveRecord::Base
     1.0 - (last_played_at.to_f / Time.now.to_f)
   end
 
-  def underplayed_score
-    1.0 - (total_time_played.to_f / Map.total_server_play_time)
-  end
-
   def self.order_by_score
     #TODO - does not work in sqlite
     where("(likes_count > 0 OR hates_count > 0)").order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
@@ -106,7 +102,6 @@ class Map < ActiveRecord::Base
   def self.random
     offset(rand count).first
   end
-
 
   def self.seed_from_fast_dl_site
     maplist = open ENV['FAST_DL_SITE'] do |f|
