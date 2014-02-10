@@ -1,4 +1,4 @@
-# [MapVotes](http://mapvotes.herokuapp.com)
+# [MapVotes](http://107.170.37.36:49156/)
 [![Build Status](https://travis-ci.org/CrimsonTautology/map_votes.png?branch=master)](https://travis-ci.org/CrimsonTautology/map_votes)
 
 A web-interface to rate, index and bookmark maps for a TF2 gameserver.
