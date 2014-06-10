@@ -89,7 +89,6 @@ class Map < ActiveRecord::Base
   end
 
   def self.order_by_score
-    #TODO - does not work in sqlite
     where("(likes_count > 0 OR hates_count > 0)").order("((likes_count + 1.9208) / (likes_count + hates_count) - 1.96 * SQRT((likes_count * hates_count) / (likes_count + hates_count) + 0.9604) / (likes_count + hates_count)) / (1 + 3.8416 / (likes_count + hates_count)) DESC")
   end
 
