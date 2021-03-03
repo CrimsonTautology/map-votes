@@ -1,5 +1,5 @@
-# [MapVotes](http://mapvotes.crimsontautology.com/)
-[![Build Status](https://travis-ci.org/CrimsonTautology/map_votes.png?branch=master)](https://travis-ci.org/CrimsonTautology/map_votes)
+# [MapVotes](http://mapvotes.serverisnotcrash.com/)
+[![Build Status](https://travis-ci.org/CrimsonTautology/map-votes.png?branch=master)](https://travis-ci.org/CrimsonTautology/map-votes)
 
 A web-interface to rate, index and bookmark maps for a TF2 gameserver.
 
@@ -7,7 +7,7 @@ A web-interface to rate, index and bookmark maps for a TF2 gameserver.
 * Ruby 1.9
 * A [Steam Web API Key](http://steamcommunity.com/dev)
 * [postgresql](http://www.postgresql.org/)
-* A game server running [Sourcemod](http://www.sourcemod.net) and the [sm_map_votes](https://github.com/CrimsonTautology/sm_map_votes) plugin.
+* A game server running [Sourcemod](http://www.sourcemod.net) and the [sm-map-votes](https://github.com/CrimsonTautology/sm-map-votes) plugin.
 
 ## Installation
 * Make sure you have the requirements
